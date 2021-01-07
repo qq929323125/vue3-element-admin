@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 11:31:18
- * @LastEditTime: 2021-01-07 10:06:45
+ * @LastEditTime: 2021-01-07 13:41:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\api\index.js
@@ -9,8 +9,9 @@
 
 import _axios from "@/plugins/axios";
 const method = {
-    post: (url, p) => _axios.post(url, p),
-    get: (url, p) => _axios.get(url, { params: p })
+    post: (url, p, config) => _axios.post(url, p, config),
+    get: (url, p, config) =>
+        _axios.get(url, Object.assign(config, { params: p }))
 };
 
 let api = {};
@@ -20,7 +21,8 @@ files.keys().forEach(key => {
     api[fileName] = {};
     let obj = files(key);
     Object.keys(obj).forEach(item => {
-        api[fileName][item] = p => method[obj[item].type](obj[item].url, p);
+        api[fileName][item] = (p, config = {}) =>
+            method[obj[item].type](obj[item].url, p, config);
     });
 });
 

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-01-06 17:00:51
+ * @LastEditTime: 2021-01-07 13:55:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -34,11 +34,11 @@ const list = {
     },
     loginOut2: {
         url: "/loginOut9",
-        type: "post",
+        type: "get",
         mock: true,
         response: opt => {
             const {
-                body: { id }
+                query: { id }
             } = opt;
             const list = Mock.mock({
                 "data|10": [
