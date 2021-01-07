@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.tabWidth": 4,
+  "editor.insertSpaces": false,
+  "prettier.arrowParens": "avoid",
+  "prettier.trailingComma": "none"
+}
