@@ -3,5 +3,8 @@
   "prettier.tabWidth": 4,
   "editor.insertSpaces": false,
   "prettier.arrowParens": "avoid",
-  "prettier.trailingComma": "none"
+  "prettier.trailingComma": "none",
+  "vetur.format.options.tabSize": 4,
+  "editor.formatOnPaste": true,
+  "files.autoSaveDelay": 2000
 }

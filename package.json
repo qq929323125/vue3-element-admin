@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "element-plus": "^1.0.1-alpha.19",
     "lodash": "^4.17.20",
+    "normalize.css": "^8.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -32,8 +33,8 @@
     "lint-staged": "^9.5.0",
     "mockjs": "^1.1.0",
     "prettier": "^1.19.1",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
+    "sass": "^1.32.2",
+    "sass-loader": "^10.1.0",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element-plus": "0.0.11"
   },

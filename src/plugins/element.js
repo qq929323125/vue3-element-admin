@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 10:51:26
- * @LastEditTime: 2021-01-07 11:34:08
+ * @LastEditTime: 2021-01-08 16:31:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\element.js
@@ -184,7 +184,7 @@ const plugins = [
 import lang from "element-plus/lib/locale/lang/zh-cn";
 import locale from "element-plus/lib/locale";
 import "dayjs/locale/zh-cn";
-
+import "element-plus/lib/theme-chalk/base.css";
 locale.use(lang);
 export default {
     install: app => {
