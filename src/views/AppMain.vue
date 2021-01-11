@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-01-08 16:26:07
+ * @LastEditTime: 2021-01-11 09:59:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\main.vue
@@ -24,6 +24,10 @@ export default {
     components: {
         NavBar,
         SideBar
+    },
+    // 获取用户相关信息和路由权限
+    setup() {
+        return {};
     }
 };
 </script>

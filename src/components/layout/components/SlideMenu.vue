@@ -1,38 +1,35 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-01-08 17:03:25
+ * @LastEditTime: 2021-01-11 18:07:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
 -->
 <template>
-    <el-submenu index="1">
+    <el-submenu
+        :index="menu.id"
+        v-if="menu.children && menu.children.length > 0"
+    >
         <template #title>
             <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>{{ menu.tag }}</span>
         </template>
-        <el-menu-item-group>
-            <template #title>分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-            <template #title>选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
+        <slide-menu
+            v-for="childItem in menu.children"
+            :key="childItem.id"
+            :menu="childItem"
+        ></slide-menu>
     </el-submenu>
-    <el-menu-item index="2">
+    <el-menu-item :index="menu.id" v-else>
         <i class="el-icon-menu"></i>
-        <template #title>导航二</template>
+        <template #title>{{ menu.tag }}</template>
     </el-menu-item>
 </template>
 
 <script>
 export default {
+    props: ["menu"],
     setup() {
         return {};
     }

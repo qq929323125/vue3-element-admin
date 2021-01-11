@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:21:00
- * @LastEditTime: 2021-01-08 18:08:03
+ * @LastEditTime: 2021-01-11 18:01:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\SideBar.vue
@@ -10,13 +10,17 @@
     <div class="ve_side_bar">
         <logo />
         <el-menu default-active="" :collapse="opened">
-            <slide-menu></slide-menu>
+            <slide-menu
+                v-for="item in menus"
+                :key="item.id"
+                :menu="item"
+            ></slide-menu>
         </el-menu>
     </div>
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import Logo from "./components/Logo";
 import SlideMenu from "./components/SlideMenu";
@@ -28,13 +32,20 @@ export default {
     setup() {
         const store = useStore();
         const opened = computed(() => store.getters.opened);
-        _api;
-        console.log(
-            "控制台打印--> ~ file: SideBar.vue ~ line 36 ~ setup ~ API",
-            _api
-        );
+        const menus = ref([]);
+
+        // eslint-disable-next-line no-unused-vars
+        const getMenuList = async () => {
+            const data = await VE_API.user.userMenuList();
+            if (data.code === "00") {
+                const { list } = data;
+                menus.value = list;
+            }
+        };
+        getMenuList();
         return {
-            opened
+            opened,
+            menus
         };
     },
     methods: {}

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-01-08 18:07:40
+ * @LastEditTime: 2021-01-11 13:46:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
@@ -16,8 +16,8 @@ module.exports = {
     devServer: {
         before: app => {
             if (setting.dev_mock) {
-                const fn = require("./src/mock/mock-server.js");
-                fn(app);
+                const mock_server = require("./src/mock/mock-server.js");
+                mock_server(app);
             }
         }
     },
@@ -39,8 +39,7 @@ module.exports = {
         plugins: [
             // 定义全局变量  https://www.webpackjs.com/plugins/define-plugin/
             new webpack.DefinePlugin({
-                API: "this._api",
-                ENV: {
+                VE_ENV: {
                     MODE: JSON.stringify(process.env.NODE_ENV)
                 }
             })
