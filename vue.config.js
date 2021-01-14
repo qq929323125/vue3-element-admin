@@ -1,17 +1,16 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-01-11 13:46:26
+ * @LastEditTime: 2021-01-14 13:13:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
  */
 const setting = require("./src/setting");
-const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-    publicPath: "./",
+    publicPath: "",
 
     devServer: {
         before: app => {
@@ -28,30 +27,34 @@ module.exports = {
                 _: "lodash"
             }
         ]);
-        config.resolve.alias.set("@", path.join(__dirname, "src"));
-        // .set("api", path.join(__dirname, "this.api"));
-    },
-
-    configureWebpack: {
-        externals: {
-            // lodash: "_"
-        },
-        plugins: [
-            // 定义全局变量  https://www.webpackjs.com/plugins/define-plugin/
-            new webpack.DefinePlugin({
+        config.plugin("define").use(webpack.DefinePlugin, [
+            {
                 VE_ENV: {
                     MODE: JSON.stringify(process.env.NODE_ENV)
                 }
-            })
-        ]
+            }
+        ]);
+        config.plugins.delete("hash-module-ids");
     },
 
-    // pluginOptions: {
-    //     "style-resources-loader": {
-    //         preProcessor: "scss",
-    //         patterns: [path.resolve(__dirname, `./src/styles/imports.scss`)] //path.resolve(__dirname, `"./src/styles/imports.scss";`)
-    //     }
-    // }
+    configureWebpack: () => {
+        let baseConfig = {};
+        let envConfig = {};
+        if (process.env.NODE_ENV === "production") {
+            // 为生产环境修改配置...
+            envConfig = {
+                optimization: {
+                    moduleIds: "named"
+                    // chunkIds: "named"
+                },
+                externals: {
+                    // lodash: "_"
+                }
+            };
+        }
+        return Object.assign(baseConfig, envConfig);
+    },
+
     css: {
         loaderOptions: {
             scss: {

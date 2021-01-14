@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-01-11 15:33:32
+ * @LastEditTime: 2021-01-12 09:18:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\.eslintrc.js
@@ -24,6 +24,7 @@ module.exports = {
     },
     // "writable" 以允许重写变量，或 "readonly" 不允许重写变量
     globals: {
+        _: "readonly",
         VE_ENV: "readonly",
         VE_API: "readonly"
     },

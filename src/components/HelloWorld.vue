@@ -125,7 +125,7 @@ export default {
         msg: String
     },
     mounted() {
-        API.list.loginOut2({ id: 1 });
+        // API.list.loginOut2({ id: 1 });
     }
 };
 </script>

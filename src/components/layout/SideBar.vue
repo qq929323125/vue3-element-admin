@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:21:00
- * @LastEditTime: 2021-01-11 18:01:47
+ * @LastEditTime: 2021-01-14 11:52:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\SideBar.vue
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import Logo from "./components/Logo";
 import SlideMenu from "./components/SlideMenu";
@@ -32,17 +32,8 @@ export default {
     setup() {
         const store = useStore();
         const opened = computed(() => store.getters.opened);
-        const menus = ref([]);
+        const menus = computed(() => store.getters.menuList);
 
-        // eslint-disable-next-line no-unused-vars
-        const getMenuList = async () => {
-            const data = await VE_API.user.userMenuList();
-            if (data.code === "00") {
-                const { list } = data;
-                menus.value = list;
-            }
-        };
-        getMenuList();
         return {
             opened,
             menus

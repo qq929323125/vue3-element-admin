@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-01-07 11:33:31
+ * @LastEditTime: 2021-01-13 12:41:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\babel.config.js
@@ -16,5 +16,8 @@ module.exports = {
                 styleLibraryName: "theme-chalk"
             }
         ]
+        // "@babel/plugin-syntax-dynamic-import",
+        // "syntax-dynamic-import",
+        // "dynamic-import-node"
     ]
 };

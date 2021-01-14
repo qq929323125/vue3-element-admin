@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-01-11 16:37:49
+ * @LastEditTime: 2021-01-14 13:28:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\Login.vue
@@ -70,16 +70,18 @@ const rules = {
 export default {
     name: "Login",
     setup() {
-        sessionStorage.clear();
-        const success = ref(false);
+        const store = useStore();
+        const router = useRouter();
         const form = reactive({
             userName: "",
             pwd: ""
         });
         const { userName, pwd } = toRefs(form);
         const ref_form = ref(null);
-        const store = useStore();
-        const router = useRouter();
+        const success = ref(false);
+        sessionStorage.clear();
+        store.dispatch("app/set_token", "");
+        router.options.isAddDynamicMenuRoutes = false;
 
         const onSubmit = () => {
             ref_form.value.validate(async valid => {

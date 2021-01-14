@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-01-11 09:14:07
+ * @LastEditTime: 2021-01-14 11:47:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue_3.0_test\src\main.js
@@ -12,6 +12,7 @@ import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
 import installElementPlus from "@/plugins/element";
+import permission from "@/plugins/permission";
 
 import "normalize.css/normalize.css";
 
@@ -25,4 +26,5 @@ createApp(App)
     .use(router)
     .use(installElementPlus)
     .use(axios)
+    .use(permission, { router, store })
     .mount("#app");
