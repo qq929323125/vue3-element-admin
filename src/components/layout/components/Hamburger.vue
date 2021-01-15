@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:23:33
- * @LastEditTime: 2021-01-11 17:02:17
+ * @LastEditTime: 2021-01-15 16:01:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SilderMenu.vue
@@ -34,6 +34,7 @@ export default {
 <style lang="scss" scoped>
 .ve_slider_menu {
     cursor: pointer;
+    margin-right: 10px;
     i {
         font-size: 40px;
     }

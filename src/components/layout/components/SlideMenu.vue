@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-01-14 12:55:27
+ * @LastEditTime: 2021-01-15 11:05:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -21,7 +21,11 @@
             :menu="child"
         ></slide-menu>
     </el-submenu>
-    <el-menu-item v-else :index="menu.url" @click="clickMenu(menu.url)">
+    <el-menu-item
+        v-else
+        :index="`/${menu.url.replace(/\//g, '-')}-${menu.id}`"
+        @click="clickMenu(menu)"
+    >
         <i class="el-icon-menu"></i>
         <template #title>{{ menu.name }}</template>
     </el-menu-item>
@@ -33,14 +37,13 @@ export default {
     props: ["menu"],
     setup() {
         const router = useRouter();
-        const clickMenu = url => {
-            // debugger;
-            // url = url.replace(/^\//g, "-");
-            let name = _.last(_.split(url, "/"));
+        const clickMenu = menu => {
+            let name = menu.url.replace("/", "-") + `-${menu.id}`;
             router.push({
                 name
             });
         };
+
         return {
             router,
             clickMenu
@@ -49,4 +52,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

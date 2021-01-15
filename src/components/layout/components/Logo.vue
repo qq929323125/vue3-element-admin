@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 14:23:41
- * @LastEditTime: 2021-01-08 16:56:59
+ * @LastEditTime: 2021-01-15 09:20:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\logo.vue
@@ -15,9 +15,9 @@
                 fit="cover"
             ></el-image>
         </div>
-        <transition name="el-fade-in-linear">
-            <h3 v-show="!opened" class="ve_logo_title">VE-Admin</h3>
-        </transition>
+        <h3 v-show="!opened" class="ve_logo_title">
+            VE-Admin
+        </h3>
     </div>
 </template>
 
