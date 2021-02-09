@@ -1,23 +1,25 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:21:00
- * @LastEditTime: 2021-01-15 11:10:30
+ * @LastEditTime: 2021-02-07 10:09:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\SideBar.vue
 -->
 <template>
-    <logo />
-    <div class="ve_el_menu">
+    <router-link to="/">
+        <logo />
+    </router-link>
+    <div class="ve_el_menu" :style="styles">
         <el-scrollbar>
             <el-menu
                 :default-active="defaultActive"
                 :collapse="opened"
                 :collapseTransition="false"
                 unique-opened
-                background-color="#545c64"
-                text-color="#fff"
-                active-text-color="#ffd04b"
+                :background-color="sideBgColor"
+                :text-color="sideTextColor"
+                :active-text-color="sideActiveTextColor"
             >
                 <slide-menu
                     v-for="item in menus"
@@ -30,6 +32,12 @@
 </template>
 
 <script>
+import {
+    nav_height,
+    sideBgColor,
+    sideTextColor,
+    sideActiveTextColor
+} from "@/styles/variables.scss.js";
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -41,6 +49,7 @@ export default {
         SlideMenu
     },
     setup() {
+        const styles = { "--nav_height": nav_height };
         const store = useStore();
         const route = useRoute();
         const opened = computed(() => store.getters.opened);
@@ -50,17 +59,25 @@ export default {
         });
 
         return {
+            sideBgColor,
+            sideTextColor,
+            sideActiveTextColor,
+            styles,
             opened,
             menus,
-            defaultActive
+            defaultActive,
+            nav_height
         };
-    },
-    methods: {}
+    }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+a:active {
+    color: $base-color;
+}
 .ve_el_menu {
-    height: calc(100vh - 60px);
+    background: $sideBgColor;
+    height: calc(100vh - var(--nav_height));
 }
 </style>

@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-01-07 13:55:16
+ * @LastEditTime: 2021-02-07 10:35:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
  */
 const Mock = require("mockjs"); //引入
 
-const list = {
+module.exports = {
     login: {
         url: "/login",
         type: "post",
@@ -69,4 +69,3 @@ const list = {
     },
     a: { url: "/av", type: "post", mock: false }
 };
-module.exports = list;

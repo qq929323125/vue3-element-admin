@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-01-15 16:02:55
+ * @LastEditTime: 2021-02-08 17:12:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -9,7 +9,29 @@
 const Mock = require("mockjs"); //引入
 const menuItem = Mock.mock({
     code: "00",
+    message: "查询成功!",
     list: [
+        {
+            id: 100,
+            name: "系统设置", //看官网，这个名字是3-5之间的
+            children: [
+                {
+                    id: 101,
+                    name: "用户管理", //看官网，这个名字是3-5之间的
+                    url: "system/Users" //这个类似上面的id一个，只是初始值是从100开始的
+                },
+                {
+                    id: 102,
+                    name: "菜单管理", //看官网，这个名字是3-5之间的
+                    url: "system/Menus" //这个类似上面的id一个，只是初始值是从100开始的
+                },
+                {
+                    id: 103,
+                    name: "角色管理", //看官网，这个名字是3-5之间的
+                    url: "system/Roles" //这个类似上面的id一个，只是初始值是从100开始的
+                }
+            ]
+        },
         {
             id: 1,
             name: "标签一", //看官网，这个名字是3-5之间的
@@ -59,7 +81,7 @@ const menuItem = Mock.mock({
         }
     ]
 });
-const user = {
+module.exports = {
     login: {
         url: "/login",
         type: "post",
@@ -67,7 +89,8 @@ const user = {
         response: () => {
             return {
                 code: "00",
-                token: "121221211"
+                message: "登录成功!",
+                token: new Date().getTime()
             };
         }
     },
@@ -80,4 +103,4 @@ const user = {
         }
     }
 };
-module.exports = user;
+// module.exports = user;

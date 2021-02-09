@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:19:11
- * @LastEditTime: 2021-01-06 14:33:45
+ * @LastEditTime: 2021-02-07 12:01:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\index.js
@@ -12,7 +12,6 @@ const getPathInfo = p => path.parse(p);
 
 /**
  * @description // 递归读取文件，类似于webpack的require.context()
- * @time 2020-9-12
  *
  * @param {String} directory 文件目录
  * @param {Boolean} useSubdirectories 是否查询子目录，默认false
@@ -47,7 +46,4 @@ function autoLoadFile(directory, useSubdirectories = false, extList = [".js"]) {
     return filesList;
 }
 
-const api = autoLoadFile(path.join(__dirname, "./modules"));
-// console.log(api);
-
-module.exports = api;
+module.exports = autoLoadFile(path.join(__dirname, "./modules"));

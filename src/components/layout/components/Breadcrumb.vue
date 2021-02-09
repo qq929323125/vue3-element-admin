@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 10:57:50
- * @LastEditTime: 2021-01-15 16:03:51
+ * @LastEditTime: 2021-01-15 16:07:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\Breadcrumb.vue
@@ -33,7 +33,7 @@ export default {
             );
         });
         /**
-         * @description:这个函数好牛逼
+         * @description:这个函数牛逼
          * @param {*} tree
          * @param {*} func
          * @param {*} path

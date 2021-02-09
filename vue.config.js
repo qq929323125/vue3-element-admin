@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-01-14 13:13:04
+ * @LastEditTime: 2021-01-15 17:50:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
  */
 const setting = require("./src/setting");
 const webpack = require("webpack");
+let scssVariables = require("./src/styles/variables.scss.js");
 
 module.exports = {
     publicPath: "",
@@ -59,7 +60,10 @@ module.exports = {
         loaderOptions: {
             scss: {
                 // 注意：在 sass-loader v8 中，这个选项名是 "prependData"
-                additionalData: `@import "~@/styles/imports.scss";`
+                // additionalData: `@import "~@/styles/imports.scss";`
+                additionalData: Object.keys(scssVariables)
+                    .map(k => `$${k.replace("_", "-")}: ${scssVariables[k]};`)
+                    .join("\n")
             }
         }
     }

@@ -1,7 +1,8 @@
+/* eslint-disable indent */
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-01-11 16:25:13
+ * @LastEditTime: 2021-02-08 17:16:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\plugins\axios.js
@@ -9,38 +10,118 @@
 "use strict";
 
 import axios from "axios";
-
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-const install = (app, opt = "VE_API") => {
+const install = (app, { router, store, opt }) => {
     let config = {
+        Global: true
         // baseURL: process.env.baseURL || process.env.apiUrl || ""
         // timeout: 60 * 1000, // Timeout
         // withCredentials: true, // Check cross-site Access-Control
     };
 
     const _axios = axios.create(config);
-
+    let ve_loading;
+    // let loadingCount = 0;
+    // 请求拦截
     _axios.interceptors.request.use(
-        function(config) {
+        config => {
+            config.Global &&
+                (ve_loading = app.config.globalProperties.$loading({
+                    lock: true,
+                    text: "Loading",
+                    spinner: "el-icon-loading",
+                    background: "rgba(0,0,0,0.1)"
+                }));
+            // loadingCount++;
+            const token = store.getters.token;
+            token && (config.headers.Authorization = token);
+
             // Do something before request is sent
             return config;
         },
-        function(error) {
+        error => {
             // Do something with request error
             return Promise.reject(error);
         }
     );
 
     // Add a response interceptor
+    // 响应拦截
     _axios.interceptors.response.use(
-        function(response) {
+        response => {
+            store.dispatch("app/set_token", new Date().getTime());
+            setTimeout(() => {
+                ve_loading.close();
+            }, 500);
+
+            let type = "success";
+            if (response.data.code != "00") {
+                type = "error";
+            }
+            app.config.globalProperties.$message.closeAll();
+            app.config.globalProperties.$message({
+                type,
+                message: response.data.message
+            });
             // Do something with response data
             return response.data;
         },
-        function(error) {
+        error => {
+            setTimeout(() => {
+                ve_loading.close();
+            }, 500);
+            if (error && error.response) {
+                let message = "";
+                switch (error.response.status) {
+                    case 400:
+                        message = "请求错误";
+                        break;
+                    case 401: {
+                        message = "未授权，请登录";
+                        router.replace({
+                            name: "Login"
+                        });
+                        break;
+                    }
+                    case 403:
+                        message = "没有权限，拒绝访问";
+                        break;
+                    case 404:
+                        message = `请求地址出错`;
+                        break;
+                    case 408:
+                        message = "请求超时";
+                        break;
+                    case 500:
+                        message = "服务器内部错误";
+                        break;
+                    case 501:
+                        message = "服务未实现";
+                        break;
+                    case 502:
+                        message = "网关错误";
+                        break;
+                    case 503:
+                        message = "服务不可用";
+                        break;
+                    case 504:
+                        message = "网关超时";
+                        break;
+                    case 505:
+                        message = "HTTP版本不受支持";
+                        break;
+                    default:
+                        break;
+                }
+                app.config.globalProperties.$message.closeAll();
+                app.config.globalProperties.$message({
+                    message,
+                    type: "error"
+                });
+            }
             // Do something with response error
             return Promise.reject(error);
         }

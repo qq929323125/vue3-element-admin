@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 14:23:41
- * @LastEditTime: 2021-01-15 09:20:23
+ * @LastEditTime: 2021-02-07 10:10:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\logo.vue
@@ -56,6 +56,9 @@ export default {
         display: inline-block;
         margin: 0;
         vertical-align: middle;
+        &:hover {
+            color: $base-color;
+        }
     }
 }
 </style>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-01-15 10:13:33
+ * @LastEditTime: 2021-02-08 17:57:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -10,22 +10,6 @@
 import globalRoutes from "@/router/globalRoutes";
 import mainRoutes from "@/router/mainRoutes";
 import { isURL } from "@/utils/validate";
-
-/**
- * @description:获取所有页面的路径
- * @param {*}
- * @return {*}
- */
-
-function getAllPages() {
-    let allPages = {};
-    const files = require.context("../views/layoutpages", true, /\.vue$/);
-    files.keys().forEach(key => {
-        const fileName = key.replace(/(\.\/|\.vue)/g, "");
-        allPages[fileName] = files.resolve(key);
-    });
-    return allPages;
-}
 
 /**
  * 判断当前路由类型, global: 全局路由, main: 主入口路由
@@ -68,7 +52,7 @@ export default {
                 } else {
                     const data = await VE_API.user.userMenuList();
                     if (data && data.code === "00") {
-                        fnAddDynamicMenuRoutes(data.list);
+                        await fnAddDynamicMenuRoutes(data.list);
                         router.options.isAddDynamicMenuRoutes = true;
                         await store.dispatch("app/set_menu_list", data.list);
                         next({ ...to, replace: true });
@@ -114,9 +98,7 @@ export default {
                         route["name"] = `i-${menuList[i].id}`;
                         route["meta"]["iframeUrl"] = menuList[i].url;
                     } else {
-                        const l = getAllPages()
-                            [menuList[i].url].replace(/(\.\/src\/|\.vue)/g, "")
-                            .toString();
+                        const l = "views/layoutpages/" + menuList[i].url;
                         route["component"] = () => import("@/" + l + ".vue");
                     }
                     routes.push(route);
@@ -125,15 +107,18 @@ export default {
             if (temp.length >= 1) {
                 fnAddDynamicMenuRoutes(temp, routes);
             } else {
-                // mainRoutes.children = mainRoutes.children.concat(routes);
-                mainRoutes.children = routes;
+                mainRoutes.children = mainRoutes.children.concat(routes);
+                // mainRoutes.children = routes;
                 console.log(
                     "控制台打印--> ~ file: permission.js ~ line 127 ~ fnAddDynamicMenuRoutes ~ mainRoutes.children",
                     mainRoutes.children
                 );
 
                 await router.addRoute(mainRoutes);
-                // , { path: "*", redirect: { name: "404" } }]
+                await router.addRoute({
+                    path: "/:w+",
+                    redirect: { name: "404" }
+                });
             }
         };
     }
