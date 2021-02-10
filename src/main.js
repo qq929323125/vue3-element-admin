@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-02-09 09:43:49
+ * @LastEditTime: 2021-02-10 12:56:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue_3.0_test\src\main.js
@@ -15,6 +15,7 @@ import installElementPlus from "@/plugins/element";
 import permission from "@/plugins/permission";
 
 import "normalize.css/normalize.css";
+import "nprogress/nprogress.css";
 import "@/styles/common.scss";
 
 const setting = require("@/setting");

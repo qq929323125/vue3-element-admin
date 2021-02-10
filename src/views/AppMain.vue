@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-02-09 09:34:35
+ * @LastEditTime: 2021-02-10 14:22:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\main.vue
@@ -15,7 +15,10 @@
             <el-main :style="styles"
                 ><el-scrollbar
                     style="padding:20px;box-sizing:border-box;background:#fff"
-                    ><router-view></router-view> </el-scrollbar
+                    ><router-view v-slot="{ Component }"
+                        ><transition name="el-zoom-in-top" mode="out-in">
+                            <component :is="Component" /> </transition
+                    ></router-view> </el-scrollbar
             ></el-main>
         </el-container>
     </el-container>

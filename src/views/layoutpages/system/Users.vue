@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-02-09 17:58:43
+ * @LastEditTime: 2021-02-10 12:19:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -102,13 +102,14 @@
             :total="total"
         >
         </el-pagination>
+        <!-- 编辑组件 -->
+        <users-edit
+            :rowData="rowData"
+            :title="dialogTitle"
+            :showDialog="showDialog"
+            @closeDialog="e => (showDialog = e)"
+        />
     </div>
-    <users-edit
-        :rowData="rowData"
-        :title="dialogTitle"
-        :showDialog="showDialog"
-        @closeDialog="e => (showDialog = e)"
-    />
 </template>
 
 <script>

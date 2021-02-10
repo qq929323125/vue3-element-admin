@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-02-08 17:16:30
+ * @LastEditTime: 2021-02-10 14:16:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\plugins\axios.js
@@ -10,6 +10,8 @@
 "use strict";
 
 import axios from "axios";
+import NProgress from "nprogress";
+
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -28,6 +30,8 @@ const install = (app, { router, store, opt }) => {
     // 请求拦截
     _axios.interceptors.request.use(
         config => {
+            NProgress.done();
+            NProgress.start();
             config.Global &&
                 (ve_loading = app.config.globalProperties.$loading({
                     lock: true,
@@ -54,6 +58,7 @@ const install = (app, { router, store, opt }) => {
         response => {
             store.dispatch("app/set_token", new Date().getTime());
             setTimeout(() => {
+                NProgress.done();
                 ve_loading.close();
             }, 500);
 
@@ -71,6 +76,7 @@ const install = (app, { router, store, opt }) => {
         },
         error => {
             setTimeout(() => {
+                NProgress.done();
                 ve_loading.close();
             }, 500);
             if (error && error.response) {
