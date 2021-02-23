@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-02-10 14:16:04
+ * @LastEditTime: 2021-02-23 15:53:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\plugins\axios.js
@@ -26,20 +26,23 @@ const install = (app, { router, store, opt }) => {
 
     const _axios = axios.create(config);
     let ve_loading;
-    // let loadingCount = 0;
+    let ve_message = null;
+    let loadingCount = 0;
     // 请求拦截
     _axios.interceptors.request.use(
         config => {
             NProgress.done();
-            NProgress.start();
-            config.Global &&
-                (ve_loading = app.config.globalProperties.$loading({
+            if (config.Global) {
+                NProgress.start();
+                ve_loading = app.config.globalProperties.$loading({
                     lock: true,
                     text: "Loading",
                     spinner: "el-icon-loading",
                     background: "rgba(0,0,0,0.1)"
-                }));
-            // loadingCount++;
+                });
+            }
+            loadingCount++;
+            //*请求头添加token
             const token = store.getters.token;
             token && (config.headers.Authorization = token);
 
@@ -56,18 +59,24 @@ const install = (app, { router, store, opt }) => {
     // 响应拦截
     _axios.interceptors.response.use(
         response => {
+            // TODO 根据响应头更新token
             store.dispatch("app/set_token", new Date().getTime());
-            setTimeout(() => {
+
+            loadingCount--;
+            if (loadingCount <= 0) {
                 NProgress.done();
                 ve_loading.close();
-            }, 500);
+            }
 
             let type = "success";
             if (response.data.code != "00") {
                 type = "error";
             }
-            app.config.globalProperties.$message.closeAll();
-            app.config.globalProperties.$message({
+            if (ve_message) {
+                ve_message.close();
+                ve_message = null;
+            }
+            ve_message = app.config.globalProperties.$message({
                 type,
                 message: response.data.message
             });
@@ -75,10 +84,11 @@ const install = (app, { router, store, opt }) => {
             return response.data;
         },
         error => {
-            setTimeout(() => {
+            loadingCount--;
+            if (loadingCount <= 0) {
                 NProgress.done();
                 ve_loading.close();
-            }, 500);
+            }
             if (error && error.response) {
                 let message = "";
                 switch (error.response.status) {
@@ -122,8 +132,11 @@ const install = (app, { router, store, opt }) => {
                     default:
                         break;
                 }
-                app.config.globalProperties.$message.closeAll();
-                app.config.globalProperties.$message({
+                if (ve_message) {
+                    ve_message.close();
+                    ve_message = null;
+                }
+                ve_message = app.config.globalProperties.$message({
                     message,
                     type: "error"
                 });

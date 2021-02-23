@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-02-10 12:19:40
+ * @LastEditTime: 2021-02-10 14:54:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -17,7 +17,6 @@
                     placeholder="审批人"
                 ></el-input>
             </el-form-item>
-
             <el-form-item label="活动区域" prop="region">
                 <el-select clearable v-model="region" placeholder="活动区域">
                     <el-option value="">请选择</el-option>
@@ -44,6 +43,7 @@
                 >添加</el-button
             >
         </el-row>
+
         <!-- 列表 -->
         <el-table
             :data="tableData"
@@ -86,6 +86,7 @@
                 </template>
             </el-table-column>
         </el-table>
+
         <!-- 分页 -->
         <el-pagination
             ref="pagination"
@@ -102,6 +103,7 @@
             :total="total"
         >
         </el-pagination>
+
         <!-- 编辑组件 -->
         <users-edit
             :rowData="rowData"
