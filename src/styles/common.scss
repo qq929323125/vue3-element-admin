@@ -1,13 +1,38 @@
-.ve_header_row_class_name{
-	background: $main-bg-color !important;
+.ve_header_row_class_name,
+.el-table__fixed-right-patch {
+    background: $main-bg-color !important;
 }
-.ve_header_cell_class_name{
-	background: $main-bg-color !important;
+.ve_header_cell_class_name {
+    background: $main-bg-color !important;
 }
-.ve_cell_class_name{
-	background: $base-color !important;
-	border-color:$base-color !important;
+.ve_cell_class_name {
+    background: $base-color !important;
+    border-color: $base-color !important;
 }
-.ve_row_class_name{
-	background: $base-color !important;
+.ve_row_class_name {
+    background: $base-color !important;
 }
+.ve_p_10 {
+    padding: 10px;
+}
+//滚动条的宽度
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+//滚动条的滑块
+::-webkit-scrollbar-thumb {
+    background-color: rgba(144, 147, 153, 0.3);
+    border-radius: 3px;
+}
+.ve_select_option_slot {
+    font-size: 12px;
+    float: left;
+    line-height: initial;
+    padding-bottom: 10px;
+    opacity: 0.7;
+}
+.ve_option_box{
+    width:calc(50% - 132px);
+}
+

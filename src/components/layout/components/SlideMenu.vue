@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-01-15 11:05:24
+ * @LastEditTime: 2021-02-24 16:15:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -22,7 +22,7 @@
         ></slide-menu>
     </el-submenu>
     <el-menu-item
-        v-else
+        v-else-if="menu.url"
         :index="`/${menu.url.replace(/\//g, '-')}-${menu.id}`"
         @click="clickMenu(menu)"
     >

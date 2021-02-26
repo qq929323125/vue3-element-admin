@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-01-18 18:05:49
+ * @LastEditTime: 2021-02-24 13:47:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\Login.vue
@@ -30,6 +30,7 @@
                         <el-form-item prop="pwd">
                             <el-input
                                 v-model.trim="pwd"
+                                show-password
                                 placeholder="密码"
                             ></el-input>
                         </el-form-item>
@@ -64,8 +65,8 @@ export default {
         const store = useStore();
         const router = useRouter();
         const form = reactive({
-            userName: "",
-            pwd: ""
+            userName: "admin",
+            pwd: "123456"
         });
         const { userName, pwd } = toRefs(form);
         const ref_form = ref(null);

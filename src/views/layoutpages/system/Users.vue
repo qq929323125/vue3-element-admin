@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-02-10 14:54:32
+ * @LastEditTime: 2021-02-26 11:53:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -25,10 +25,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button
-                    type="primary"
-                    :disabled="user || region ? false : true"
-                    @click="onSubmit(params, getDataList)"
+                <el-button type="primary" @click="onSubmit(params, getDataList)"
                     >查询</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
@@ -38,7 +35,7 @@
         </el-form>
 
         <!-- table工具条 -->
-        <el-row ref="toolBar" class="ve_header_row_class_name">
+        <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button size="mini" type="primary" @click="handleEdit('添加')"
                 >添加</el-button
             >
@@ -106,6 +103,7 @@
 
         <!-- 编辑组件 -->
         <users-edit
+            v-if="showDialog"
             :rowData="rowData"
             :title="dialogTitle"
             :showDialog="showDialog"
