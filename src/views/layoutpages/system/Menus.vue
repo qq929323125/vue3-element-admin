@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-02-25 14:28:28
+ * @LastEditTime: 2021-03-01 14:34:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -132,14 +132,14 @@ export default {
         MenuEdit
     },
     setup() {
-        const rowData = ref(null);
-        const dialogTitle = ref("");
-        const showDialog = ref(false);
-        const ve_max_height = ref(0);
-        const ve_rowIndex = ref(null);
         const toolBar = ref(null);
         const pagination = ref(null);
         const queryForm = ref(null);
+        const ve_max_height = ref(0);
+        const dialogTitle = ref("");
+        const showDialog = ref(false);
+        const rowData = ref(null);
+        const ve_rowIndex = ref(null);
         const tableData = ref([]);
         const params = reactive({
             user: "",
@@ -173,23 +173,21 @@ export default {
                 tableData.value = list;
             }
         };
+
         onMounted(async () => {
             await getDataList();
-            ve_max_height.value = maxHeight(pagination, queryForm, toolBar);
-            onresize = () => {
-                ve_max_height.value = maxHeight(pagination, queryForm, toolBar);
-            };
+            maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
         const { user, region, limit, page, total } = toRefs(params);
         return {
-            ve_max_height,
-            ve_rowIndex,
             getDataList,
+            ve_rowIndex,
             tableData,
             params,
             ...{ user, region, limit, page, total },
-            ...{ pagination, queryForm, toolBar },
             ...{ handleEdit, rowData, dialogTitle, showDialog },
+            ve_max_height,
+            ...{ pagination, queryForm, toolBar },
             ...{
                 onSubmit,
                 resetForm,

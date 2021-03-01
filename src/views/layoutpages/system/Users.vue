@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-02-26 11:53:04
+ * @LastEditTime: 2021-03-01 13:36:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -174,10 +174,7 @@ export default {
         };
         onMounted(async () => {
             await getDataList();
-            ve_max_height.value = maxHeight(pagination, queryForm, toolBar);
-            onresize = () => {
-                ve_max_height.value = maxHeight(pagination, queryForm, toolBar);
-            };
+            maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
         const { user, region, limit, page, total } = toRefs(params);
         return {

@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-02-09 13:52:04
+ * @LastEditTime: 2021-03-01 14:26:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\common.js
  */
+
 /**
  * @description:提交搜索
  * @param {*}
@@ -84,10 +85,18 @@ export const rowClick = event => {
  * @return {*}
  */
 // pagination, queryForm
-export const maxHeight = (pagination, queryForm, toolBar) => {
+export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
+    onresize = () => {
+        maxHeight(pagination, queryForm, toolBar, ve_max_height);
+    };
     let docHeight = document.documentElement.clientHeight;
-    let toolBarHeight = toolBar.value.$el.offsetHeight || 0;
-    let paginationHeight = pagination.value.$el.offsetHeight || 0;
-    let queryFormHeight = queryForm.value.$el.offsetHeight;
-    return docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;
+    let toolBarHeight = toolBar.value ? toolBar.value.$el.offsetHeight : 0;
+    let paginationHeight = pagination.value
+        ? pagination.value.$el.offsetHeight
+        : 0;
+    let queryFormHeight = queryForm.value
+        ? queryForm.value.$el.offsetHeight
+        : 0;
+    ve_max_height.value =
+        docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;
 };

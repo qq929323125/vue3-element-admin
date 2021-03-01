@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-02-26 11:02:30
+ * @LastEditTime: 2021-03-01 16:00:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -57,7 +57,6 @@
                     clearable
                     filterable
                     :props="{
-                        expandTrigger: 'hover',
                         checkStrictly: true,
                         value: 'id',
                         label: 'name',
