@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-02-24 13:47:01
+ * @LastEditTime: 2021-03-02 14:15:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\Login.vue
@@ -65,7 +65,7 @@ export default {
         const store = useStore();
         const router = useRouter();
         const form = reactive({
-            userName: "admin",
+            userName: "Administrator",
             pwd: "123456"
         });
         const { userName, pwd } = toRefs(form);
@@ -80,8 +80,9 @@ export default {
                 if (valid) {
                     const data = await VE_API.user.login(form);
                     if (data.code === "00") {
-                        const { token } = data;
+                        const { token, uname } = data;
                         store.dispatch("app/set_token", token);
+                        store.dispatch("app/set_uname", uname);
                         success.value = true;
                         router.push({ name: "AppMain" });
                     }

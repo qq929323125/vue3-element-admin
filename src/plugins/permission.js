@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-02-22 10:42:24
+ * @LastEditTime: 2021-03-02 14:30:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -36,6 +36,7 @@ export default {
     install: (app, { router, store }) => {
         // let router = opt;
         router.beforeEach(async (to, from, next) => {
+            const uname = store.getters.uname;
             const token = store.getters.token;
             if (
                 router.options.isAddDynamicMenuRoutes ||
@@ -52,7 +53,19 @@ export default {
                 if (!token || !/\S/.test(token)) {
                     next({ name: "Login" });
                 } else {
-                    const data = await VE_API.user.userMenuList();
+                    let data = await VE_API.user.userMenuList();
+                    if (uname == "Administrator") {
+                        data = {
+                            code: "00",
+                            list: [
+                                {
+                                    id: 0,
+                                    name: "菜单管理", //看官网，这个名字是3-5之间的
+                                    url: "system/Menus" //这个类似上面的id一个，只是初始值是从100开始的
+                                }
+                            ]
+                        };
+                    }
                     if (data && data.code === "00") {
                         await fnAddDynamicMenuRoutes(data.list);
                         router.options.isAddDynamicMenuRoutes = true;
@@ -102,7 +115,8 @@ export default {
                     if (isURL(menuList[i].url)) {
                         route["path"] = `i-${menuList[i].id}`;
                         route["name"] = `i-${menuList[i].id}`;
-                        route["meta"]["iframeUrl"] = menuList[i].url;
+                        route["props"] = { url: menuList[i].url };
+                        route["component"] = () => import("@/views/IFrame.vue");
                     } else {
                         const l = "views/layoutpages/" + menuList[i].url;
                         route["component"] = () => import("@/" + l + ".vue");

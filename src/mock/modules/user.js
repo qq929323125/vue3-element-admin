@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-02-24 16:16:47
+ * @LastEditTime: 2021-03-02 14:38:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -80,6 +80,12 @@ const menuItem = Mock.mock({
                             id: 66,
                             name: "标签四二", //看官网，这个名字是3-5之间的
                             url: "label4/Label42" //这个类似上面的id一个，只是初始值是从100开始的
+                        },
+                        {
+                            id: 126,
+                            name: "标签四二", //看官网，这个名字是3-5之间的
+                            url:
+                                "https://next.router.vuejs.org/guide/essentials/passing-props.html#named-views" //这个类似上面的id一个，只是初始值是从100开始的
                         }
                     ]
                     // url: "label4/Label41" //这个类似上面的id一个，只是初始值是从100开始的
@@ -103,12 +109,25 @@ module.exports = {
         url: "/login",
         type: "post",
         mock: true,
-        response: () => {
-            return {
+        response: opt => {
+            const {
+                body: { userName, pwd }
+            } = opt;
+            let data = {
                 code: "00",
                 message: "登录成功!",
-                token: new Date().getTime()
+                token: new Date().getTime(),
+                uname: userName
             };
+            if (userName == "Administrator") {
+                if (pwd != "123456") {
+                    data = {
+                        code: "01",
+                        message: "密码错误"
+                    };
+                }
+            }
+            return data;
         }
     },
     userMenuList: {

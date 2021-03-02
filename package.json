@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dexie": "^3.0.3",
     "element-plus": "^1.0.1-beta.27",
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",

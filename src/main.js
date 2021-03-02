@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-02-10 12:56:14
+ * @LastEditTime: 2021-03-02 15:34:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue_3.0_test\src\main.js
@@ -13,17 +13,14 @@ import router from "@/router";
 import store from "@/store";
 import installElementPlus from "@/plugins/element";
 import permission from "@/plugins/permission";
+import mock from "@/plugins/mock";
 
 import "normalize.css/normalize.css";
 import "nprogress/nprogress.css";
 import "@/styles/common.scss";
 
-const setting = require("@/setting");
-if (setting.pro_mock && VE_ENV.MODE === "production") {
-    require("@/mock/mock");
-}
-
 createApp(App)
+    .use(mock)
     .use(store)
     .use(router)
     .use(installElementPlus)
