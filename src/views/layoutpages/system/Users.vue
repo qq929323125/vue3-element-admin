@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-01 13:36:45
+ * @LastEditTime: 2021-03-04 16:29:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -10,16 +10,8 @@
     <div class="ve_container">
         <!-- 搜索 -->
         <el-form ref="queryForm" :inline="true" :model="params">
-            <el-form-item label="审批人" prop="user">
-                <el-input
-                    clearable
-                    v-model="user"
-                    placeholder="审批人"
-                ></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" prop="region">
-                <el-select clearable v-model="region" placeholder="活动区域">
-                    <el-option value="">请选择</el-option>
+            <el-form-item label="角色" prop="role">
+                <el-select clearable v-model="role" placeholder="活动区域">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                 </el-select>
@@ -59,17 +51,33 @@
             style="width: 100%"
             :max-height="ve_max_height"
         >
-            <el-table-column fixed prop="date" label="日期" width="150">
+            <el-table-column prop="name" label="用户名"> </el-table-column>
+            <el-table-column prop="userName" label="账号"> </el-table-column>
+            <el-table-column prop="password" label="密码"
+                ><template v-slot="{ row }">
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        :content="row.password"
+                        placement="top"
+                    >
+                        <span>{{ `***${row.password}***` }}</span>
+                    </el-tooltip>
+                </template>
             </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column prop="province" label="省份" width="120">
-            </el-table-column>
-            <el-table-column prop="city" label="市区" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" width="300">
-            </el-table-column>
-            <el-table-column prop="zip" label="邮编" width="120">
+            <el-table-column prop="role" label="角色"> </el-table-column>
+            <el-table-column prop="status" label="状态">
+                <template v-slot="{ row }">
+                    <el-switch
+                        v-model="row.status"
+                        :active-value="1"
+                        :inactive-value="0"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949"
+                    >
+                        >
+                    </el-switch>
+                </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
@@ -141,8 +149,7 @@ export default {
         const queryForm = ref(null);
         const tableData = ref([]);
         const params = reactive({
-            user: "",
-            region: "",
+            role: "",
             limit: 10,
             page: 1,
             total: 0
@@ -176,14 +183,14 @@ export default {
             await getDataList();
             maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
-        const { user, region, limit, page, total } = toRefs(params);
+        const { role, limit, page, total } = toRefs(params);
         return {
             ve_max_height,
             ve_rowIndex,
             getDataList,
             tableData,
             params,
-            ...{ user, region, limit, page, total },
+            ...{ role, limit, page, total },
             ...{ pagination, queryForm, toolBar },
             ...{ handleEdit, rowData, dialogTitle, showDialog },
             ...{

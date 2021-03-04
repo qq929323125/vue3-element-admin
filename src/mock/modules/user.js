@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-03-02 14:38:53
+ * @LastEditTime: 2021-03-03 17:04:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -14,91 +14,65 @@ const menuItem = Mock.mock({
         {
             id: 100,
             name: "系统设置", //看官网，这个名字是3-5之间的
+            type: 0,
+            icon: "el-icon-s-platform",
+            sort: 1,
+            iframe: 0,
             children: [
                 {
                     id: 101,
                     name: "用户管理", //看官网，这个名字是3-5之间的
-                    url: "system/Users" //这个类似上面的id一个，只是初始值是从100开始的
+                    url: "system/Users", //这个类似上面的id一个，只是初始值是从100开始的
+                    type: 1,
+                    icon: "el-icon-user-solid",
+                    sort: 1,
+                    iframe: 0
                 },
                 {
                     id: 102,
                     name: "菜单管理", //看官网，这个名字是3-5之间的
-                    url: "system/Menus" //这个类似上面的id一个，只是初始值是从100开始的
+                    url: "system/Menus", //这个类似上面的id一个，只是初始值是从100开始的
+                    type: 1,
+                    icon: "el-icon-s-order",
+                    sort: 1,
+                    iframe: 0
                 },
                 {
                     id: 103,
                     name: "角色管理", //看官网，这个名字是3-5之间的
-                    url: "system/Roles" //这个类似上面的id一个，只是初始值是从100开始的
+                    url: "system/Roles", //这个类似上面的id一个，只是初始值是从100开始的
+                    type: 1,
+                    icon: "el-icon-s-check",
+                    sort: 1,
+                    iframe: 0
                 }
             ]
-        },
-        {
-            id: 1,
-            name: "标签一", //看官网，这个名字是3-5之间的
-            url: "Label1" //这个类似上面的id一个，只是初始值是从100开始的
-        },
-        {
-            id: 2,
-            name: "标签二", //看官网，这个名字是3-5之间的
-            url: "Label2" //这个类似上面的id一个，只是初始值是从100开始的
-        },
-        {
-            id: 3,
-            name: "标签三", //看官网，这个名字是3-5之间的
-            url: "Label3" //这个类似上面的id一个，只是初始值是从100开始的
         },
         {
             id: 4,
-            name: "标签四", //看官网，这个名字是3-5之间的
+            name: "参考资料", //看官网，这个名字是3-5之间的
+            type: 0,
+            icon: "el-icon-s-order",
+            sort: 1,
+            iframe: 0,
             children: [
                 {
                     id: 5,
-                    name: "标签四一", //看官网，这个名字是3-5之间的
-                    url: "label4/Label41" //这个类似上面的id一个，只是初始值是从100开始的
+                    name: "vue3.0", //看官网，这个名字是3-5之间的
+                    url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
+                    type: 1,
+                    icon: "el-icon-s-promotion",
+                    sort: 1,
+                    iframe: 1
                 },
                 {
                     id: 6,
-                    name: "标签四二", //看官网，这个名字是3-5之间的
-                    url: "label4/Label42" //这个类似上面的id一个，只是初始值是从100开始的
-                }
-            ]
-        },
-        {
-            id: 7,
-            name: "标签五", //看官网，这个名字是3-5之间的
-            children: [
-                {
-                    id: 99,
-                    name: "标签五一一", //看官网，这个名字是3-5之间的
-                    children: [
-                        {
-                            id: 55,
-                            name: "标签四一", //看官网，这个名字是3-5之间的
-                            url: "label4/Label41" //这个类似上面的id一个，只是初始值是从100开始的
-                        },
-                        {
-                            id: 66,
-                            name: "标签四二", //看官网，这个名字是3-5之间的
-                            url: "label4/Label42" //这个类似上面的id一个，只是初始值是从100开始的
-                        },
-                        {
-                            id: 126,
-                            name: "标签四二", //看官网，这个名字是3-5之间的
-                            url:
-                                "https://next.router.vuejs.org/guide/essentials/passing-props.html#named-views" //这个类似上面的id一个，只是初始值是从100开始的
-                        }
-                    ]
-                    // url: "label4/Label41" //这个类似上面的id一个，只是初始值是从100开始的
-                },
-                {
-                    id: 8,
-                    name: "标签五一", //看官网，这个名字是3-5之间的
-                    url: "label4/Label41" //这个类似上面的id一个，只是初始值是从100开始的
-                },
-                {
-                    id: 9,
-                    name: "标签五二", //看官网，这个名字是3-5之间的
-                    url: "label4/Label42" //这个类似上面的id一个，只是初始值是从100开始的
+                    name: "element-plus", //看官网，这个名字是3-5之间的
+                    url: "https://element-plus.org/#/zh-CN", //这个类似上面的id一个，只是初始值是从100开始的
+                    type: 1,
+                    icon: "el-icon-eleme",
+                    sort: 1,
+                    iframe: 1
                 }
             ]
         }

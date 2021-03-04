@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-01 17:47:08
+ * @LastEditTime: 2021-03-04 17:18:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -17,11 +17,15 @@
         <!-- <span>{{ rowData }}</span> -->
         <!-- 表单 -->
         <el-form :model="form" label-width="80px" :inline="false">
-            <el-form-item label="名称">
-                <el-input v-model="rname" placeholder="" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="角色">
+            <el-form-item label="名称" prop="name">
                 <el-input v-model="name" placeholder="" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="角色" prop="roleName">
+                <el-input
+                    v-model="roleName"
+                    placeholder=""
+                    clearable
+                ></el-input>
             </el-form-item>
             <el-form-item label="权限">
                 <el-card
@@ -42,7 +46,7 @@
                     <!-- card body -->
                 </el-card>
             </el-form-item>
-            <el-form-item label="状态">
+            <el-form-item label="状态" prop="status">
                 <el-radio-group v-model="status">
                     <el-radio-button :label="true">
                         启用
@@ -89,11 +93,11 @@ export default {
             emit("closeDialog", false);
         };
         const form = reactive({
-            rname: "",
+            roleName: "",
             name: "",
             status: true
         });
-        const { rname, name, status } = toRefs(form);
+        const { roleName, name, status } = toRefs(form);
         const tree = ref(null);
 
         const store = useStore();
@@ -107,7 +111,7 @@ export default {
         return {
             closeDialog,
             form,
-            ...{ rname, name, status },
+            ...{ roleName, name, status },
             tree,
             menuList
         };

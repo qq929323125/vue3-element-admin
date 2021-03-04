@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve-pro": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "dexie": "^3.0.3",
     "element-plus": "^1.0.1-beta.27",
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "qs": "^6.9.6",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"

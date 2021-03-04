@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-01 14:26:12
+ * @LastEditTime: 2021-03-04 17:32:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\common.js
@@ -90,12 +90,12 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
         maxHeight(pagination, queryForm, toolBar, ve_max_height);
     };
     let docHeight = document.documentElement.clientHeight;
-    let toolBarHeight = toolBar.value ? toolBar.value.$el.offsetHeight : 0;
+    let toolBarHeight = toolBar.value ? toolBar.value.$el.offsetHeight || 0 : 0;
     let paginationHeight = pagination.value
-        ? pagination.value.$el.offsetHeight
+        ? pagination.value.$el.offsetHeight || 0
         : 0;
     let queryFormHeight = queryForm.value
-        ? queryForm.value.$el.offsetHeight
+        ? queryForm.value.$el.offsetHeight || 0
         : 0;
     ve_max_height.value =
         docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;

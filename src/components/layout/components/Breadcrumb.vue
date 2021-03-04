@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 10:57:50
- * @LastEditTime: 2021-01-15 16:07:42
+ * @LastEditTime: 2021-03-04 09:46:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\Breadcrumb.vue
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { treeFindPath } from "@/utils";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
@@ -29,34 +30,11 @@ export default {
             let i = path.lastIndexOf("-");
             return treeFindPath(
                 menuList,
-                data => data.id === path.slice(i + 1) * 1
+                data => data.id === path.slice(i + 1) * 1,
+                "name"
             );
         });
-        /**
-         * @description:这个函数牛逼
-         * @param {*} tree
-         * @param {*} func
-         * @param {*} path
-         * @return {*}
-         */
-        const treeFindPath = (tree, func, path = []) => {
-            if (!tree) return [];
-            for (const data of tree) {
-                // 这里按照你的需求来存放最后返回的内容吧
-                path.push(data.name);
-                if (func(data)) return path;
-                if (data.children) {
-                    const findChildren = treeFindPath(
-                        data.children,
-                        func,
-                        path
-                    );
-                    if (findChildren.length) return findChildren;
-                }
-                path.pop();
-            }
-            return [];
-        };
+
         return {
             list
         };

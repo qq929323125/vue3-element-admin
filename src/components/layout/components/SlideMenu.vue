@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-02 11:13:40
+ * @LastEditTime: 2021-03-03 17:07:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -12,7 +12,7 @@
         v-if="menu.children && menu.children.length > 0"
     >
         <template #title>
-            <i class="el-icon-location"></i>
+            <i :class="menu.icon"></i>
             <span>{{ menu.name }}</span>
         </template>
         <slide-menu
@@ -26,13 +26,12 @@
         :index="setIndex(menu)"
         @click="clickMenu(menu)"
     >
-        <i class="el-icon-menu"></i>
+        <i :class="menu.icon"></i>
         <template #title>{{ menu.name }}</template>
     </el-menu-item>
 </template>
 
 <script>
-import { isURL } from "@/utils/validate";
 import { useRouter } from "vue-router";
 export default {
     props: ["menu"],
@@ -40,7 +39,7 @@ export default {
         const router = useRouter();
         const clickMenu = menu => {
             let name = menu.url.replace("/", "-") + `-${menu.id}`;
-            if (isURL(menu.url)) {
+            if (menu.iframe == 1) {
                 name = `i-${menu.id}`;
             }
             router.push({
@@ -50,7 +49,7 @@ export default {
 
         const setIndex = menu => {
             let index = `/${menu.url.replace(/\//g, "-")}-${menu.id}`;
-            if (isURL(menu.url)) {
+            if (menu.iframe == 1) {
                 index = `/i-${menu.id}`;
             }
             return index;

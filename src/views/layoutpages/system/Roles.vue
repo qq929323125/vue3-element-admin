@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-01 14:47:51
+ * @LastEditTime: 2021-03-04 17:28:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -163,7 +163,7 @@ export default {
          * @return {*}
          */
         const getDataList = async () => {
-            const { code, data } = await VE_API.system.userList(params);
+            const { code, data } = await VE_API.system.roleList(params);
             if (code == "00") {
                 const { limit, page, total, list } = data;
                 params.limit = limit;

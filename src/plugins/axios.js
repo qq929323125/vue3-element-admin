@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-02-23 15:53:31
+ * @LastEditTime: 2021-03-03 13:47:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\plugins\axios.js
@@ -10,6 +10,7 @@
 "use strict";
 
 import axios from "axios";
+import Qs from "qs";
 import NProgress from "nprogress";
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -18,10 +19,20 @@ import NProgress from "nprogress";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const install = (app, { router, store, opt }) => {
     let config = {
-        Global: true
+        Global: true,
         // baseURL: process.env.baseURL || process.env.apiUrl || ""
         // timeout: 60 * 1000, // Timeout
         // withCredentials: true, // Check cross-site Access-Control
+        transformRequest: [
+            function(data) {
+                // 对 data 进行任意转换处理
+                if (VE_ENV.MODE === "production") {
+                    return Qs.parse(data);
+                } else {
+                    return Qs.stringify(data);
+                }
+            }
+        ]
     };
 
     const _axios = axios.create(config);
@@ -31,6 +42,8 @@ const install = (app, { router, store, opt }) => {
     // 请求拦截
     _axios.interceptors.request.use(
         config => {
+            console.log(config);
+
             NProgress.done();
             if (config.Global) {
                 NProgress.start();

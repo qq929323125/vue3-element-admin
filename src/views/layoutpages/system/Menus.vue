@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-01 14:34:36
+ * @LastEditTime: 2021-03-04 17:33:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -10,19 +10,12 @@
     <div class="ve_container">
         <!-- 搜索 -->
         <el-form ref="queryForm" :inline="true" :model="params">
-            <el-form-item label="审批人" prop="user">
+            <el-form-item label="名称" prop="name">
                 <el-input
                     clearable
-                    v-model="user"
-                    placeholder="审批人"
+                    v-model="name"
+                    placeholder="名称"
                 ></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" prop="region">
-                <el-select clearable v-model="region" placeholder="活动区域">
-                    <el-option value="">请选择</el-option>
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit(params, getDataList)"
@@ -58,18 +51,43 @@
             header-cell-class-name="ve_header_cell_class_name"
             style="width: 100%"
             :max-height="ve_max_height"
+            row-key="id"
+            default-expand-all
         >
-            <el-table-column fixed prop="date" label="日期" width="150">
+            <el-table-column prop="name" label="名称"> </el-table-column>
+            <el-table-column prop="icon" label="图标">
+                <template v-slot="{ row }">
+                    <i :class="row.icon">{{ row.icon }}</i>
+                </template>
             </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
+            <el-table-column prop="type" label="类型">
+                <template v-slot="{ row }">
+                    <el-tag :type="row.type == 0 ? 'danger' : ''">{{
+                        row.type == 0 ? "目录" : "菜单"
+                    }}</el-tag>
+                </template>
             </el-table-column>
-            <el-table-column prop="province" label="省份" width="120">
+            <el-table-column prop="sort" label="排序"> </el-table-column>
+            <el-table-column prop="iframe" label="Iframe">
+                <template v-slot="{ row }">
+                    <el-tag
+                        :type="row.iframe == 0 ? 'danger' : ''"
+                        effect="dark"
+                        >{{ row.iframe == 0 ? "否" : "是" }}</el-tag
+                    >
+                </template>
             </el-table-column>
-            <el-table-column prop="city" label="市区" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" width="300">
-            </el-table-column>
-            <el-table-column prop="zip" label="邮编" width="120">
+            <el-table-column prop="url" label="URL" show-overflow-tooltip>
+                <template v-slot="{ row }">
+                    <el-link
+                        v-if="isURL(row.url)"
+                        type="primary"
+                        :href="row.url"
+                        target="_blank"
+                        >{{ row.url }}</el-link
+                    >
+                    <span v-else>{{ row.url }}</span>
+                </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
@@ -113,6 +131,7 @@
 </template>
 
 <script>
+import { isURL } from "@/utils/validate";
 import MenuEdit from "./components/MenuEdit";
 import { reactive, toRefs, ref, onMounted } from "vue";
 //?导入公共查询方法
@@ -142,8 +161,7 @@ export default {
         const ve_rowIndex = ref(null);
         const tableData = ref([]);
         const params = reactive({
-            user: "",
-            region: "",
+            name: "",
             limit: 10,
             page: 1,
             total: 0
@@ -164,7 +182,7 @@ export default {
          * @return {*}
          */
         const getDataList = async () => {
-            const { code, data } = await VE_API.system.userList(params);
+            const { code, data } = await VE_API.system.menuList(params);
             if (code == "00") {
                 const { limit, page, total, list } = data;
                 params.limit = limit;
@@ -178,13 +196,13 @@ export default {
             await getDataList();
             maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
-        const { user, region, limit, page, total } = toRefs(params);
+        const { name, limit, page, total } = toRefs(params);
         return {
             getDataList,
             ve_rowIndex,
             tableData,
             params,
-            ...{ user, region, limit, page, total },
+            ...{ name, limit, page, total },
             ...{ handleEdit, rowData, dialogTitle, showDialog },
             ve_max_height,
             ...{ pagination, queryForm, toolBar },
@@ -197,7 +215,8 @@ export default {
                 cellClassName,
                 rowClick,
                 maxHeight
-            }
+            },
+            isURL
         };
     }
 };

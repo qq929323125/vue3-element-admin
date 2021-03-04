@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-02-26 11:19:24
+ * @LastEditTime: 2021-03-04 17:04:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -16,22 +16,32 @@
     >
         <!-- <span>{{ rowData }}</span> -->
         <!-- 表单 -->
-        <el-form :model="form" label-width="80px" :inline="false">
-            <el-form-item label="用户名">
-                <el-input v-model="uname" placeholder="" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="账号">
+        <el-form
+            :model="form"
+            ref="formRef"
+            :rules="rules"
+            label-width="80px"
+            :inline="false"
+        >
+            <el-form-item label="用户名" prop="name">
                 <el-input v-model="name" placeholder="" clearable></el-input>
             </el-form-item>
-            <el-form-item label="密码">
+            <el-form-item label="账号" prop="userName">
                 <el-input
-                    v-model="pwd"
+                    v-model="userName"
+                    placeholder=""
+                    clearable
+                ></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input
+                    v-model="password"
                     show-password
                     placeholder=""
                     clearable
                 ></el-input>
             </el-form-item>
-            <el-form-item label="角色">
+            <el-form-item label="角色" prop="role">
                 <el-select
                     style="width:100%"
                     v-model="role"
@@ -43,10 +53,10 @@
             </el-form-item>
             <el-form-item label="状态">
                 <el-radio-group v-model="status">
-                    <el-radio-button :label="true">
+                    <el-radio-button :label="1">
                         启用
                     </el-radio-button>
-                    <el-radio-button :label="false">
+                    <el-radio-button :label="0">
                         停用
                     </el-radio-button>
                 </el-radio-group>
@@ -56,16 +66,44 @@
         <template v-slot:footer>
             <span>
                 <el-button @click="closeDialog()">取消</el-button>
-                <el-button type="primary" @click="closeDialog()"
-                    >确定</el-button
-                >
+                <el-button type="primary" @click="onSubmit()">确定</el-button>
             </span>
         </template>
     </el-dialog>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, ref } from "vue";
+const rules = {
+    uname: [
+        {
+            required: true,
+            message: "请输入用户名",
+            trigger: "blur"
+        }
+    ],
+    name: [
+        {
+            required: true,
+            message: "请输入账户",
+            trigger: "blur"
+        }
+    ],
+    pwd: [
+        {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur"
+        }
+    ],
+    role: [
+        {
+            required: true,
+            message: "请选择角色",
+            trigger: "blur"
+        }
+    ]
+};
 export default {
     props: {
         showDialog: {
@@ -83,21 +121,52 @@ export default {
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
+        const { rowData } = toRefs(props);
         const closeDialog = () => {
             emit("closeDialog", false);
         };
+        const formRef = ref(null);
         const form = reactive({
-            uname: "",
             name: "",
-            pwd: "",
+            userName: "",
+            password: "",
             role: "",
-            status: true
+            status: 1
         });
-        const { uname, name, pwd, role, status } = toRefs(form);
+        const { userName, name, password, role, status } = toRefs(form);
+        /**
+         * @description: 初始化
+         * @param {*}
+         * @return {*}
+         */
+        rowData.value &&
+            ((name.value = rowData.value.name),
+            (userName.value = rowData.value.userName),
+            (password.value = rowData.value.password),
+            (role.value = rowData.value.role),
+            (status.value = rowData.value.status));
+        /**
+         * @description:提交
+         * @param {*}
+         * @return {*}
+         */
+        const onSubmit = () => {
+            formRef.value.validate(valid => {
+                if (valid) {
+                    closeDialog();
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        };
         return {
             closeDialog,
+            onSubmit,
+            rules,
+            formRef,
             form,
-            ...{ uname, name, pwd, role, status }
+            ...{ userName, name, password, role, status }
         };
     }
 };
