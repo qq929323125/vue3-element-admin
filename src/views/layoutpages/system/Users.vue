@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-04 16:29:44
+ * @LastEditTime: 2021-03-05 12:48:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -12,8 +12,12 @@
         <el-form ref="queryForm" :inline="true" :model="params">
             <el-form-item label="角色" prop="role">
                 <el-select clearable v-model="role" placeholder="活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option
+                        v-for="item in roleList"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id"
+                    ></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item>
@@ -65,7 +69,15 @@
                     </el-tooltip>
                 </template>
             </el-table-column>
-            <el-table-column prop="role" label="角色"> </el-table-column>
+            <el-table-column prop="role" label="角色">
+                <template v-slot="{ row }">
+                    <template v-for="item in roleList" :key="item.id">
+                        <el-tag v-if="row.role == item.id">{{
+                            item.name
+                        }}</el-tag>
+                    </template>
+                </template>
+            </el-table-column>
             <el-table-column prop="status" label="状态">
                 <template v-slot="{ row }">
                     <el-switch
@@ -154,6 +166,10 @@ export default {
             page: 1,
             total: 0
         });
+        const { role, limit, page, total } = toRefs(params);
+
+        const roleList = ref([]);
+
         /**
          * @description:添加or编辑事件
          * @param {*}
@@ -164,6 +180,25 @@ export default {
             dialogTitle.value = title;
             rowData.value = row;
         };
+        /**
+         * @description: 获取角色列表
+         * @param {*}
+         * @return {*}
+         */
+        const getRoleList = async () => {
+            const { code, data } = await VE_API.system.roleList(
+                {
+                    page: 1,
+                    limit: 10
+                },
+                { Global: false }
+            );
+            if (code == "00") {
+                const { list } = data;
+                roleList.value = list;
+            }
+        };
+
         /**
          * @description: 获取列表数据
          * @param {*}
@@ -180,10 +215,10 @@ export default {
             }
         };
         onMounted(async () => {
+            await getRoleList();
             await getDataList();
             maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
-        const { role, limit, page, total } = toRefs(params);
         return {
             ve_max_height,
             ve_rowIndex,
@@ -202,7 +237,8 @@ export default {
                 cellClassName,
                 rowClick,
                 maxHeight
-            }
+            },
+            roleList
         };
     }
 };

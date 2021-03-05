@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-04 17:37:56
+ * @LastEditTime: 2021-03-05 12:46:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\mock\modules\system.js
@@ -21,7 +21,7 @@ const userList = opt => {
                 name: "@cname",
                 userName: "@first",
                 password: "@last",
-                "role|0-10": 0,
+                "role|0-9": 0,
                 "status|0-1": 0
             }
         ]

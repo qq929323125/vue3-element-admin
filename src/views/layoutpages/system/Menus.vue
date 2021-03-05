@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-04 17:33:02
+ * @LastEditTime: 2021-03-05 10:26:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -166,6 +166,8 @@ export default {
             page: 1,
             total: 0
         });
+        const { name, limit, page, total } = toRefs(params);
+
         /**
          * @description:添加or编辑事件
          * @param {*}
@@ -196,7 +198,6 @@ export default {
             await getDataList();
             maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
-        const { name, limit, page, total } = toRefs(params);
         return {
             getDataList,
             ve_rowIndex,

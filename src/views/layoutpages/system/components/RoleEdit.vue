@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-04 17:18:06
+ * @LastEditTime: 2021-03-05 10:27:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -16,18 +16,24 @@
     >
         <!-- <span>{{ rowData }}</span> -->
         <!-- 表单 -->
-        <el-form :model="form" label-width="80px" :inline="false">
+        <el-form
+            :model="form"
+            ref="formRef"
+            :rules="rules"
+            label-width="80px"
+            :inline="false"
+        >
             <el-form-item label="名称" prop="name">
                 <el-input v-model="name" placeholder="" clearable></el-input>
             </el-form-item>
-            <el-form-item label="角色" prop="roleName">
+            <el-form-item label="角色名" prop="roleName">
                 <el-input
                     v-model="roleName"
                     placeholder=""
                     clearable
                 ></el-input>
             </el-form-item>
-            <el-form-item label="权限">
+            <el-form-item label="权限" prop="role">
                 <el-card
                     shadow="never"
                     :body-style="{ padding: 0, height: '200px' }"
@@ -48,10 +54,10 @@
             </el-form-item>
             <el-form-item label="状态" prop="status">
                 <el-radio-group v-model="status">
-                    <el-radio-button :label="true">
+                    <el-radio-button :label="1">
                         启用
                     </el-radio-button>
-                    <el-radio-button :label="false">
+                    <el-radio-button :label="0">
                         停用
                     </el-radio-button>
                 </el-radio-group>
@@ -61,9 +67,7 @@
         <template v-slot:footer>
             <span>
                 <el-button @click="closeDialog()">取消</el-button>
-                <el-button type="primary" @click="closeDialog()"
-                    >确定</el-button
-                >
+                <el-button type="primary" @click="onSubmit()">确定</el-button>
             </span>
         </template>
     </el-dialog>
@@ -72,6 +76,7 @@
 <script>
 import { onMounted, reactive, ref, toRefs, computed, nextTick } from "vue";
 import { useStore } from "vuex";
+
 export default {
     props: {
         showDialog: {
@@ -89,19 +94,75 @@ export default {
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
+        const { rowData } = toRefs(props);
         const closeDialog = () => {
             emit("closeDialog", false);
         };
         const form = reactive({
             roleName: "",
             name: "",
-            status: true
+            role: [],
+            status: 1
         });
-        const { roleName, name, status } = toRefs(form);
+        const { roleName, name, role, status } = toRefs(form);
+        const formRef = ref(null);
+        const rules = {
+            name: [
+                {
+                    required: true,
+                    message: "请输入名称",
+                    trigger: "blur"
+                }
+            ],
+            roleName: [
+                {
+                    required: true,
+                    message: "请输入角色名",
+                    trigger: "blur"
+                }
+            ],
+            role: [
+                {
+                    validator: (rule, value, callback) => {
+                        role.value = tree.value.getCheckedKeys();
+                        if (role.value.length < 1) {
+                            callback(new Error("请选择权限"));
+                        } else {
+                            callback();
+                        }
+                    },
+                    required: true
+                }
+            ]
+        };
         const tree = ref(null);
-
         const store = useStore();
         const menuList = computed(() => store.getters.menuList);
+        /**
+         * @description: 数据初始化
+         * @param {*}
+         * @return {*}
+         */
+        rowData.value &&
+            ((name.value = rowData.value.name),
+            (roleName.value = rowData.value.roleName),
+            (status.value = rowData.value.status));
+        /**
+         * @description:提交
+         * @param {*}
+         * @return {*}
+         */
+        const onSubmit = () => {
+            formRef.value.validate(valid => {
+                if (valid) {
+                    console.log(form);
+                    closeDialog();
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        };
         onMounted(() => {
             nextTick(() => {
                 tree.value.setCheckedNodes(menuList.value);
@@ -110,7 +171,10 @@ export default {
 
         return {
             closeDialog,
+            onSubmit,
             form,
+            formRef,
+            rules,
             ...{ roleName, name, status },
             tree,
             menuList

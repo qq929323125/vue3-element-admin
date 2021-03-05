@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-04 17:04:55
+ * @LastEditTime: 2021-03-05 12:51:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -48,7 +48,12 @@
                     placeholder=""
                     clearable
                 >
-                    <el-option label="管理员" :value="0"> </el-option>
+                    <el-option
+                        v-for="item in roleList"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id"
+                    ></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="状态">
@@ -75,21 +80,21 @@
 <script>
 import { reactive, toRefs, ref } from "vue";
 const rules = {
-    uname: [
+    name: [
         {
             required: true,
             message: "请输入用户名",
             trigger: "blur"
         }
     ],
-    name: [
+    userName: [
         {
             required: true,
             message: "请输入账户",
             trigger: "blur"
         }
     ],
-    pwd: [
+    password: [
         {
             required: true,
             message: "请输入密码",
@@ -134,6 +139,8 @@ export default {
             status: 1
         });
         const { userName, name, password, role, status } = toRefs(form);
+        const roleList = ref([]);
+
         /**
          * @description: 初始化
          * @param {*}
@@ -146,6 +153,25 @@ export default {
             (role.value = rowData.value.role),
             (status.value = rowData.value.status));
         /**
+         * @description: 获取角色列表
+         * @param {*}
+         * @return {*}
+         */
+        const getRoleList = async () => {
+            const { code, data } = await VE_API.system.roleList(
+                {
+                    page: 1,
+                    limit: 10
+                },
+                { Global: false }
+            );
+            if (code == "00") {
+                const { list } = data;
+                roleList.value = list;
+            }
+        };
+        getRoleList();
+        /**
          * @description:提交
          * @param {*}
          * @return {*}
@@ -153,6 +179,7 @@ export default {
         const onSubmit = () => {
             formRef.value.validate(valid => {
                 if (valid) {
+                    console.log(form);
                     closeDialog();
                 } else {
                     console.log("error submit!!");
@@ -166,7 +193,8 @@ export default {
             rules,
             formRef,
             form,
-            ...{ userName, name, password, role, status }
+            ...{ userName, name, password, role, status },
+            roleList
         };
     }
 };
