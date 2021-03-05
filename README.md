@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-03-05 18:02:39
+ * @LastEditTime: 2021-03-05 18:05:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\README.md
@@ -33,7 +33,7 @@ ___
 
 ## 部署步骤
 
-npm i
+npm i  
 npm run serve
 
 ## 目录结构描述
