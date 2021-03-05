@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-03-05 16:30:38
+ * @LastEditTime: 2021-03-05 16:35:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\README.md
@@ -12,7 +12,7 @@
 ## 项目简介
 
 基于vue3.0和element-plus开发的企业后台管理模板.
-![登录页]()
+![登录页](pwa/../pvw/login-min.png)
 ![404](https://github.com/qq929323125/element_vue3.0/blob/dev/pvw/404-min.png)
 ![用户管理]()
 ![菜单管理]()
