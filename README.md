@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-03-05 16:35:31
+ * @LastEditTime: 2021-03-05 18:02:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\README.md
@@ -11,37 +11,33 @@
 
 ## 项目简介
 
-基于vue3.0和element-plus开发的企业后台管理模板.
-![登录页](pwa/../pvw/login-min.png)
-![404](https://github.com/qq929323125/element_vue3.0/blob/dev/pvw/404-min.png)
-![用户管理]()
-![菜单管理]()
-![角色管理]()
-![iframe页面]()
+基于**vue3.0**和**element-plus**开发的企业后台管理模板.
+___
+![登录页](./pvw/login-min.png)
+![404](./pvw/404-min.png)
+![用户管理](./pvw/user-min.png)
+![菜单管理](./pvw/menu-min.png)
+![角色管理](./pvw/role-min.png)
+![iframe页面](./pvw/iframe-min.png)
 
 ## 功能特性
+
+项目使用了最新的**vue3.0全家桶**+**element-plus**+**mockjs**+**axios**.项目继成了**mockServe**,可脱离后端自主开发测试
+对**axios**深度封装,采用动态路由,路由配置更简单,**mockServe**独立开发测试时在nodework直观查看接口数据
+
+
+
 ## 环境依赖
+
+**node 14+**, **vueCli 4+**
+
 ## 部署步骤
-## 目录结构描述
-## 声明
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
+npm i
 npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 目录结构描述
 
-### Lints and fixes files
-```
-npm run lint
-```
+![项目目录](./pvw/01.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 声明
