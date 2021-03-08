@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-03 17:07:31
+ * @LastEditTime: 2021-03-08 10:12:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -38,7 +38,7 @@ export default {
     setup() {
         const router = useRouter();
         const clickMenu = menu => {
-            let name = menu.url.replace("/", "-") + `-${menu.id}`;
+            let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
             if (menu.iframe == 1) {
                 name = `i-${menu.id}`;
             }

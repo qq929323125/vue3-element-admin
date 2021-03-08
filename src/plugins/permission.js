@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-03 17:08:45
+ * @LastEditTime: 2021-03-08 09:21:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -90,11 +90,6 @@ export default {
                             menuList[i].url.replace(/\//g, "-") +
                             `-${menuList[i].id}`
                         // meta: {
-                        //     menuId: menuList[i].menuId,
-                        //     title: menuList[i].name,
-                        //     isDynamic: true,
-                        //     isTab: true,
-                        //     iframeUrl: ""
                         // }
                     };
                     // url以http[s]://开头, 通过iframe展示
