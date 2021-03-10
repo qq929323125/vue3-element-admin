@@ -1,17 +1,17 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-08 10:12:07
+ * @LastEditTime: 2021-03-10 10:21:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
 -->
 <template>
     <el-submenu
-        :index="menu.name"
-        v-if="menu.children && menu.children.length > 0"
+        :index="menu.id"
+        v-if="menu.type == 0 && menu.children && menu.children.length > 0"
     >
-        <template #title>
+        <template v-slot:title>
             <i :class="menu.icon"></i>
             <span>{{ menu.name }}</span>
         </template>
@@ -22,7 +22,7 @@
         ></slide-menu>
     </el-submenu>
     <el-menu-item
-        v-else-if="menu.url"
+        v-else-if="menu.type == 1"
         :index="setIndex(menu)"
         @click="clickMenu(menu)"
     >

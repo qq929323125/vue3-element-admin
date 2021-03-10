@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-08 09:21:01
+ * @LastEditTime: 2021-03-10 10:12:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -77,9 +77,14 @@ export default {
         const fnAddDynamicMenuRoutes = async (menuList = [], routes = []) => {
             let temp = [];
             for (let i = 0; i < menuList.length; i++) {
-                if (menuList[i].children && menuList[i].children.length >= 1) {
+                if (
+                    menuList[i].type == 0 &&
+                    menuList[i].children &&
+                    menuList[i].children.length >= 1
+                ) {
                     temp = temp.concat(menuList[i].children);
-                } else if (menuList[i].url && /\S/.test(menuList[i].url)) {
+                } else if (menuList[i].type == 1) {
+                    // } else if (menuList[i].type==1 && /\S/.test(menuList[i].url)) {
                     // const url = menuList[i].url.replace(/\//g, "_");
                     let route = {
                         path:

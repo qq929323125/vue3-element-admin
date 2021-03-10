@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-08 15:12:40
+ * @LastEditTime: 2021-03-10 10:23:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -84,6 +84,7 @@
             <el-table-column prop="iframe" label="Iframe">
                 <template v-slot="{ row }">
                     <el-tag
+                        v-if="row.type == 1"
                         :type="row.iframe == 0 ? 'danger' : ''"
                         effect="dark"
                         >{{ row.iframe == 0 ? "否" : "是" }}</el-tag
