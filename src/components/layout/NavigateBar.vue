@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 11:50:47
- * @LastEditTime: 2021-01-15 16:57:12
+ * @LastEditTime: 2021-03-08 14:59:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\navbar.vue
@@ -18,7 +18,7 @@ import Hamburger from "./components/Hamburger.vue";
 import Breadcrumb from "./components/Breadcrumb.vue";
 import Personal from "./components/Personal.vue";
 export default {
-    name: "NavBar",
+    name: "NavigateBar",
     components: {
         Hamburger,
         Breadcrumb,

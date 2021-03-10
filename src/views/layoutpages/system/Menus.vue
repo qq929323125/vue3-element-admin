@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-05 10:26:29
+ * @LastEditTime: 2021-03-08 15:12:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -62,9 +62,22 @@
             </el-table-column>
             <el-table-column prop="type" label="类型">
                 <template v-slot="{ row }">
-                    <el-tag :type="row.type == 0 ? 'danger' : ''">{{
-                        row.type == 0 ? "目录" : "菜单"
-                    }}</el-tag>
+                    <el-tag
+                        :type="
+                            row.type == 0
+                                ? ''
+                                : row.type == 1
+                                ? 'success'
+                                : 'info'
+                        "
+                        >{{
+                            row.type == 0
+                                ? "目录"
+                                : row.type == 1
+                                ? "菜单"
+                                : "按钮"
+                        }}</el-tag
+                    >
                 </template>
             </el-table-column>
             <el-table-column prop="sort" label="排序"> </el-table-column>

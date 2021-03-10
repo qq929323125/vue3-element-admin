@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-05 09:40:47
+ * @LastEditTime: 2021-03-10 09:57:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -23,16 +23,43 @@
             :rules="rules"
             :inline="false"
         >
-            <el-form-item label="名称" prop="name">
-                <el-input v-model="name"></el-input>
-            </el-form-item>
             <el-form-item label="类型">
                 <el-radio-group v-model="type" @change="changeType">
                     <el-radio-button :label="0">目录</el-radio-button>
                     <el-radio-button :label="1">菜单</el-radio-button>
+                    <!-- <el-radio-button :label="2">按钮</el-radio-button> -->
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="图标" prop="icon">
+            <el-form-item label="父级">
+                <el-cascader
+                    style="width:100%"
+                    :options="menuList"
+                    v-model="pId"
+                    clearable
+                    filterable
+                    :props="{
+                        checkStrictly: true,
+                        value: 'id',
+                        label: 'name',
+                        disabled: 'iframe'
+                    }"
+                >
+                </el-cascader>
+            </el-form-item>
+
+            <el-form-item label="排序">
+                <el-input-number
+                    v-model="sort"
+                    :min="0"
+                    step-strictly
+                    :step="1"
+                >
+                </el-input-number>
+            </el-form-item>
+            <el-form-item label="名称" prop="name" v-show="type != 2">
+                <el-input v-model="name"></el-input>
+            </el-form-item>
+            <el-form-item label="图标" prop="icon" v-show="type != 2">
                 <el-select
                     style="width:100%"
                     v-model="icon"
@@ -55,31 +82,7 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="父级">
-                <el-cascader
-                    style="width:100%"
-                    :options="menuList"
-                    v-model="pId"
-                    clearable
-                    filterable
-                    :props="{
-                        checkStrictly: true,
-                        value: 'id',
-                        label: 'name',
-                        disabled: 'url'
-                    }"
-                >
-                </el-cascader>
-            </el-form-item>
-            <el-form-item label="排序">
-                <el-input-number
-                    v-model="sort"
-                    :min="0"
-                    step-strictly
-                    :step="1"
-                >
-                </el-input-number>
-            </el-form-item>
+
             <el-form-item label="iframe" v-show="type == 1" @change="url = ''">
                 <el-radio-group v-model="iframe">
                     <el-radio-button :label="0">否</el-radio-button>
@@ -113,6 +116,12 @@
                         >
                     </el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="按钮" prop="menu" v-show="type == 2">
+                <el-radio-group v-model="menu">
+                    <el-radio label="search" border>查询</el-radio>
+                    <el-radio label="edit" border>编辑</el-radio>
+                </el-radio-group>
             </el-form-item>
         </el-form>
 
@@ -178,12 +187,13 @@ export default {
             name: "",
             type: 0,
             pId: [],
+            menu: "",
             url: "",
             icon: "el-icon-menu",
-            iframe: 0,
+            iframe: 1,
             sort: 1
         });
-        const { name, type, pId, url, icon, iframe, sort } = toRefs(form);
+        const { name, type, pId, menu, url, icon, iframe, sort } = toRefs(form);
         const rules = reactive({
             name: [
                 {
@@ -269,7 +279,7 @@ export default {
             formRef,
             rules,
             form,
-            ...{ name, type, pId, url, icon, iframe, sort }
+            ...{ name, type, pId, menu, url, icon, iframe, sort }
         };
     }
 };

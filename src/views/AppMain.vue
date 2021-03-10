@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-03-02 17:15:32
+ * @LastEditTime: 2021-03-08 14:59:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\main.vue
@@ -11,7 +11,9 @@
     <el-container>
         <el-aside width="auto"><side-bar></side-bar></el-aside>
         <el-container>
-            <el-header :height="nav_height"><nav-bar></nav-bar></el-header>
+            <el-header :height="nav_height"
+                ><navigate-bar></navigate-bar
+            ></el-header>
             <el-main :style="styles"
                 ><el-scrollbar
                     style="padding:20px;box-sizing:border-box;background:#fff"
@@ -25,13 +27,13 @@
 </template>
 <script>
 import { nav_height } from "@/styles/variables.scss.js";
-import NavBar from "@/components/layout/NavBar.vue";
+import NavigateBar from "@/components/layout/NavigateBar.vue";
 import SideBar from "@/components/layout/SideBar.vue";
 
 export default {
     name: "AppMain",
     components: {
-        NavBar,
+        NavigateBar,
         SideBar
     },
     // 获取用户相关信息和路由权限
