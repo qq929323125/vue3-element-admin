@@ -10,13 +10,13 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-plus": "^1.0.1-beta.27",
-    "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "qs": "^6.9.6",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "xe-utils": "^3.1.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

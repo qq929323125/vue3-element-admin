@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-03-03 14:42:45
+ * @LastEditTime: 2021-03-11 16:12:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
@@ -25,7 +25,7 @@ module.exports = {
     chainWebpack: config => {
         config.plugin("provide").use(webpack.ProvidePlugin, [
             {
-                _: "lodash"
+                XE: "xe-utils"
             }
         ]);
         config.plugin("define").use(webpack.DefinePlugin, [

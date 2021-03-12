@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 17:30:30
- * @LastEditTime: 2021-03-02 14:10:05
+ * @LastEditTime: 2021-03-12 12:18:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\store\modules\app1.js
@@ -14,6 +14,7 @@ export default {
         },
         token: sessionStorage.getItem("token") || "",
         menuList: null,
+        permissionList: [],
         uname: sessionStorage.getItem("uname") || ""
     },
     mutations: {
@@ -34,6 +35,9 @@ export default {
         },
         SET_MENU_LIST(state, menuList) {
             state.menuList = menuList;
+        },
+        SET_PERMISSION_LIST(state, permissionList) {
+            state.permissionList = permissionList;
         }
     },
     actions: {
@@ -48,6 +52,18 @@ export default {
         },
         set_menu_list({ commit }, menuList) {
             commit("SET_MENU_LIST", menuList);
+        },
+        set_permission_List({ commit }, menuList) {
+            let allMenus = XE.filterTree(menuList, item => item.type == 1);
+            let permissionList = [];
+            allMenus.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    item.children.forEach(menu => {
+                        permissionList.push(`${item.url}/${menu.menu}`);
+                    });
+                }
+            });
+            commit("SET_PERMISSION_LIST", permissionList);
         }
     }
 };

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-10 10:23:34
+ * @LastEditTime: 2021-03-12 14:59:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -18,8 +18,10 @@
                 ></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(params, getDataList)"
-                    >查询</el-button
+                <el-button
+                    type="primary"
+                    @click="onSubmit(params, getDataList)"
+                    >{{ menus.search }}</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
                     >重置</el-button
@@ -29,8 +31,12 @@
 
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
-            <el-button size="mini" type="primary" @click="handleEdit('添加')"
-                >添加</el-button
+            <el-button
+                v-permission="'add'"
+                size="mini"
+                type="primary"
+                @click="handleEdit(menus.add)"
+                >{{ menus.add }}</el-button
             >
         </el-row>
 
@@ -68,7 +74,7 @@
                                 ? ''
                                 : row.type == 1
                                 ? 'success'
-                                : 'info'
+                                : 'warning'
                         "
                         >{{
                             row.type == 0
@@ -91,26 +97,45 @@
                     >
                 </template>
             </el-table-column>
-            <el-table-column prop="url" label="URL" show-overflow-tooltip>
+            <el-table-column prop="url" label="URL/标识" show-overflow-tooltip>
                 <template v-slot="{ row }">
-                    <el-link
-                        v-if="isURL(row.url)"
-                        type="primary"
-                        :href="row.url"
-                        target="_blank"
-                        >{{ row.url }}</el-link
-                    >
-                    <span v-else>{{ row.url }}</span>
+                    <template v-if="row.type == 1">
+                        <el-link
+                            v-if="isURL(row.url)"
+                            type="primary"
+                            :href="row.url"
+                            target="_blank"
+                            >{{ row.url }}</el-link
+                        >
+                        <span v-else>{{ row.url }}</span>
+                    </template>
+                    <span v-else-if="row.type == 2">{{ row.menu }}</span>
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        @click.prevent="handleEdit('编辑', row)"
+                        @click.prevent="handleEdit(menus.edit, row)"
                         type="primary"
                         size="mini"
                     >
-                        编辑
+                        {{ menus.edit }}
+                    </el-button>
+                    <el-button
+                        v-if="row.type == 0"
+                        @click.prevent="handleEdit(menus.addChild, row)"
+                        type="warning"
+                        size="mini"
+                    >
+                        {{ menus.addChild }}</el-button
+                    >
+                    <el-button
+                        v-if="row.type == 1 && row.iframe == 0"
+                        @click.prevent="handleEdit(menus.addMenu, row)"
+                        type="success"
+                        size="mini"
+                    >
+                        {{ menus.addMenu }}
                     </el-button>
                 </template>
             </el-table-column>
@@ -160,7 +185,16 @@ import {
     maxHeight
 } from "@/views/layoutpages/common";
 export default {
-    description: "菜单查询与设置",
+    data: () => ({
+        description: "菜单查询与设置",
+        menus: {
+            search: "查询",
+            add: "添加",
+            edit: "编辑",
+            addChild: "添加子级",
+            addMenu: "添加按钮"
+        }
+    }),
     components: {
         MenuEdit
     },

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-10 10:12:02
+ * @LastEditTime: 2021-03-12 12:04:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -53,9 +53,25 @@ export default {
                 } else {
                     let data = await VE_API.user.userMenuList();
                     if (data && data.code === "00") {
+                        let _list = XE.clone(data.list, true);
+                        data.list = XE.mapTree(
+                            XE.toArrayTree(XE.toTreeArray(_list), {
+                                sortKey: "sort"
+                            }),
+                            item => {
+                                if (item.children.length <= 0) {
+                                    delete item.children;
+                                }
+                                return item;
+                            }
+                        );
                         await fnAddDynamicMenuRoutes(data.list);
                         router.options.isAddDynamicMenuRoutes = true;
                         await store.dispatch("app/set_menu_list", data.list);
+                        await store.dispatch(
+                            "app/set_permission_List",
+                            data.list
+                        );
                         NProgress.start();
                         next({ ...to, replace: true });
                     } else {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-03-08 16:02:44
+ * @LastEditTime: 2021-03-12 10:55:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -12,6 +12,7 @@ const menuItem = Mock.mock({
     message: "查询成功!",
     list: [
         {
+            parentId: -1,
             id: 100,
             name: "系统设置", //看官网，这个名字是3-5之间的
             url: "",
@@ -22,16 +23,29 @@ const menuItem = Mock.mock({
             iframe: 1,
             children: [
                 {
+                    parentId: 100,
                     id: 101,
                     name: "用户管理", //看官网，这个名字是3-5之间的
                     url: "system/Users", //这个类似上面的id一个，只是初始值是从100开始的
                     menu: "",
                     type: 1,
                     icon: "el-icon-user-solid",
+                    sort: 2,
+                    iframe: 0
+                },
+                {
+                    parentId: 100,
+                    id: 102,
+                    name: "菜单管理", //看官网，这个名字是3-5之间的
+                    url: "system/Menus", //这个类似上面的id一个，只是初始值是从100开始的
+                    menu: "",
+                    type: 1,
+                    icon: "el-icon-s-order",
                     sort: 1,
                     iframe: 0,
                     children: [
                         {
+                            parentId: 102,
                             id: 201,
                             name: "查询", //看官网，这个名字是3-5之间的
                             url: "", //这个类似上面的id一个，只是初始值是从100开始的
@@ -40,32 +54,35 @@ const menuItem = Mock.mock({
                             icon: "",
                             sort: 1,
                             iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 205,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
                         }
                     ]
                 },
                 {
-                    id: 102,
-                    name: "菜单管理", //看官网，这个名字是3-5之间的
-                    url: "system/Menus", //这个类似上面的id一个，只是初始值是从100开始的
-                    menu: "",
-                    type: 1,
-                    icon: "el-icon-s-order",
-                    sort: 1,
-                    iframe: 0
-                },
-                {
+                    parentId: 100,
                     id: 103,
                     name: "角色管理", //看官网，这个名字是3-5之间的
                     url: "system/Roles", //这个类似上面的id一个，只是初始值是从100开始的
                     menu: "",
                     type: 1,
                     icon: "el-icon-s-check",
-                    sort: 1,
+                    sort: 3,
                     iframe: 0
                 }
             ]
         },
         {
+            parentId: -1,
             id: 4,
             name: "参考资料", //看官网，这个名字是3-5之间的
             url: "",
@@ -75,17 +92,19 @@ const menuItem = Mock.mock({
             sort: 1,
             iframe: 1,
             children: [
+                // {
+                //     parentId: 4,
+                //     id: 5,
+                //     name: "vue3.0", //看官网，这个名字是3-5之间的
+                //     url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
+                //     menu: "",
+                //     type: 1,
+                //     icon: "el-icon-s-promotion",
+                //     sort: 1,
+                //     iframe: 1
+                // },
                 {
-                    id: 5,
-                    name: "vue3.0", //看官网，这个名字是3-5之间的
-                    url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
-                    menu: "",
-                    type: 1,
-                    icon: "el-icon-s-promotion",
-                    sort: 1,
-                    iframe: 1
-                },
-                {
+                    parentId: 4,
                     id: 6,
                     name: "element-plus", //看官网，这个名字是3-5之间的
                     url: "https://element-plus.org/#/zh-CN", //这个类似上面的id一个，只是初始值是从100开始的

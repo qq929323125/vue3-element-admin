@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-10 10:24:38
+ * @LastEditTime: 2021-03-12 10:14:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -25,24 +25,27 @@
         >
             <el-form-item label="类型">
                 <el-radio-group v-model="type" @change="changeType">
-                    <el-radio-button :label="0">目录</el-radio-button>
-                    <el-radio-button :label="1">菜单</el-radio-button>
-                    <!-- <el-radio-button :label="2">按钮</el-radio-button> -->
+                    <el-radio-button :disabled="typeItemDisabled(0)" :label="0"
+                        >目录</el-radio-button
+                    >
+                    <el-radio-button :disabled="typeItemDisabled(1)" :label="1"
+                        >菜单</el-radio-button
+                    >
+                    <el-radio-button :disabled="typeItemDisabled(2)" :label="2"
+                        >按钮</el-radio-button
+                    >
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="父级">
+            <el-form-item label="父级" prop="pId">
                 <el-cascader
                     style="width:100%"
                     :options="menuList"
                     v-model="pId"
                     clearable
                     filterable
-                    :props="{
-                        checkStrictly: true,
-                        value: 'id',
-                        label: 'name',
-                        disabled: 'iframe'
-                    }"
+                    :props="cascaderProp"
+                    @change="cascaderChange"
+                    :disabled="title != '添加'"
                 >
                 </el-cascader>
             </el-form-item>
@@ -83,7 +86,11 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="iframe" v-show="type == 1" @change="url = ''">
+            <el-form-item
+                label="iframe"
+                v-show="type == 1"
+                @change="changeIframe()"
+            >
                 <el-radio-group v-model="iframe">
                     <el-radio-button :label="0">否</el-radio-button>
                     <el-radio-button :label="1">是</el-radio-button>
@@ -118,10 +125,18 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="按钮" prop="menu" v-show="type == 2">
-                <el-radio-group v-model="menu">
-                    <el-radio label="search" border>查询</el-radio>
-                    <el-radio label="edit" border>编辑</el-radio>
-                </el-radio-group>
+                <template v-if="menuOptions">
+                    <el-radio-group v-model="menu" @change="changeMenu()">
+                        <el-radio
+                            v-for="(item, key) in menuOptions"
+                            :key="key"
+                            :label="key"
+                            :disabled="menuDisabled(key)"
+                            >{{ item }}</el-radio
+                        >
+                    </el-radio-group>
+                </template>
+                <span style="color:red" v-else>该菜单下没有按钮</span>
             </el-form-item>
         </el-form>
 
@@ -147,7 +162,12 @@ const getfiles = () => {
         .map(key => {
             return {
                 url: key.replace(/^(\.\/)|(\.vue)/g, ""),
-                description: files(key).default.description || "无"
+                description:
+                    files(key).default.data &&
+                    (files(key).default.data().description || "无"),
+                menus:
+                    files(key).default.data &&
+                    (files(key).default.data().menus || [])
             };
         })
         .filter(key => {
@@ -176,7 +196,7 @@ export default {
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
-        const { rowData } = toRefs(props);
+        const { title, rowData } = toRefs(props);
         const store = useStore();
         const menuList = computed(() => store.getters.menuList);
         const closeDialog = () => {
@@ -186,7 +206,7 @@ export default {
         const form = reactive({
             name: "",
             type: 0,
-            pId: [],
+            pId: "",
             menu: "",
             url: "",
             icon: "el-icon-menu",
@@ -194,30 +214,76 @@ export default {
             sort: 1
         });
         const { name, type, pId, menu, url, icon, iframe, sort } = toRefs(form);
-        const rules = reactive({
+        /**
+         * @description: 字段重置
+         * @param {*}
+         * @return {*}
+         */
+        const resetForm = () => {
+            name.value = "";
+            menu.value = "";
+            url.value = "";
+            icon.value = "el-icon-menu";
+            iframe.value = 1;
+            sort.value = 1;
+        };
+
+        /**
+         * @description: 级联选择器props
+         * @param {*} computed
+         * @return {*}
+         */
+        const cascaderProp = computed(() => ({
+            emitPath: false,
+            checkStrictly: true,
+            value: "id",
+            label: "name",
+            disabled: type.value == 2 ? "iframe" : "type"
+        }));
+        /**表单验证规则
+         * @description:
+         * @param {*} computed
+         * @return {*}
+         */
+        const rules = computed(() => ({
+            pId: [
+                {
+                    required: type.value == 2 ? true : false,
+                    message: "请选择父级菜单",
+                    trigger: "change"
+                }
+            ],
             name: [
                 {
-                    required: true,
+                    required: type.value != 2 ? true : false,
                     message: "请输入菜单名称",
                     trigger: "blur"
                 }
             ],
+            menu: [
+                {
+                    required: type.value == 2 ? true : false,
+                    message: "请选择按钮",
+                    trigger: "change"
+                }
+            ],
             icon: [
                 {
-                    required: true,
+                    required: type.value != 2 ? true : false,
                     message: "请选择图标",
                     trigger: "change"
                 }
             ],
             url: [
                 {
-                    required: false,
+                    required: type.value == 1 ? true : false,
                     pattern: /^(https?:\/\/)?(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i,
                     message: "url不正确",
                     trigger: "change"
                 }
             ]
-        });
+        }));
+
         /**
          * @description:初始化赋值
          * @param {*}
@@ -229,8 +295,9 @@ export default {
             (pId.value = treeFindPath(
                 menuList.value,
                 data => data.id === rowData.value.id
-            ).slice(0, -1)),
+            ).slice(-2, -1)[0]),
             (url.value = rowData.value.url),
+            (menu.value = rowData.value.menu),
             (icon.value = rowData.value.icon),
             (iframe.value = rowData.value.iframe),
             (sort.value = rowData.value.sort));
@@ -239,20 +306,132 @@ export default {
          * @param {*}
          * @return {*}
          */
-        onMounted(() => {
-            nextTick(() => {
-                rules.url[0].required = type.value == 1 ? true : false;
-                formRef.value.clearValidate("url");
-            });
-        });
         const changeType = () => {
+            formRef.value.resetFields();
+        };
+        /**
+         * @description: 父级id切换事件
+         * @param {*}
+         * @return {*}
+         */
+        const cascaderChange = () => {
+            if (type.value == 2) {
+                name.value = "";
+                menu.value = "";
+                nextTick(() => {
+                    formRef.value.clearValidate("menu");
+                });
+            }
+        };
+        /**
+         * @description:iframe切换事件
+         * @param {*}
+         * @return {*}
+         */
+        const changeIframe = () => {
             url.value = "";
-            rules.url[0].required = type.value == 1 ? true : false;
             nextTick(() => {
+                if (rowData.value && iframe.value == rowData.value.iframe) {
+                    url.value = rowData.value.url;
+                }
                 formRef.value.clearValidate("url");
             });
         };
+        /**
+         * @description:切换菜单按钮触发事件
+         * @param {*}
+         * @return {*}
+         */
+        const changeMenu = () => {
+            name.value = menuOptions.value[menu.value];
+        };
+        /**
+         * @description: 按钮的禁用函数
+         * @param {*}
+         * @return {*}
+         */
+        const typeItemDisabled = computed(() => label => {
+            let flag = true;
+            switch (title.value) {
+                case "编辑":
+                    if (label == type.value) {
+                        flag = false;
+                    }
+                    break;
+                case "添加子级":
+                    if (label == 0 || label == 1) {
+                        flag = false;
+                    }
+                    break;
+                case "添加按钮":
+                    if (label == 2) {
+                        flag = false;
+                    }
+                    break;
 
+                default:
+                    flag = false;
+                    break;
+            }
+            return flag;
+        });
+
+        /**
+         * @description:获取menus列表
+         * @param {*}
+         * @return {*}
+         */
+        const menuOptions = computed(() => {
+            // if (title.value == "添加" || title.value == "添加按钮") {
+            let _item = XE.findTree(
+                menuList.value,
+                item => item.id == pId.value
+            );
+            if (_item && getfiles().find(item => item.url == _item.item.url)) {
+                return getfiles().find(item => item.url == _item.item.url)
+                    .menus;
+            } else {
+                return false;
+            }
+            // }
+        });
+        /**
+         * @description: 已添加的按钮设为禁用
+         * @param {*}
+         * @return {*}
+         */
+        const menuDisabled = computed(() => key => {
+            let _item = XE.findTree(
+                menuList.value,
+                item => item.id == pId.value
+            );
+            if (_item) {
+                if (rowData.value && key == rowData.value.menu) {
+                    return false;
+                }
+                return (
+                    _item.item.children.find(item => item.menu == key) && true
+                );
+            }
+        });
+        /**
+         * @description: 监听title
+         * @param {*}
+         * @return {*}
+         */
+        const watchTitle = () => {
+            if (title.value == "添加按钮" || title.value == "添加子级") {
+                resetForm();
+                pId.value = treeFindPath(
+                    menuList.value,
+                    data => data.id === rowData.value.id
+                ).slice(-1)[0];
+                title.value == "添加按钮" && (type.value = 2);
+            }
+        };
+        onMounted(() => {
+            watchTitle();
+        });
         /**
          * @description:提交表单
          * @param {*}
@@ -275,11 +454,18 @@ export default {
             closeDialog,
             onSubmit,
             changeType,
+            changeIframe,
+            typeItemDisabled,
             menuList,
             formRef,
             rules,
             form,
-            ...{ name, type, pId, menu, url, icon, iframe, sort }
+            ...{ name, type, pId, menu, url, icon, iframe, sort },
+            cascaderProp,
+            menuOptions,
+            menuDisabled,
+            cascaderChange,
+            changeMenu
         };
     }
 };

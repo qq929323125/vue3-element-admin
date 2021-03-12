@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-03-02 17:41:38
+ * @LastEditTime: 2021-03-12 15:57:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue_3.0_test\src\main.js
@@ -14,6 +14,7 @@ import store from "@/store";
 import installElementPlus from "@/plugins/element";
 import permission from "@/plugins/permission";
 import mock from "@/plugins/mock";
+import directives from "@/directives";
 
 import "normalize.css/normalize.css";
 import "nprogress/nprogress.css";
@@ -26,4 +27,5 @@ createApp(App)
     .use(installElementPlus)
     .use(axios, { router, store, opt: "VE_API" })
     .use(permission, { router, store })
+    .use(directives, { router, store })
     .mount("#app");

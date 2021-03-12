@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-05 12:48:20
+ * @LastEditTime: 2021-03-11 15:10:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -65,17 +65,23 @@
                         :content="row.password"
                         placement="top"
                     >
-                        <span>{{ `***${row.password}***` }}</span>
+                        <span>{{
+                            row.password &&
+                                row.password
+                                    .split("")
+                                    .fill("*", 1, -1)
+                                    .join()
+                                    .replace(/\,/g, "")
+                        }}</span>
                     </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column prop="role" label="角色">
                 <template v-slot="{ row }">
-                    <template v-for="item in roleList" :key="item.id">
-                        <el-tag v-if="row.role == item.id">{{
-                            item.name
-                        }}</el-tag>
-                    </template>
+                    <el-tag>{{
+                        (row.role || row.role == 0) &&
+                            roleList.filter(item => item.id == row.role)[0].name
+                    }}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="status" label="状态">
