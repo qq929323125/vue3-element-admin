@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-05 10:27:42
+ * @LastEditTime: 2021-03-15 11:17:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -47,8 +47,16 @@
                             empty-text="暂无数据"
                             show-checkbox
                             highlight-current
-                        ></el-tree
-                    ></el-scrollbar>
+                        >
+                            <template v-slot="{ data }">
+                                <span
+                                    :data-roleId="data.id"
+                                    :class="{ ve_tree_item: data.type == 2 }"
+                                    >{{ data.name }}</span
+                                >
+                            </template>
+                        </el-tree></el-scrollbar
+                    >
                     <!-- card body -->
                 </el-card>
             </el-form-item>
@@ -74,9 +82,8 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, toRefs, computed, nextTick } from "vue";
-import { useStore } from "vuex";
-
+import { onMounted, reactive, ref, toRefs, nextTick } from "vue";
+import { treeFindPath } from "@/utils";
 export default {
     props: {
         showDialog: {
@@ -136,8 +143,7 @@ export default {
             ]
         };
         const tree = ref(null);
-        const store = useStore();
-        const menuList = computed(() => store.getters.menuList);
+        const menuList = ref([]);
         /**
          * @description: 数据初始化
          * @param {*}
@@ -163,8 +169,49 @@ export default {
                 }
             });
         };
-        onMounted(() => {
+
+        /**
+         * @description: 获取菜单数据
+         * @param {*}
+         * @return {*}
+         */
+        const getMenuList = async () => {
+            const { code, data } = await VE_API.system.menuList(
+                {
+                    limit: 10,
+                    page: 1,
+                    total: 0
+                },
+                { Global: false }
+            );
+            if (code == "00") {
+                const { list } = data;
+                menuList.value = list;
+            }
+        };
+
+        /**
+         * @description:改变按钮的排列样式
+         * @param {*}
+         * @return {*}
+         */
+        const setMenuStyle = () => {
+            let eles = document.getElementsByClassName("ve_tree_item");
+            eles.forEach(e => {
+                const roleId = e.dataset.roleid * 1;
+                const index =
+                    treeFindPath(menuList.value, item => item.id == roleId)
+                        .length - 1;
+                e.parentNode.parentNode.parentNode.style.paddingLeft =
+                    index * 18 + "px";
+                let oldClass = e.parentNode.className;
+                e.parentNode.className = oldClass + " fl p0";
+            });
+        };
+        onMounted(async () => {
+            await getMenuList();
             nextTick(() => {
+                setMenuStyle();
                 tree.value.setCheckedNodes(menuList.value);
             });
         });
@@ -183,4 +230,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.fl {
+    float: left;
+}
+.p0 {
+    padding: 0 !important;
+}
+.clear_both ::after {
+    clear: both;
+}
+</style>

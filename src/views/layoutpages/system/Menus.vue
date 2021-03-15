@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-12 14:59:36
+ * @LastEditTime: 2021-03-15 10:09:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -32,7 +32,6 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
-                v-permission="'add'"
                 size="mini"
                 type="primary"
                 @click="handleEdit(menus.add)"
@@ -161,6 +160,7 @@
         <!-- 编辑组件 -->
         <menu-edit
             v-if="showDialog"
+            :menuList="tableData"
             :rowData="rowData"
             :title="dialogTitle"
             :showDialog="showDialog"

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-12 10:53:18
+ * @LastEditTime: 2021-03-12 18:08:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\mock\modules\system.js
@@ -97,7 +97,62 @@ const menuList = Mock.mock({
                         },
                         {
                             parentId: 102,
-                            id: 205,
+                            id: 705,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 605,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 505,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 405,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 805,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 305,
                             name: "添加子级", //看官网，这个名字是3-5之间的
                             url: "", //这个类似上面的id一个，只是初始值是从100开始的
                             menu: "addChild",

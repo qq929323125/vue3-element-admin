@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-12 10:14:47
+ * @LastEditTime: 2021-03-15 11:52:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -177,7 +177,7 @@ const getfiles = () => {
 
 import { icons, treeFindPath } from "@/utils";
 import { reactive, ref, toRefs, computed, nextTick, onMounted } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 
 export default {
     props: {
@@ -192,13 +192,15 @@ export default {
         rowData: {
             type: Object,
             default: null
+        },
+        menuList: {
+            type: Array,
+            default: null
         }
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
-        const { title, rowData } = toRefs(props);
-        const store = useStore();
-        const menuList = computed(() => store.getters.menuList);
+        const { title, rowData, menuList } = toRefs(props);
         const closeDialog = () => {
             emit("closeDialog", false);
         };
@@ -292,10 +294,7 @@ export default {
         rowData.value &&
             ((name.value = rowData.value.name),
             (type.value = rowData.value.type),
-            (pId.value = treeFindPath(
-                menuList.value,
-                data => data.id === rowData.value.id
-            ).slice(-2, -1)[0]),
+            (pId.value = rowData.value.parentId),
             (url.value = rowData.value.url),
             (menu.value = rowData.value.menu),
             (icon.value = rowData.value.icon),
@@ -456,7 +455,7 @@ export default {
             changeType,
             changeIframe,
             typeItemDisabled,
-            menuList,
+            // menuList,
             formRef,
             rules,
             form,

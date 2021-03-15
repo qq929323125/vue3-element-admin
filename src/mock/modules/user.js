@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 10:50:33
- * @LastEditTime: 2021-03-12 10:55:32
+ * @LastEditTime: 2021-03-12 18:09:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\user.js
@@ -57,7 +57,62 @@ const menuItem = Mock.mock({
                         },
                         {
                             parentId: 102,
-                            id: 205,
+                            id: 705,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 605,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 505,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 405,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 805,
+                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "addChild",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 305,
                             name: "添加子级", //看官网，这个名字是3-5之间的
                             url: "", //这个类似上面的id一个，只是初始值是从100开始的
                             menu: "addChild",
@@ -92,17 +147,17 @@ const menuItem = Mock.mock({
             sort: 1,
             iframe: 1,
             children: [
-                // {
-                //     parentId: 4,
-                //     id: 5,
-                //     name: "vue3.0", //看官网，这个名字是3-5之间的
-                //     url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
-                //     menu: "",
-                //     type: 1,
-                //     icon: "el-icon-s-promotion",
-                //     sort: 1,
-                //     iframe: 1
-                // },
+                {
+                    parentId: 4,
+                    id: 5,
+                    name: "vue3.0", //看官网，这个名字是3-5之间的
+                    url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
+                    menu: "",
+                    type: 1,
+                    icon: "el-icon-s-promotion",
+                    sort: 1,
+                    iframe: 1
+                },
                 {
                     parentId: 4,
                     id: 6,
