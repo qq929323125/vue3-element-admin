@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-12 18:08:58
+ * @LastEditTime: 2021-03-15 15:12:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\mock\modules\system.js
@@ -71,7 +71,42 @@ const menuList = Mock.mock({
                     type: 1,
                     icon: "el-icon-user-solid",
                     sort: 2,
-                    iframe: 0
+                    iframe: 0,
+                    children: [
+                        {
+                            parentId: 101,
+                            id: 221,
+                            name: "查询", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "search",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 101,
+                            id: 625,
+                            name: "添加", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "add",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 101,
+                            id: 425,
+                            name: "编辑", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "edit",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        }
+                    ]
                 },
                 {
                     parentId: 100,
@@ -97,6 +132,28 @@ const menuList = Mock.mock({
                         },
                         {
                             parentId: 102,
+                            id: 605,
+                            name: "添加", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "add",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
+                            id: 405,
+                            name: "编辑", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "edit",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 102,
                             id: 705,
                             name: "添加子级", //看官网，这个名字是3-5之间的
                             url: "", //这个类似上面的id一个，只是初始值是从100开始的
@@ -106,56 +163,13 @@ const menuList = Mock.mock({
                             sort: 1,
                             iframe: 1
                         },
-                        {
-                            parentId: 102,
-                            id: 605,
-                            name: "添加子级", //看官网，这个名字是3-5之间的
-                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
-                            menu: "addChild",
-                            type: 2,
-                            icon: "",
-                            sort: 1,
-                            iframe: 1
-                        },
+
                         {
                             parentId: 102,
                             id: 505,
-                            name: "添加子级", //看官网，这个名字是3-5之间的
+                            name: "添加按钮", //看官网，这个名字是3-5之间的
                             url: "", //这个类似上面的id一个，只是初始值是从100开始的
-                            menu: "addChild",
-                            type: 2,
-                            icon: "",
-                            sort: 1,
-                            iframe: 1
-                        },
-                        {
-                            parentId: 102,
-                            id: 405,
-                            name: "添加子级", //看官网，这个名字是3-5之间的
-                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
-                            menu: "addChild",
-                            type: 2,
-                            icon: "",
-                            sort: 1,
-                            iframe: 1
-                        },
-                        {
-                            parentId: 102,
-                            id: 805,
-                            name: "添加子级", //看官网，这个名字是3-5之间的
-                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
-                            menu: "addChild",
-                            type: 2,
-                            icon: "",
-                            sort: 1,
-                            iframe: 1
-                        },
-                        {
-                            parentId: 102,
-                            id: 305,
-                            name: "添加子级", //看官网，这个名字是3-5之间的
-                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
-                            menu: "addChild",
+                            menu: "addMenu",
                             type: 2,
                             icon: "",
                             sort: 1,
@@ -172,7 +186,42 @@ const menuList = Mock.mock({
                     type: 1,
                     icon: "el-icon-s-check",
                     sort: 3,
-                    iframe: 0
+                    iframe: 0,
+                    children: [
+                        {
+                            parentId: 103,
+                            id: 211,
+                            name: "查询", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "search",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 103,
+                            id: 615,
+                            name: "添加", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "add",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        },
+                        {
+                            parentId: 103,
+                            id: 415,
+                            name: "编辑", //看官网，这个名字是3-5之间的
+                            url: "", //这个类似上面的id一个，只是初始值是从100开始的
+                            menu: "edit",
+                            type: 2,
+                            icon: "",
+                            sort: 1,
+                            iframe: 1
+                        }
+                    ]
                 }
             ]
         },

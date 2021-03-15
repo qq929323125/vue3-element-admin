@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-05 10:25:45
+ * @LastEditTime: 2021-03-15 14:42:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -18,8 +18,10 @@
                 ></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(params, getDataList)"
-                    >查询</el-button
+                <el-button
+                    type="primary"
+                    @click="onSubmit(params, getDataList)"
+                    >{{ menus.search }}</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
                     >重置</el-button
@@ -29,8 +31,11 @@
 
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
-            <el-button size="mini" type="primary" @click="handleEdit('添加')"
-                >添加</el-button
+            <el-button
+                size="mini"
+                type="primary"
+                @click="handleEdit(menus.add)"
+                >{{ menus.add }}</el-button
             >
         </el-row>
 
@@ -65,11 +70,11 @@
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        @click.prevent="handleEdit('编辑', row)"
+                        @click.prevent="handleEdit(menus.edit, row)"
                         type="primary"
                         size="mini"
                     >
-                        编辑
+                        {{ menus.edit }}
                     </el-button>
                 </template>
             </el-table-column>
@@ -118,6 +123,14 @@ import {
     maxHeight
 } from "@/views/layoutpages/common";
 export default {
+    data: () => ({
+        description: "角色信息查询与设置",
+        menus: {
+            search: "查询",
+            add: "添加",
+            edit: "编辑"
+        }
+    }),
     components: {
         RoleEdit
     },

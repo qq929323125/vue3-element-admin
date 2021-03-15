@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-15 11:52:47
+ * @LastEditTime: 2021-03-15 14:47:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -409,7 +409,9 @@ export default {
                     return false;
                 }
                 return (
-                    _item.item.children.find(item => item.menu == key) && true
+                    _item.item.children &&
+                    _item.item.children.find(item => item.menu == key) &&
+                    true
                 );
             }
         });

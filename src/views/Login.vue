@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-03-02 14:15:02
+ * @LastEditTime: 2021-03-15 16:00:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\Login.vue
@@ -9,7 +9,7 @@
 <template>
     <common
         ><div class="ve_container">
-            <el-card>
+            <el-card :body-style="{ background: 'rgba(0,0,0,0.15)' }">
                 <h1>VE-Admin</h1>
                 <transition name="el-fade-in-linear">
                     <el-form
@@ -120,6 +120,7 @@ export default {
         -webkit-transition-timing-function: ease-in-put;
         transition-timing-function: ease-in-put;
         font-weight: 400;
+        margin-top: 12px;
     }
     .ve_form {
         .ve_submit {
