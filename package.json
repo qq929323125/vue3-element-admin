@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.4",
+    "echarts": "^5.0.2",
     "element-plus": "^1.0.1-beta.27",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",

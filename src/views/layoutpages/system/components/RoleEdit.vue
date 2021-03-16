@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-15 15:37:35
+ * @LastEditTime: 2021-03-16 11:33:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -236,8 +236,5 @@ export default {
 }
 .p0 {
     padding: 0 !important;
-}
-.clear_both ::after {
-    clear: both;
 }
 </style>
