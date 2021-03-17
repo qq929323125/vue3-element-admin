@@ -1,13 +1,17 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-03-16 17:53:53
+ * @LastEditTime: 2021-03-17 11:04:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\dashboard\LiveChart.vue
 -->
 <template>
-    <div style="height:400px;margin-top:20px" ref="liveChart"></div>
+    <div
+        v-resize="myChart"
+        style="height:400px;margin-top:20px"
+        ref="liveChart"
+    ></div>
 </template>
 
 <script>
@@ -20,6 +24,7 @@ import {
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 import * as dayjs from "dayjs";
+import { unwarp } from "@/utils";
 import { onMounted, ref } from "vue";
 
 /**
@@ -31,7 +36,7 @@ const dataList = () => {
     let date = [];
     let num = [];
     let nowTime = new Date().getTime();
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
         date.push(dayjs(nowTime - i * 1000).format("HH:mm:ss"));
         num.push((Math.random() * 10).toFixed(0) * 1);
     }
@@ -40,17 +45,19 @@ const dataList = () => {
         num
     };
 };
+
+echarts.use([
+    TitleComponent,
+    TooltipComponent,
+    GridComponent,
+    BarChart,
+    CanvasRenderer
+]);
 export default {
     setup() {
-        echarts.use([
-            TitleComponent,
-            TooltipComponent,
-            GridComponent,
-            BarChart,
-            CanvasRenderer
-        ]);
-
         const liveChart = ref(null);
+        const myChart = ref(null);
+
         let _dataList = dataList();
         // debugger;
         let option = {
@@ -90,6 +97,8 @@ export default {
          * @return {*}
          */
         const getNewData = myChart => {
+            unwarp(myChart.value).setOption(option);
+
             setInterval(() => {
                 _dataList.date.shift();
                 _dataList.num.shift();
@@ -97,16 +106,15 @@ export default {
                     dayjs(new Date().getTime()).format("HH:mm:ss")
                 );
                 _dataList.num.push((Math.random() * 10).toFixed(0) * 1);
-                myChart.setOption(option);
+                unwarp(myChart.value).setOption(option);
             }, 1000);
         };
         onMounted(() => {
-            const myChart = echarts.init(liveChart.value);
-            myChart.setOption(option);
+            myChart.value = echarts.init(liveChart.value);
             getNewData(myChart);
         });
 
-        return { liveChart };
+        return { liveChart, myChart };
     }
 };
 </script>

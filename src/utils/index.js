@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-12 09:38:09
- * @LastEditTime: 2021-03-04 09:45:11
+ * @LastEditTime: 2021-03-17 10:48:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\utils\index.js
@@ -90,6 +90,12 @@ export const treeFindPath = (tree, func, name = "id", path = []) => {
     return [];
 };
 
+/**
+ * @description: 拆箱函数,解决tooltip显示问题
+ * @param {*} obj
+ * @return {*}
+ */
+export const unwarp = obj => obj && (obj.__v_raw || obj.valueOf() || obj);
 export const icons = [
     "el-icon-platform-eleme",
     "el-icon-eleme",
