@@ -123,4 +123,4 @@ VE_API [ fileName ][ portName ] (params,[config])
 
 ## 声明
 
-个人开发维护!欢迎交流学习!
+个人开发维护! 欢迎交流学习!
