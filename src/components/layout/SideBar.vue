@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:21:00
- * @LastEditTime: 2021-03-15 09:45:12
+ * @LastEditTime: 2021-03-22 14:30:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\SideBar.vue
@@ -54,7 +54,14 @@ export default {
         const route = useRoute();
         const opened = computed(() => store.getters.opened);
         const menus = computed(() => store.getters.menuList);
-        const defaultActive = computed(() => route.path);
+        const defaultActive = computed(() => {
+            let i = route.name.indexOf("/");
+            if (i < 0) {
+                return "/" + route.name;
+            } else {
+                return "/" + route.name.slice(0, i);
+            }
+        });
 
         return {
             sideBgColor,

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 10:57:50
- * @LastEditTime: 2021-03-04 09:46:39
+ * @LastEditTime: 2021-03-22 14:35:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\Breadcrumb.vue
@@ -26,11 +26,15 @@ export default {
         const route = useRoute();
         const menuList = computed(() => store.getters.menuList).value;
         const list = computed(() => {
-            let path = route.path;
-            let i = path.lastIndexOf("-");
+            let name = route.name;
+            let i = route.name.indexOf("/");
+            if (i > -1) {
+                name = route.name.slice(0, i);
+            }
+            let j = name.lastIndexOf("-");
             return treeFindPath(
                 menuList,
-                data => data.id === path.slice(i + 1) * 1,
+                data => data.id === name.slice(j + 1) * 1,
                 "name"
             );
         });

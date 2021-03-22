@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-22 09:37:06
+ * @LastEditTime: 2021-03-22 14:09:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\common.js
  */
-
+import { defineAsyncComponent } from "vue";
 /**
  * @description:提交搜索
  * @param {*}
@@ -101,7 +101,7 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
         docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;
 };
 /**
- * @description: 获取按钮跳转路径
+ * @description: 获取按钮跳转菜单的路径
  * @param {*}
  * @return {*}
  */
@@ -134,4 +134,25 @@ export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
         type: "error",
         message: "无法跳转,请联系系统管理员!"
     });
+};
+/**
+ * @description:根据权限动态添加路由
+ * @param {*}
+ * @return {*}
+ */
+export const getAsyncRouteName = (title, path) => {
+    return {
+        components: {
+            AsyncComponent: defineAsyncComponent(() =>
+                import("@/views/layoutpages/" + path + ".vue")
+            )
+        },
+        render() {
+            return (
+                <function-page title={title}>
+                    <async-component />
+                </function-page>
+            );
+        }
+    };
 };

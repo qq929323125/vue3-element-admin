@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-22 09:58:38
+ * @LastEditTime: 2021-03-22 14:12:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -35,10 +35,19 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
+                title="弹窗式"
                 v-permission="'add'"
                 size="mini"
                 type="primary"
                 @click="handleEdit(menus.add.name)"
+                >{{ menus.add.name }}</el-button
+            >
+            <el-button
+                title="路由式"
+                v-permission="'add'"
+                size="mini"
+                type="primary"
+                @click="handleEditRoute(menus.add.name)"
                 >{{ menus.add.name }}</el-button
             >
         </el-row>
@@ -158,7 +167,7 @@
 <script>
 import UsersEdit from "./components/UsersEdit";
 import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 //?导入公共查询方法
 import {
     onSubmit,
@@ -168,7 +177,8 @@ import {
     rowClassName,
     cellClassName,
     rowClick,
-    maxHeight
+    maxHeight,
+    getAsyncRouteName
 } from "@/views/layoutpages/common";
 export default {
     data: () => ({
@@ -186,6 +196,7 @@ export default {
     setup() {
         const { ctx } = getCurrentInstance();
         const route = useRoute();
+        const router = useRouter();
         const rowData = ref(null);
         const dialogTitle = ref("");
         const showDialog = ref(false);
@@ -214,6 +225,21 @@ export default {
             showDialog.value = true;
             dialogTitle.value = title;
             rowData.value = row;
+        };
+        /**
+         * @description: 添加页面路由式
+         * @param {*}
+         * @return {*}
+         */
+        const handleEditRoute = async title => {
+            let path = "system/components/UsersEditRoute";
+            const _route = {
+                name: route.name + "/add",
+                path: route.name + "-add",
+                component: getAsyncRouteName(title, path)
+            };
+            await router.addRoute("AppMain", _route);
+            router.push({ name: _route.name });
         };
         /**
          * @description: 获取角色列表
@@ -328,7 +354,8 @@ export default {
             roleList,
             handelDialog,
             handleDel,
-            handelSwitch
+            handelSwitch,
+            handleEditRoute
         };
     }
 };
