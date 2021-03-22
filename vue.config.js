@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-03-11 16:12:37
+ * @LastEditTime: 2021-03-17 15:46:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
@@ -16,7 +16,7 @@ module.exports = {
     devServer: {
         before: app => {
             if (setting.dev_mock) {
-                const mock_server = require("./src/mock/mock-server.js");
+                const mock_server = require("./src/api/mock-server.js");
                 mock_server(app);
             }
         }

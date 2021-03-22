@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 17:30:30
- * @LastEditTime: 2021-03-12 12:18:15
+ * @LastEditTime: 2021-03-18 17:36:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\store\modules\app1.js
@@ -59,7 +59,9 @@ export default {
             allMenus.forEach(item => {
                 if (item.children && item.children.length > 0) {
                     item.children.forEach(menu => {
-                        permissionList.push(`${item.url}/${menu.menu}`);
+                        permissionList.push(
+                            `${item.url}/${item.id}/${menu.menu}`
+                        );
                     });
                 }
             });

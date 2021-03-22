@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-04 17:32:03
+ * @LastEditTime: 2021-03-22 09:37:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\common.js
@@ -99,4 +99,39 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
         : 0;
     ve_max_height.value =
         docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;
+};
+/**
+ * @description: 获取按钮跳转路径
+ * @param {*}
+ * @return {*}
+ */
+export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
+    let toId = "";
+    let _item = XE.findTree(menuList, item => item.id == pathId);
+    if (
+        _item &&
+        _item.item &&
+        _item.item.children &&
+        _item.item.children.length > 0
+    ) {
+        let btn = _item.item.children.find(item => item.menu == btnName);
+
+        btn && (toId = btn.toPath);
+    }
+    if (toId != "") {
+        let _toItem = XE.findTree(menuList, item => item.id == toId);
+        if (_toItem && _toItem.item) {
+            if (_toItem.item.iframe == 0) {
+                if (_toItem.item.url == toPathUrl) {
+                    return `${toPathUrl.replace(/\//g, "-")}-${toId}`;
+                }
+            } else {
+                return `i-${toId}`;
+            }
+        }
+    }
+    ctx.$message({
+        type: "error",
+        message: "无法跳转,请联系系统管理员!"
+    });
 };

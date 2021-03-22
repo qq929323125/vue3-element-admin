@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-12 12:04:23
+ * @LastEditTime: 2021-03-19 13:30:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\jurisdiction.js
@@ -51,15 +51,18 @@ export default {
                 if (!token || !/\S/.test(token)) {
                     next({ name: "Login" });
                 } else {
-                    let data = await VE_API.user.userMenuList();
+                    let data = await VE_API.system.userMenuList();
                     if (data && data.code === "00") {
                         let _list = XE.clone(data.list, true);
                         data.list = XE.mapTree(
-                            XE.toArrayTree(XE.toTreeArray(_list), {
+                            XE.toArrayTree(_list, {
                                 sortKey: "sort"
                             }),
                             item => {
-                                if (item.children.length <= 0) {
+                                if (
+                                    item.children &&
+                                    item.children.length <= 0
+                                ) {
                                     delete item.children;
                                 }
                                 return item;

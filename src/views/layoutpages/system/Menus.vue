@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-15 10:09:59
+ * @LastEditTime: 2021-03-19 13:47:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -21,7 +21,7 @@
                 <el-button
                     type="primary"
                     @click="onSubmit(params, getDataList)"
-                    >{{ menus.search }}</el-button
+                    >{{ menus.search.name }}</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
                     >重置</el-button
@@ -32,10 +32,11 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
+                v-permission="'add'"
                 size="mini"
                 type="primary"
-                @click="handleEdit(menus.add)"
-                >{{ menus.add }}</el-button
+                @click="handleEdit(menus.add.name)"
+                >{{ menus.add.name }}</el-button
             >
         </el-row>
 
@@ -111,30 +112,41 @@
                     <span v-else-if="row.type == 2">{{ row.menu }}</span>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作">
+            <el-table-column fixed="right" label="操作" width="240">
                 <template v-slot:default="{ row }">
                     <el-button
-                        @click.prevent="handleEdit(menus.edit, row)"
+                        v-permission="'edit'"
+                        @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
                     >
-                        {{ menus.edit }}
+                        {{ menus.edit.name }}
                     </el-button>
                     <el-button
+                        v-permission="'del'"
+                        @click.prevent="handleDel(row.id)"
+                        type="danger"
+                        size="mini"
+                    >
+                        {{ menus.del.name }}
+                    </el-button>
+                    <el-button
+                        v-permission="'addChild'"
                         v-if="row.type == 0"
-                        @click.prevent="handleEdit(menus.addChild, row)"
+                        @click.prevent="handleEdit(menus.addChild.name, row)"
                         type="warning"
                         size="mini"
                     >
-                        {{ menus.addChild }}</el-button
+                        {{ menus.addChild.name }}</el-button
                     >
                     <el-button
+                        v-permission="'addBtn'"
                         v-if="row.type == 1 && row.iframe == 0"
-                        @click.prevent="handleEdit(menus.addMenu, row)"
+                        @click.prevent="handleEdit(menus.addBtn.name, row)"
                         type="success"
                         size="mini"
                     >
-                        {{ menus.addMenu }}
+                        {{ menus.addBtn.name }}
                     </el-button>
                 </template>
             </el-table-column>
@@ -164,7 +176,7 @@
             :rowData="rowData"
             :title="dialogTitle"
             :showDialog="showDialog"
-            @closeDialog="e => (showDialog = e)"
+            @closeDialog="handelDialog($event)"
         />
     </div>
 </template>
@@ -172,7 +184,7 @@
 <script>
 import { isURL } from "@/utils/validate";
 import MenuEdit from "./components/MenuEdit";
-import { reactive, toRefs, ref, onMounted } from "vue";
+import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
 //?导入公共查询方法
 import {
     onSubmit,
@@ -188,17 +200,19 @@ export default {
     data: () => ({
         description: "菜单查询与设置",
         menus: {
-            search: "查询",
-            add: "添加",
-            edit: "编辑",
-            addChild: "添加子级",
-            addMenu: "添加按钮"
+            search: { name: "查询" },
+            add: { name: "添加" },
+            edit: { name: "编辑" },
+            del: { name: "删除" },
+            addChild: { name: "添加子级" },
+            addBtn: { name: "添加按钮" }
         }
     }),
     components: {
         MenuEdit
     },
     setup() {
+        const { ctx } = getCurrentInstance();
         const toolBar = ref(null);
         const pagination = ref(null);
         const queryForm = ref(null);
@@ -227,6 +241,39 @@ export default {
             rowData.value = row;
         };
         /**
+         * @description: dialog事件
+         * @param {*}
+         * @return {*}
+         */
+        const handelDialog = e => {
+            showDialog.value = e;
+            getDataList();
+        };
+        /**删除行数据
+         * @description:
+         * @param {*}
+         * @return {*}
+         */
+        const handleDel = id => {
+            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "error"
+            })
+                .then(async () => {
+                    const { code } = await VE_API.system.menuDel({ id });
+                    if (code == "00") {
+                        getDataList();
+                    }
+                })
+                .catch(() => {
+                    ctx.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
+                });
+        };
+        /**
          * @description: 获取列表数据
          * @param {*}
          * @return {*}
@@ -234,10 +281,17 @@ export default {
         const getDataList = async () => {
             const { code, data } = await VE_API.system.menuList(params);
             if (code == "00") {
-                const { limit, page, total, list } = data;
-                params.limit = limit;
-                params.page = page;
-                params.total = total;
+                const list = XE.mapTree(
+                    XE.toArrayTree(data, {
+                        sortKey: "sort"
+                    }),
+                    item => {
+                        if (item.children && item.children.length <= 0) {
+                            delete item.children;
+                        }
+                        return item;
+                    }
+                );
                 tableData.value = list;
             }
         };
@@ -265,7 +319,9 @@ export default {
                 rowClick,
                 maxHeight
             },
-            isURL
+            isURL,
+            handelDialog,
+            handleDel
         };
     }
 };

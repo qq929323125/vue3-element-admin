@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-03-17 14:53:11
+ * @LastEditTime: 2021-03-17 15:52:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\README.md
@@ -9,7 +9,7 @@
 
 # element_vue3.0/VE-Admin
 
-[国内加速链接](https://gitee.com/asaasa/element_vue3.0)   
+[国内加速链接](https://gitee.com/asaasa/element_vue3.0)
 
 [效果预览](http://asaasa.gitee.io/xujianhua)
 
@@ -80,7 +80,7 @@ routes.push(route);
 
 #### 添加接口
 
-本项目对mock做了深度集成,在使用其他项目时,mock接口和项目接口往往都是分开维护很不方便.所以就放在了一起.只用在一处添加即可.接口目录为[src\mock\modules](src\mock\modules)**不要修改此目录名称**.在该目录下添加对应的接口文件.
+本项目对mock做了深度集成,在使用其他项目时,mock接口和项目接口往往都是分开维护很不方便.所以就放在了一起.只用在一处添加即可.接口目录为[src\api\modules](src\api\modules)**不要修改此目录名称**.在该目录下添加对应的接口文件.
 
 ~~~js
 module.exports = {

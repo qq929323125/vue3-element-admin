@@ -1,13 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-03-17 09:30:54
- * @LastEditTime: 2021-03-17 11:31:30
+ * @LastEditTime: 2021-03-18 18:08:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\directives\modules\resize.js
  */
 const resize = (el, binding) => {
-    // debugger;
     const { value } = binding;
     // 创建iframe标签，设置样式并插入到被监听元素中
     const iframe = document.createElement("iframe");

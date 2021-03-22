@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-05 12:51:40
+ * @LastEditTime: 2021-03-19 11:02:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -23,10 +23,10 @@
             label-width="80px"
             :inline="false"
         >
-            <el-form-item label="用户名" prop="name">
+            <el-form-item label="账号" prop="name">
                 <el-input v-model="name" placeholder="" clearable></el-input>
             </el-form-item>
-            <el-form-item label="账号" prop="userName">
+            <el-form-item label="用户名" prop="userName">
                 <el-input
                     v-model="userName"
                     placeholder=""
@@ -53,6 +53,7 @@
                         :key="item.id"
                         :label="item.name"
                         :value="item.id"
+                        :disabled="item.status == 0"
                     ></el-option>
                 </el-select>
             </el-form-item>
@@ -126,7 +127,7 @@ export default {
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
-        const { rowData } = toRefs(props);
+        const { title, rowData } = toRefs(props);
         const closeDialog = () => {
             emit("closeDialog", false);
         };
@@ -177,10 +178,21 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(valid => {
+            formRef.value.validate(async valid => {
                 if (valid) {
-                    console.log(form);
-                    closeDialog();
+                    let res;
+                    if (title.value == "添加") {
+                        res = await VE_API.system.userAdd(form);
+                    } else {
+                        res = await VE_API.system.userEdit({
+                            id: rowData.value.id,
+                            ...form
+                        });
+                    }
+                    const { code } = res;
+                    if (code == "00") {
+                        closeDialog();
+                    }
                 } else {
                     console.log("error submit!!");
                     return false;

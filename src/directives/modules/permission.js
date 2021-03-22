@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-12 14:10:03
- * @LastEditTime: 2021-03-12 16:15:25
+ * @LastEditTime: 2021-03-18 17:51:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\directives\modules\permission.js
@@ -16,14 +16,15 @@ const permission = (el, binding, router, store) => {
             location.hash.indexOf("/") + 1,
             location.hash.indexOf("?")
         );
-        permission.forEach(element => {
-            return `${path
-                .split("-")
-                .slice(0, -1)
-                .join("/")}/${element}`;
+        if (location.hash.indexOf("?") == -1) {
+            path = location.hash.slice(location.hash.indexOf("/") + 1);
+        }
+        let _permission = permission.map(element => {
+            let url = path.replace(/-/g, "/") + "/" + element;
+            return url;
         });
         let arr = store.getters.permissionList;
-        return permission.some(key => arr.includes(key));
+        return _permission.some(key => arr.includes(key));
     }
 
     if (value) {

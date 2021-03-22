@@ -78,7 +78,7 @@ export default {
         const onSubmit = () => {
             ref_form.value.validate(async valid => {
                 if (valid) {
-                    const data = await VE_API.user.login(form);
+                    const data = await VE_API.system.login(form);
                     if (data.code === "00") {
                         const { token, uname } = data;
                         store.dispatch("app/set_token", token);

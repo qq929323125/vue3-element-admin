@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-15 14:42:03
+ * @LastEditTime: 2021-03-22 09:44:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -14,14 +14,14 @@
                 <el-input
                     clearable
                     v-model="name"
-                    placeholder="审批人"
+                    placeholder="请输入"
                 ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button
                     type="primary"
                     @click="onSubmit(params, getDataList)"
-                    >{{ menus.search }}</el-button
+                    >{{ menus.search.name }}</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
                     >重置</el-button
@@ -32,10 +32,11 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
+                v-permission="'add'"
                 size="mini"
                 type="primary"
-                @click="handleEdit(menus.add)"
-                >{{ menus.add }}</el-button
+                @click="handleEdit(menus.add.name)"
+                >{{ menus.add.name }}</el-button
             >
         </el-row>
 
@@ -70,11 +71,28 @@
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        @click.prevent="handleEdit(menus.edit, row)"
+                        v-permission="'edit'"
+                        @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
                     >
-                        {{ menus.edit }}
+                        {{ menus.edit.name }}
+                    </el-button>
+                    <el-button
+                        v-permission="'del'"
+                        @click.prevent="handleDel(row.id)"
+                        type="danger"
+                        size="mini"
+                    >
+                        {{ menus.del.name }}
+                    </el-button>
+                    <el-button
+                        v-permission="'member'"
+                        @click.prevent="allMember(row.id)"
+                        type="danger"
+                        size="mini"
+                    >
+                        {{ menus.member.name }}
                     </el-button>
                 </template>
             </el-table-column>
@@ -103,14 +121,25 @@
             :rowData="rowData"
             :title="dialogTitle"
             :showDialog="showDialog"
-            @closeDialog="e => (showDialog = e)"
+            @closeDialog="handelDialog($event)"
         />
     </div>
 </template>
 
 <script>
 import RoleEdit from "./components/RoleEdit";
-import { reactive, toRefs, ref, onMounted } from "vue";
+import {
+    reactive,
+    toRefs,
+    computed,
+    ref,
+    onMounted,
+    getCurrentInstance
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { findName } from "../common";
+
 //*导入公共查询方法
 import {
     onSubmit,
@@ -126,15 +155,23 @@ export default {
     data: () => ({
         description: "角色信息查询与设置",
         menus: {
-            search: "查询",
-            add: "添加",
-            edit: "编辑"
+            search: { name: "查询" },
+            add: { name: "添加" },
+            edit: { name: "编辑" },
+            del: { name: "删除" },
+            member: { name: "查看成员", toPath: true }
         }
     }),
     components: {
         RoleEdit
     },
     setup() {
+        const { ctx } = getCurrentInstance();
+        const route = useRoute();
+        const router = useRouter();
+        const store = useStore();
+        const menuList = computed(() => store.getters.menuList).value;
+
         const rowData = ref(null);
         const dialogTitle = ref("");
         const showDialog = ref(false);
@@ -161,6 +198,57 @@ export default {
             showDialog.value = true;
             dialogTitle.value = title;
             rowData.value = row;
+        };
+        /**
+         * @description: dialog事件
+         * @param {*}
+         * @return {*}
+         */
+        const handelDialog = e => {
+            showDialog.value = e;
+            getDataList();
+        };
+        /**删除行数据
+         * @description:
+         * @param {*}
+         * @return {*}
+         */
+        const handleDel = id => {
+            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "error"
+            })
+                .then(async () => {
+                    const { code } = await VE_API.system.roleDel({ id });
+                    if (code == "00") {
+                        getDataList();
+                    }
+                })
+                .catch(() => {
+                    ctx.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
+                });
+        };
+        /**
+         * @description:查看成员
+         * @param {*}
+         * @return {*}
+         */
+        const allMember = id => {
+            // 获取当前path的id
+            let pathId = route.name.slice(route.name.lastIndexOf("-") + 1);
+            // 获取要跳转到的路由
+            const toName = findName(
+                "member",
+                "system/Users",
+                pathId,
+                menuList,
+                ctx
+            );
+            router.push({ name: toName, query: { id } });
         };
         /**
          * @description: 获取列表数据
@@ -199,7 +287,10 @@ export default {
                 cellClassName,
                 rowClick,
                 maxHeight
-            }
+            },
+            handelDialog,
+            handleDel,
+            allMember
         };
     }
 };

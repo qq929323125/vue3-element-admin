@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-03-17 11:04:58
+ * @LastEditTime: 2021-03-18 18:08:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\dashboard\LiveChart.vue
@@ -59,7 +59,6 @@ export default {
         const myChart = ref(null);
 
         let _dataList = dataList();
-        // debugger;
         let option = {
             title: {
                 text: "用户访问量"

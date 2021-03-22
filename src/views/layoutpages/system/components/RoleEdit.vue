@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-16 11:33:19
+ * @LastEditTime: 2021-03-19 08:54:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -101,7 +101,7 @@ export default {
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
-        const { rowData } = toRefs(props);
+        const { title, rowData } = toRefs(props);
         const closeDialog = () => {
             emit("closeDialog", false);
         };
@@ -131,7 +131,10 @@ export default {
             role: [
                 {
                     validator: (rule, value, callback) => {
-                        role.value = tree.value.getCheckedKeys();
+                        role.value = [
+                            ...tree.value.getCheckedNodes(),
+                            ...tree.value.getHalfCheckedNodes()
+                        ];
                         if (role.value.length < 1) {
                             callback(new Error("请选择权限"));
                         } else {
@@ -159,10 +162,21 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(valid => {
+            formRef.value.validate(async valid => {
                 if (valid) {
-                    console.log(form);
-                    closeDialog();
+                    let res;
+                    if (title.value == "添加") {
+                        res = await VE_API.system.roleAdd(form);
+                    } else {
+                        res = await VE_API.system.roleEdit({
+                            id: rowData.value.id,
+                            ...form
+                        });
+                    }
+                    const { code } = res;
+                    if (code == "00") {
+                        closeDialog();
+                    }
                 } else {
                     console.log("error submit!!");
                     return false;
@@ -185,7 +199,17 @@ export default {
                 { Global: false }
             );
             if (code == "00") {
-                const { list } = data;
+                const list = XE.mapTree(
+                    XE.toArrayTree(data, {
+                        sortKey: "sort"
+                    }),
+                    item => {
+                        if (item.children.length <= 0) {
+                            delete item.children;
+                        }
+                        return item;
+                    }
+                );
                 menuList.value = list;
             }
         };
@@ -212,7 +236,14 @@ export default {
             await getMenuList();
             nextTick(() => {
                 setMenuStyle();
-                tree.value.setCheckedNodes(XE.toTreeArray(menuList.value));
+                if (title.value == "添加") {
+                    tree.value.setCheckedNodes(menuList.value);
+                } else {
+                    let _list = XE.toTreeArray(
+                        XE.toArrayTree(rowData.value.role)
+                    ).filter(item => item.children.length < 1);
+                    tree.value.setCheckedNodes(_list);
+                }
             });
         });
 

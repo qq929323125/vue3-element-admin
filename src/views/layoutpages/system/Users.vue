@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-15 14:40:42
+ * @LastEditTime: 2021-03-22 09:58:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -11,7 +11,7 @@
         <!-- 搜索 -->
         <el-form ref="queryForm" :inline="true" :model="params">
             <el-form-item label="角色" prop="role">
-                <el-select clearable v-model="role" placeholder="活动区域">
+                <el-select clearable v-model="role" placeholder="请选择">
                     <el-option
                         v-for="item in roleList"
                         :key="item.id"
@@ -24,7 +24,7 @@
                 <el-button
                     type="primary"
                     @click="onSubmit(params, getDataList)"
-                    >{{ menus.search }}</el-button
+                    >{{ menus.search.name }}</el-button
                 >
                 <el-button @click="resetForm(queryForm, params, getDataList)"
                     >重置</el-button
@@ -35,10 +35,11 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
+                v-permission="'add'"
                 size="mini"
                 type="primary"
-                @click="handleEdit(menus.add)"
-                >{{ menus.add }}</el-button
+                @click="handleEdit(menus.add.name)"
+                >{{ menus.add.name }}</el-button
             >
         </el-row>
 
@@ -60,8 +61,8 @@
             style="width: 100%"
             :max-height="ve_max_height"
         >
-            <el-table-column prop="name" label="用户名"> </el-table-column>
-            <el-table-column prop="userName" label="账号"> </el-table-column>
+            <el-table-column prop="name" label="账号"> </el-table-column>
+            <el-table-column prop="userName" label="用户名"> </el-table-column>
             <el-table-column prop="password" label="密码"
                 ><template v-slot="{ row }">
                     <el-tooltip
@@ -92,11 +93,13 @@
             <el-table-column prop="status" label="状态">
                 <template v-slot="{ row }">
                     <el-switch
+                        :loading="row.load ? true : false"
                         v-model="row.status"
                         :active-value="1"
                         :inactive-value="0"
                         active-color="#13ce66"
                         inactive-color="#ff4949"
+                        @change="val => handelSwitch(val, row)"
                     >
                         >
                     </el-switch>
@@ -105,11 +108,20 @@
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        @click.prevent="handleEdit(menus.edit, row)"
+                        v-permission="'edit'"
+                        @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
                     >
-                        {{ menus.edit }}
+                        {{ menus.edit.name }}
+                    </el-button>
+                    <el-button
+                        v-permission="'del'"
+                        @click.prevent="handleDel(row.id)"
+                        type="danger"
+                        size="mini"
+                    >
+                        {{ menus.del.name }}
                     </el-button>
                 </template>
             </el-table-column>
@@ -138,14 +150,15 @@
             :rowData="rowData"
             :title="dialogTitle"
             :showDialog="showDialog"
-            @closeDialog="e => (showDialog = e)"
+            @closeDialog="handelDialog($event)"
         />
     </div>
 </template>
 
 <script>
 import UsersEdit from "./components/UsersEdit";
-import { reactive, toRefs, ref, onMounted } from "vue";
+import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
+import { useRoute } from "vue-router";
 //?导入公共查询方法
 import {
     onSubmit,
@@ -161,15 +174,18 @@ export default {
     data: () => ({
         description: "用户信息查询与设置",
         menus: {
-            search: "查询",
-            add: "添加",
-            edit: "编辑"
+            search: { name: "查询" },
+            add: { name: "添加" },
+            edit: { name: "编辑" },
+            del: { name: "删除" }
         }
     }),
     components: {
         UsersEdit
     },
     setup() {
+        const { ctx } = getCurrentInstance();
+        const route = useRoute();
         const rowData = ref(null);
         const dialogTitle = ref("");
         const showDialog = ref(false);
@@ -180,7 +196,7 @@ export default {
         const queryForm = ref(null);
         const tableData = ref([]);
         const params = reactive({
-            role: "",
+            role: route.query.id * 1 || null,
             limit: 10,
             page: 1,
             total: 0
@@ -217,7 +233,59 @@ export default {
                 roleList.value = list;
             }
         };
-
+        /**
+         * @description: dialog事件
+         * @param {*}
+         * @return {*}
+         */
+        const handelDialog = e => {
+            showDialog.value = e;
+            getDataList();
+        };
+        /**
+         * @description:用户状态切换
+         * @param {*}
+         * @return {*}
+         */
+        const handelSwitch = async (val, row) => {
+            if (row.id == undefined) return;
+            row.load = 1;
+            const { code } = await VE_API.system.userStatus(
+                {
+                    id: row.id,
+                    status: val
+                },
+                { Global: false }
+            );
+            row.load = 0;
+            if (code != "00") {
+                row.status = val == 1 ? 0 : 1;
+            }
+        };
+        /**删除行数据
+         * @description:
+         * @param {*}
+         * @return {*}
+         */
+        const handleDel = id => {
+            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "error"
+            })
+                .then(async () => {
+                    const { code } = await VE_API.system.userDel({ id });
+                    if (code == "00") {
+                        getDataList();
+                    }
+                })
+                .catch(() => {
+                    ctx.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
+                });
+        };
         /**
          * @description: 获取列表数据
          * @param {*}
@@ -257,7 +325,10 @@ export default {
                 rowClick,
                 maxHeight
             },
-            roleList
+            roleList,
+            handelDialog,
+            handleDel,
+            handelSwitch
         };
     }
 };

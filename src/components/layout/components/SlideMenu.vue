@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-10 14:02:03
+ * @LastEditTime: 2021-03-19 09:35:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -33,15 +33,21 @@
 
 <script>
 import { useRouter } from "vue-router";
+import { inject } from "vue";
 export default {
     props: ["menu"],
     setup() {
+        const reload = inject("reload");
         const router = useRouter();
         const clickMenu = menu => {
             let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
             if (menu.iframe == 1) {
                 name = `i-${menu.id}`;
             }
+            if (location.hash.includes(name)) {
+                return;
+            }
+            reload();
             router.push({
                 name
             });

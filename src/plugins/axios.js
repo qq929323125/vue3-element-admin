@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-03-03 13:47:21
+ * @LastEditTime: 2021-03-18 16:33:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\plugins\axios.js
@@ -10,7 +10,7 @@
 "use strict";
 
 import axios from "axios";
-import Qs from "qs";
+// import Qs from "qs";
 import NProgress from "nprogress";
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -19,20 +19,20 @@ import NProgress from "nprogress";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const install = (app, { router, store, opt }) => {
     let config = {
-        Global: true,
+        Global: true
         // baseURL: process.env.baseURL || process.env.apiUrl || ""
         // timeout: 60 * 1000, // Timeout
         // withCredentials: true, // Check cross-site Access-Control
-        transformRequest: [
-            function(data) {
-                // 对 data 进行任意转换处理
-                if (VE_ENV.MODE === "production") {
-                    return Qs.parse(data);
-                } else {
-                    return Qs.stringify(data);
-                }
-            }
-        ]
+        // transformRequest: [
+        //     function(data) {
+        //         // 对 data 进行任意转换处理
+        //         if (VE_ENV.MODE === "production") {
+        //             return Qs.parse(data);
+        //         } else {
+        //             return Qs.stringify(data);
+        //         }
+        //     }
+        // ]
     };
 
     const _axios = axios.create(config);
@@ -166,7 +166,7 @@ const install = (app, { router, store, opt }) => {
     };
 
     let api = {};
-    const files = require.context("../mock/modules", false, /\.js$/);
+    const files = require.context("@/api/modules", false, /\.js$/);
     files.keys().forEach(key => {
         const fileName = key.replace(/(\.\/|\.js)/g, "");
         api[fileName] = {};

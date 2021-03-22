@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-03-17 10:35:36
+ * @LastEditTime: 2021-03-19 09:12:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\main.vue
@@ -17,7 +17,7 @@
             <el-main :style="styles"
                 ><el-scrollbar
                     style="padding:20px;box-sizing:border-box;background:#fff;"
-                    ><router-view v-slot="{ Component }"
+                    ><router-view v-if="routerAlive" v-slot="{ Component }"
                         ><transition name="el-zoom-in-top" mode="out-in">
                             <component :is="Component" /> </transition
                     ></router-view> </el-scrollbar
@@ -29,7 +29,7 @@
 import { nav_height } from "@/styles/variables.scss.js";
 import NavigateBar from "@/components/layout/NavigateBar.vue";
 import SideBar from "@/components/layout/SideBar.vue";
-
+import { ref, provide, nextTick } from "vue";
 export default {
     name: "AppMain",
     components: {
@@ -39,7 +39,14 @@ export default {
     // 获取用户相关信息和路由权限
     setup() {
         const styles = { "--nav_height": nav_height };
-        return { styles, nav_height };
+        const routerAlive = ref(true);
+        provide("reload", () => {
+            routerAlive.value = false;
+            nextTick(() => {
+                routerAlive.value = true;
+            });
+        });
+        return { styles, nav_height, routerAlive };
     }
 };
 </script>

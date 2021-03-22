@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-15 14:47:12
+ * @LastEditTime: 2021-03-19 15:36:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
@@ -36,11 +36,11 @@
                     >
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="父级" prop="pId">
+            <el-form-item label="父级" prop="parentId">
                 <el-cascader
                     style="width:100%"
                     :options="menuList"
-                    v-model="pId"
+                    v-model="parentId"
                     clearable
                     filterable
                     :props="cascaderProp"
@@ -132,11 +132,34 @@
                             :key="key"
                             :label="key"
                             :disabled="menuDisabled(key)"
-                            >{{ item }}</el-radio
+                            >{{ item.name }}</el-radio
                         >
                     </el-radio-group>
                 </template>
                 <span style="color:red" v-else>该菜单下没有按钮</span>
+            </el-form-item>
+
+            <el-form-item
+                v-show="type == 2 && changeToPath"
+                label="目标菜单"
+                prop="toPath"
+                :rules="toPathRule"
+            >
+                <el-cascader
+                    style="width:100%"
+                    :options="menuList"
+                    v-model="toPath"
+                    clearable
+                    filterable
+                    :props="{
+                        emitPath: false,
+                        checkStrictly: true,
+                        value: 'id',
+                        label: 'name',
+                        disabled: 'iframe'
+                    }"
+                >
+                </el-cascader>
             </el-form-item>
         </el-form>
 
@@ -208,14 +231,25 @@ export default {
         const form = reactive({
             name: "",
             type: 0,
-            pId: "",
+            parentId: -1,
             menu: "",
             url: "",
             icon: "el-icon-menu",
             iframe: 1,
-            sort: 1
+            sort: 1,
+            toPath: ""
         });
-        const { name, type, pId, menu, url, icon, iframe, sort } = toRefs(form);
+        const {
+            name,
+            type,
+            parentId,
+            menu,
+            url,
+            icon,
+            iframe,
+            sort,
+            toPath
+        } = toRefs(form);
         /**
          * @description: 字段重置
          * @param {*}
@@ -228,6 +262,7 @@ export default {
             icon.value = "el-icon-menu";
             iframe.value = 1;
             sort.value = 1;
+            toPath.value = "";
         };
 
         /**
@@ -248,7 +283,7 @@ export default {
          * @return {*}
          */
         const rules = computed(() => ({
-            pId: [
+            parentId: [
                 {
                     required: type.value == 2 ? true : false,
                     message: "请选择父级菜单",
@@ -276,6 +311,7 @@ export default {
                     trigger: "change"
                 }
             ],
+
             url: [
                 {
                     required: type.value == 1 ? true : false,
@@ -285,6 +321,23 @@ export default {
                 }
             ]
         }));
+        const toPathRule = computed(() => [
+            {
+                required: changeToPath.value,
+                message: "请选择目标菜单",
+                trigger: "change"
+            },
+            {
+                validator: (rule, value, callback) => {
+                    if (value == parentId.value) {
+                        callback(new Error("不可以选择当前父级菜单"));
+                    } else {
+                        callback();
+                    }
+                },
+                trigger: "change"
+            }
+        ]);
 
         /**
          * @description:初始化赋值
@@ -294,19 +347,21 @@ export default {
         rowData.value &&
             ((name.value = rowData.value.name),
             (type.value = rowData.value.type),
-            (pId.value = rowData.value.parentId),
+            (parentId.value = rowData.value.parentId),
             (url.value = rowData.value.url),
             (menu.value = rowData.value.menu),
             (icon.value = rowData.value.icon),
             (iframe.value = rowData.value.iframe),
+            (toPath.value = rowData.value.toPath),
             (sort.value = rowData.value.sort));
         /**
          * @description: 类型切换事件
          * @param {*}
          * @return {*}
          */
-        const changeType = () => {
+        const changeType = val => {
             formRef.value.resetFields();
+            val == 2 && (icon.value = "");
         };
         /**
          * @description: 父级id切换事件
@@ -342,8 +397,25 @@ export default {
          * @return {*}
          */
         const changeMenu = () => {
-            name.value = menuOptions.value[menu.value];
+            name.value = menuOptions.value[menu.value]["name"];
+            toPath.value = "";
+            nextTick(() => {
+                if (rowData.value && menu.value == rowData.value.menu) {
+                    toPath.value = rowData.value.toPath;
+                }
+                formRef.value.clearValidate("toPath");
+            });
         };
+        /**
+         * @description: 控制跳转菜单是否显示
+         * @param {*}
+         * @return {*}
+         */
+        const changeToPath = computed(() => {
+            if (menuOptions.value && menu.value) {
+                return menuOptions.value[menu.value]["toPath"];
+            }
+        });
         /**
          * @description: 按钮的禁用函数
          * @param {*}
@@ -384,7 +456,7 @@ export default {
             // if (title.value == "添加" || title.value == "添加按钮") {
             let _item = XE.findTree(
                 menuList.value,
-                item => item.id == pId.value
+                item => item.id == parentId.value
             );
             if (_item && getfiles().find(item => item.url == _item.item.url)) {
                 return getfiles().find(item => item.url == _item.item.url)
@@ -402,7 +474,7 @@ export default {
         const menuDisabled = computed(() => key => {
             let _item = XE.findTree(
                 menuList.value,
-                item => item.id == pId.value
+                item => item.id == parentId.value
             );
             if (_item) {
                 if (rowData.value && key == rowData.value.menu) {
@@ -423,11 +495,12 @@ export default {
         const watchTitle = () => {
             if (title.value == "添加按钮" || title.value == "添加子级") {
                 resetForm();
-                pId.value = treeFindPath(
+                parentId.value = treeFindPath(
                     menuList.value,
                     data => data.id === rowData.value.id
                 ).slice(-1)[0];
-                title.value == "添加按钮" && (type.value = 2);
+                title.value == "添加按钮" &&
+                    ((type.value = 2), (icon.value = ""));
             }
         };
         onMounted(() => {
@@ -439,10 +512,21 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(valid => {
+            formRef.value.validate(async valid => {
                 if (valid) {
-                    console.log(form);
-                    closeDialog();
+                    let res;
+                    if (title.value.includes("添加")) {
+                        res = await VE_API.system.menuAdd(form);
+                    } else {
+                        res = await VE_API.system.menuEdit({
+                            id: rowData.value.id,
+                            ...form
+                        });
+                    }
+                    const { code } = res;
+                    if (code == "00") {
+                        closeDialog();
+                    }
                 } else {
                     console.log("error submit!!");
                     return false;
@@ -461,12 +545,14 @@ export default {
             formRef,
             rules,
             form,
-            ...{ name, type, pId, menu, url, icon, iframe, sort },
+            ...{ name, type, parentId, menu, url, icon, iframe, sort, toPath },
             cascaderProp,
             menuOptions,
             menuDisabled,
             cascaderChange,
-            changeMenu
+            changeMenu,
+            changeToPath,
+            toPathRule
         };
     }
 };
