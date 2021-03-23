@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-03-22 18:01:02
+ * @LastEditTime: 2021-03-23 14:08:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
@@ -9,6 +9,7 @@
 const setting = require("./src/setting");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
 let scssVariables = require("./src/styles/variables.scss.js");
 
 module.exports = {
@@ -66,6 +67,15 @@ module.exports = {
                                 pure_funcs: ["console.log"] //移除console
                             }
                         }
+                    }),
+                    new CompressionWebpackPlugin({
+                        filename: "[path].gz[query]",
+                        algorithm: "gzip",
+                        // test: /\.js$|\.html$|\.json$|\.css/,
+                        test: /\.js$|\.json$|\.css/,
+                        threshold: 10240, // 只有大小大于该值的资源会被处理
+                        minRatio: 0.8 // 只有压缩率小于这个值的资源才会被处理
+                        // deleteOriginalAssets: true // 删除原文件
                     })
                 ]
             };
