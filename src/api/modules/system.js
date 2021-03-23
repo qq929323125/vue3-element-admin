@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-23 12:15:52
+ * @LastEditTime: 2021-03-23 13:35:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\mock\modules\system.js
@@ -14,8 +14,7 @@
  */
 const searchList = (sRole, sLimit, sPage, sList, sName) => {
     let list = sList;
-    console.log(sRole);
-    if (sRole) {
+    if (sRole !== null && sRole !== "" && sRole !== undefined) {
         list = sList.filter(item => item[sName] + "" === sRole + "");
     }
     const res = {};
