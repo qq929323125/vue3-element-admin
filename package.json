@@ -40,6 +40,7 @@
     "prettier": "^1.19.1",
     "sass": "^1.32.2",
     "sass-loader": "^10.1.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element-plus": "0.0.11"
   },

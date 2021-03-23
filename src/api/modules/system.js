@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-19 11:31:05
+ * @LastEditTime: 2021-03-23 12:15:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\mock\modules\system.js
@@ -14,8 +14,9 @@
  */
 const searchList = (sRole, sLimit, sPage, sList, sName) => {
     let list = sList;
+    console.log(sRole);
     if (sRole) {
-        list = sList.filter(item => item[sName] == sRole);
+        list = sList.filter(item => item[sName] + "" === sRole + "");
     }
     const res = {};
     res.total = list.length;
@@ -75,7 +76,7 @@ const editList = (opt, list) => {
             code: "01"
         };
     }
-    const index = list.indexOf(list.find(item => item.id == id));
+    const index = list.indexOf(list.find(item => item.id + "" === id + ""));
     list.fill(opt.body, index, index + 1);
     return {
         message: "编辑成功!",
@@ -97,7 +98,7 @@ const delList = (opt, list) => {
             code: "01"
         };
     }
-    const index = list.indexOf(list.find(item => item.id == id));
+    const index = list.indexOf(list.find(item => item.id + "" === id + ""));
     list.splice(index, 1);
     return {
         message: "删除成功!",
@@ -312,6 +313,14 @@ const userList = [
         password: "123456",
         role: -1,
         status: 1
+    },
+    {
+        id: 0,
+        name: "admin",
+        userName: "管理员",
+        password: "123456",
+        role: 0,
+        status: 1
     }
 ];
 const roleList = [
@@ -320,6 +329,13 @@ const roleList = [
         name: "super",
         roleName: "超级管理员",
         status: "1",
+        role: menuList
+    },
+    {
+        id: 0,
+        name: "ceshi",
+        roleName: "测试",
+        status: "0",
         role: menuList
     }
 ];
@@ -507,6 +523,7 @@ module.exports = {
             user.name = userName;
             let _user = userList.find(item => item.name == user.name);
             if (!_user) {
+                debugger;
                 data = {
                     code: "01",
                     message: "账户不存在"

@@ -1,17 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-03-17 15:46:13
+ * @LastEditTime: 2021-03-22 18:01:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\vue.config.js
  */
 const setting = require("./src/setting");
 const webpack = require("webpack");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 let scssVariables = require("./src/styles/variables.scss.js");
 
 module.exports = {
     publicPath: "",
+    productionSourceMap: false,
 
     devServer: {
         before: app => {
@@ -50,7 +52,22 @@ module.exports = {
                 },
                 externals: {
                     // lodash: "_"
-                }
+                },
+                plugins: [
+                    new UglifyJsPlugin({
+                        uglifyOptions: {
+                            output: {
+                                comments: false // 去掉注释
+                            },
+                            warnings: false,
+                            compress: {
+                                drop_console: true,
+                                drop_debugger: false,
+                                pure_funcs: ["console.log"] //移除console
+                            }
+                        }
+                    })
+                ]
             };
         }
         return Object.assign(baseConfig, envConfig);
