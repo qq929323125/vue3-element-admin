@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 10:54:32
- * @LastEditTime: 2021-03-23 11:34:44
+ * @LastEditTime: 2021-03-24 16:30:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\FunctionPage.vue
@@ -16,7 +16,7 @@
 
 <script>
 // import { onUnmounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 export default {
     props: {
         title: {
@@ -26,11 +26,13 @@ export default {
     },
     setup() {
         const router = useRouter();
-        const route = useRoute();
+        // const route = useRoute();
         const goBack = () => {
             router.back();
-            router.removeRoute(route.name);
         };
+        // onUnmounted(() => {
+        //     router.removeRoute(route.name);
+        // });
         // TODO 后退前进时路由删除
         // onUnmounted(() => {});
         return { goBack };

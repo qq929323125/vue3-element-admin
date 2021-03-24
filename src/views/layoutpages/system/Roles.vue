@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-22 09:44:51
+ * @LastEditTime: 2021-03-23 18:07:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -32,7 +32,7 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
-                v-permission="'add'"
+                v-permission="['add']"
                 size="mini"
                 type="primary"
                 @click="handleEdit(menus.add.name)"
@@ -71,7 +71,7 @@
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        v-permission="'edit'"
+                        v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
@@ -79,7 +79,7 @@
                         {{ menus.edit.name }}
                     </el-button>
                     <el-button
-                        v-permission="'del'"
+                        v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
                         size="mini"
@@ -87,7 +87,7 @@
                         {{ menus.del.name }}
                     </el-button>
                     <el-button
-                        v-permission="'member'"
+                        v-permission="['member']"
                         @click.prevent="allMember(row.id)"
                         type="danger"
                         size="mini"

@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-22 14:09:15
+ * @LastEditTime: 2021-03-24 18:08:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\common.js
+ * @FilePath: \element_vue3.0\src\views\layoutpages\common.js
  */
 import { defineAsyncComponent } from "vue";
 /**
@@ -140,12 +140,28 @@ export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
  * @param {*}
  * @return {*}
  */
-export const getAsyncRouteName = (title, path) => {
-    return {
+export const getAsyncRouteName = async (title, path, { router, route }) => {
+    const app = {
         components: {
             AsyncComponent: defineAsyncComponent(() =>
                 import("@/views/layoutpages/" + path + ".vue")
             )
+        },
+        data: () => ({
+            rName: null
+        }),
+        methods: {
+            reload(e) {
+                return (e.returnValue = "");
+            }
+        },
+        mounted() {
+            this.rName = this.$route.name;
+            window.addEventListener("beforeunload", this.reload);
+        },
+        beforeUnmount() {
+            window.removeEventListener("beforeunload", this.reload);
+            this.$router.removeRoute(this.rName);
         },
         render() {
             return (
@@ -155,4 +171,11 @@ export const getAsyncRouteName = (title, path) => {
             );
         }
     };
+    const _route = {
+        name: route.name + "/add",
+        path: route.name + "-add",
+        component: app
+    };
+    await router.addRoute("AppMain", _route);
+    return _route.name;
 };

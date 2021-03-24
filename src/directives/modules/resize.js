@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-17 09:30:54
- * @LastEditTime: 2021-03-18 18:08:28
+ * @LastEditTime: 2021-03-24 16:14:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\directives\modules\resize.js
@@ -36,7 +36,7 @@ const resize = (el, binding) => {
     iframe.contentWindow.onresize = function() {
         clearTimeout(timer);
         timer = null;
-        timer = setTimeout(sizeChange, 20);
+        timer = setTimeout(sizeChange, 200);
     };
 };
 export default resize;

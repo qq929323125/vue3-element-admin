@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-19 13:47:25
+ * @LastEditTime: 2021-03-23 18:07:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -32,7 +32,7 @@
         <!-- table工具条 -->
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
-                v-permission="'add'"
+                v-permission="['add']"
                 size="mini"
                 type="primary"
                 @click="handleEdit(menus.add.name)"
@@ -115,7 +115,7 @@
             <el-table-column fixed="right" label="操作" width="240">
                 <template v-slot:default="{ row }">
                     <el-button
-                        v-permission="'edit'"
+                        v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
@@ -123,7 +123,7 @@
                         {{ menus.edit.name }}
                     </el-button>
                     <el-button
-                        v-permission="'del'"
+                        v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
                         size="mini"
@@ -131,7 +131,7 @@
                         {{ menus.del.name }}
                     </el-button>
                     <el-button
-                        v-permission="'addChild'"
+                        v-permission="['addChild']"
                         v-if="row.type == 0"
                         @click.prevent="handleEdit(menus.addChild.name, row)"
                         type="warning"
@@ -140,7 +140,7 @@
                         {{ menus.addChild.name }}</el-button
                     >
                     <el-button
-                        v-permission="'addBtn'"
+                        v-permission="['addBtn']"
                         v-if="row.type == 1 && row.iframe == 0"
                         @click.prevent="handleEdit(menus.addBtn.name, row)"
                         type="success"

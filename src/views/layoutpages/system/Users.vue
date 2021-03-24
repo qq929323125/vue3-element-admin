@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-22 14:12:58
+ * @LastEditTime: 2021-03-24 17:59:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -36,7 +36,7 @@
         <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
             <el-button
                 title="弹窗式"
-                v-permission="'add'"
+                v-permission="['add']"
                 size="mini"
                 type="primary"
                 @click="handleEdit(menus.add.name)"
@@ -44,7 +44,7 @@
             >
             <el-button
                 title="路由式"
-                v-permission="'add'"
+                v-permission="['add']"
                 size="mini"
                 type="primary"
                 @click="handleEditRoute(menus.add.name)"
@@ -117,7 +117,7 @@
             <el-table-column fixed="right" label="操作">
                 <template v-slot:default="{ row }">
                     <el-button
-                        v-permission="'edit'"
+                        v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
                         size="mini"
@@ -125,7 +125,7 @@
                         {{ menus.edit.name }}
                     </el-button>
                     <el-button
-                        v-permission="'del'"
+                        v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
                         size="mini"
@@ -233,13 +233,11 @@ export default {
          */
         const handleEditRoute = async title => {
             let path = "system/components/UsersEditRoute";
-            const _route = {
-                name: route.name + "/add",
-                path: route.name + "-add",
-                component: getAsyncRouteName(title, path)
-            };
-            await router.addRoute("AppMain", _route);
-            router.push({ name: _route.name });
+            const toName = await getAsyncRouteName(title, path, {
+                router,
+                route
+            });
+            router.push({ name: toName });
         };
         /**
          * @description: 获取角色列表
