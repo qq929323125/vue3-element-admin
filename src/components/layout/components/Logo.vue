@@ -1,24 +1,27 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 14:23:41
- * @LastEditTime: 2021-02-07 10:10:38
+ * @LastEditTime: 2021-03-25 09:11:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\components\logo.vue
+ * @FilePath: \element_vue3.0\src\components\layout\components\Logo.vue
 -->
 <template>
-    <div class="ve_menu_logo">
-        <div class="ve_logo_img">
-            <el-image
-                style="width:100%;height:100%"
-                :src="require('../../../assets/logo.png')"
-                fit="cover"
-            ></el-image>
+    <el-tooltip :content="title" placement="right-end" effect="dark">
+        <div class="ve_menu_logo">
+            <div class="ve_logo_img">
+                <el-image
+                    style="width:100%;height:100%"
+                    :src="require('../../../assets/logo.png')"
+                    fit="cover"
+                ></el-image>
+            </div>
+            <!-- content to trigger tooltip here -->
+            <h3 v-show="!opened" class="ve_logo_title">
+                {{ title }}
+            </h3>
         </div>
-        <h3 v-show="!opened" class="ve_logo_title">
-            VE-Admin
-        </h3>
-    </div>
+    </el-tooltip>
 </template>
 
 <script>
@@ -28,7 +31,9 @@ export default {
     setup() {
         const store = useStore();
         const opened = computed(() => store.getters.opened);
+        const title = "VE-Admin";
         return {
+            title,
             opened
         };
     }
@@ -53,9 +58,12 @@ export default {
     .ve_logo_title {
         width: $side-open-width;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         display: inline-block;
         margin: 0;
         vertical-align: middle;
+        color: #000;
         &:hover {
             color: $base-color;
         }

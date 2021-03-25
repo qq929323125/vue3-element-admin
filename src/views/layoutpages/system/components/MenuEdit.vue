@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-19 15:36:28
+ * @LastEditTime: 2021-03-25 10:24:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\usersEdit.vue
+ * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\MenuEdit.vue
 -->
 <template>
     <el-dialog
@@ -69,6 +69,7 @@
                     placeholder=""
                     clearable
                     filterable
+                    @visible-change="handelOptionsChange"
                     popper-class="ve_option_box"
                 >
                     <template v-slot:prefix>
@@ -76,12 +77,16 @@
                     </template>
                     <el-option
                         style="display:inline-block; height:auto;padding:10px 11px 0px"
-                        v-for="item in icons"
+                        v-for="item in _icons"
                         :key="item"
                         :label="item"
                         :value="item"
                     >
-                        <i style="font-size:30px" :class="item"></i>
+                        <i
+                            style="font-size:30px"
+                            :title="item"
+                            :class="item"
+                        ></i>
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -227,6 +232,7 @@ export default {
         const closeDialog = () => {
             emit("closeDialog", false);
         };
+        const _icons = ref([]);
         const formRef = ref(null);
         const form = reactive({
             name: "",
@@ -271,6 +277,7 @@ export default {
          * @return {*}
          */
         const cascaderProp = computed(() => ({
+            expandTrigger: "hover",
             emitPath: false,
             checkStrictly: true,
             value: "id",
@@ -362,6 +369,16 @@ export default {
         const changeType = val => {
             formRef.value.resetFields();
             val == 2 && (icon.value = "");
+        };
+        /**
+         * @description: 图标下拉框展开事件
+         * @param {*}
+         * @return {*}
+         */
+        const handelOptionsChange = flag => {
+            if (flag === true && _icons.value.length < 1) {
+                _icons.value = icons;
+            }
         };
         /**
          * @description: 父级id切换事件
@@ -552,7 +569,9 @@ export default {
             cascaderChange,
             changeMenu,
             changeToPath,
-            toPathRule
+            toPathRule,
+            handelOptionsChange,
+            _icons
         };
     }
 };
