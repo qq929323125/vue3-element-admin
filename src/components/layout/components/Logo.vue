@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 14:23:41
- * @LastEditTime: 2021-03-25 09:11:44
+ * @LastEditTime: 2021-03-25 14:27:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\Logo.vue
@@ -11,9 +11,9 @@
         <div class="ve_menu_logo">
             <div class="ve_logo_img">
                 <el-image
-                    style="width:100%;height:100%"
+                    style="height:100%"
                     :src="require('../../../assets/logo.png')"
-                    fit="cover"
+                    fit="contain"
                 ></el-image>
             </div>
             <!-- content to trigger tooltip here -->
@@ -48,9 +48,10 @@ export default {
     overflow: hidden;
     .ve_logo_img {
         height: 100%;
+        text-align: center;
         // 和side收缩后的宽度一致
         width: $side-close-width;
-        padding: 10px;
+        // padding: 10px;
         display: inline-block;
         box-sizing: border-box;
         vertical-align: middle;
