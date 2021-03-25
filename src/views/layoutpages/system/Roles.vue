@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-23 18:07:45
+ * @LastEditTime: 2021-03-25 15:52:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
+ * @FilePath: \element_vue3.0\src\views\layoutpages\system\Roles.vue
 -->
 <template>
     <div class="ve_container">
@@ -89,7 +89,7 @@
                     <el-button
                         v-permission="['member']"
                         @click.prevent="allMember(row.id)"
-                        type="danger"
+                        type="info"
                         size="mini"
                     >
                         {{ menus.member.name }}

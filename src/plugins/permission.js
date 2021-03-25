@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-24 16:13:30
+ * @LastEditTime: 2021-03-25 17:36:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\permission.js
@@ -19,7 +19,7 @@ import NProgress from "nprogress";
 function fnCurrentRouteType(route, globalRoutes = []) {
     let temp = [];
     for (let i = 0; i < globalRoutes.length; i++) {
-        if (route.path === globalRoutes[i].path) {
+        if (route.name === globalRoutes[i].name) {
             return "global";
         } else if (
             globalRoutes[i].children &&

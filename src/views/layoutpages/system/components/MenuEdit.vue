@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-25 10:24:38
+ * @LastEditTime: 2021-03-25 17:39:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\MenuEdit.vue
@@ -77,7 +77,7 @@
                     </template>
                     <el-option
                         style="display:inline-block; height:auto;padding:10px 11px 0px"
-                        v-for="item in _icons"
+                        v-for="item in ve_icons"
                         :key="item"
                         :label="item"
                         :value="item"
@@ -157,6 +157,7 @@
                     clearable
                     filterable
                     :props="{
+                        expandTrigger: 'hover',
                         emitPath: false,
                         checkStrictly: true,
                         value: 'id',
@@ -232,7 +233,7 @@ export default {
         const closeDialog = () => {
             emit("closeDialog", false);
         };
-        const _icons = ref([]);
+        const ve_icons = ref([]);
         const formRef = ref(null);
         const form = reactive({
             name: "",
@@ -376,8 +377,8 @@ export default {
          * @return {*}
          */
         const handelOptionsChange = flag => {
-            if (flag === true && _icons.value.length < 1) {
-                _icons.value = icons;
+            if (flag === true && ve_icons.value.length < 1) {
+                ve_icons.value = icons;
             }
         };
         /**
@@ -571,7 +572,7 @@ export default {
             changeToPath,
             toPathRule,
             handelOptionsChange,
-            _icons
+            ve_icons
         };
     }
 };

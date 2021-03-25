@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-19 09:35:46
+ * @LastEditTime: 2021-03-25 18:01:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
@@ -9,7 +9,7 @@
 <template>
     <el-submenu
         :index="menu.id + ''"
-        v-if="menu.type == 0 && menu.children && menu.children.length > 0"
+        v-if="menu.type == 0 && filerMenus(menu.children)"
     >
         <template v-slot:title>
             <i :class="menu.icon"></i>
@@ -32,25 +32,26 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { inject } from "vue";
 export default {
     props: ["menu"],
     setup() {
         const reload = inject("reload");
         const router = useRouter();
+        const route = useRoute();
         const clickMenu = menu => {
             let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
             if (menu.iframe == 1) {
                 name = `i-${menu.id}`;
             }
-            if (location.hash.includes(name)) {
+            if (name == route.name) {
                 return;
             }
-            reload();
             router.push({
                 name
             });
+            reload();
         };
 
         const setIndex = menu => {
@@ -60,11 +61,25 @@ export default {
             }
             return index;
         };
+        /**
+         * @description:过滤空目录
+         * @param {*}
+         * @return {*}
+         */
+        const filerMenus = menus => {
+            if (menus && menus.length > 0) {
+                let _menus = XE.toTreeArray(menus);
+                return _menus.some(item => item.type == 1);
+            } else {
+                return false;
+            }
+        };
 
         return {
             router,
             setIndex,
-            clickMenu
+            clickMenu,
+            filerMenus
         };
     }
 };

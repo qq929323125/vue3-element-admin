@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-23 13:35:33
+ * @LastEditTime: 2021-03-25 17:00:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\mock\modules\system.js
+ * @FilePath: \element_vue3.0\src\api\modules\system.js
  */
 // const Mock = require("mockjs"); //引入
 /**
@@ -107,7 +107,7 @@ const delList = (opt, list) => {
 const menuList = [
     {
         parentId: -1,
-        id: 0,
+        id: 100,
         name: "系统设置", //看官网，这个名字是3-5之间的
         url: "",
         menu: "",
@@ -117,7 +117,7 @@ const menuList = [
         iframe: 1
     },
     {
-        parentId: 0,
+        parentId: 100,
         id: 1,
         name: "用户管理", //看官网，这个名字是3-5之间的
         url: "system/Users", //这个类似上面的id一个，只是初始值是从100开始的
@@ -161,7 +161,7 @@ const menuList = [
         iframe: 1
     },
     {
-        parentId: 0,
+        parentId: 100,
         id: 5,
         name: "菜单管理", //看官网，这个名字是3-5之间的
         url: "system/Menus", //这个类似上面的id一个，只是初始值是从100开始的
@@ -227,7 +227,7 @@ const menuList = [
         iframe: 1
     },
     {
-        parentId: 0,
+        parentId: 100,
         id: 11,
         name: "角色管理", //看官网，这个名字是3-5之间的
         url: "system/Roles", //这个类似上面的id一个，只是初始值是从100开始的

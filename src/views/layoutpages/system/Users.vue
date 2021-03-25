@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-24 17:59:25
+ * @LastEditTime: 2021-03-25 16:30:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -207,7 +207,7 @@ export default {
         const queryForm = ref(null);
         const tableData = ref([]);
         const params = reactive({
-            role: route.query.id * 1 || null,
+            role: route.query.id * 1,
             limit: 10,
             page: 1,
             total: 0
@@ -233,7 +233,7 @@ export default {
          */
         const handleEditRoute = async title => {
             let path = "system/components/UsersEditRoute";
-            const toName = await getAsyncRouteName(title, path, {
+            const toName = await getAsyncRouteName(title, path, "add", {
                 router,
                 route
             });

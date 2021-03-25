@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-24 18:08:17
+ * @LastEditTime: 2021-03-25 17:43:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\common.js
@@ -140,7 +140,12 @@ export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
  * @param {*}
  * @return {*}
  */
-export const getAsyncRouteName = async (title, path, { router, route }) => {
+export const getAsyncRouteName = async (
+    title,
+    path,
+    name,
+    { router, route }
+) => {
     const app = {
         components: {
             AsyncComponent: defineAsyncComponent(() =>
@@ -172,8 +177,9 @@ export const getAsyncRouteName = async (title, path, { router, route }) => {
         }
     };
     const _route = {
-        name: route.name + "/add",
-        path: route.name + "-add",
+        name: route.name + "/" + name,
+        path: route.name + "/" + name,
+
         component: app
     };
     await router.addRoute("AppMain", _route);
