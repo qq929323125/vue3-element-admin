@@ -1,13 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2021-03-12 14:10:03
- * @LastEditTime: 2021-03-23 18:04:08
+ * @LastEditTime: 2021-03-26 09:04:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\directives\modules\permission.js
  */
-// import { useStore } from "vuex";
-// import { useRoute } from "vue-router";
 
 const permission = (el, binding, app, router, store) => {
     const { value } = binding;
