@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-25 16:30:29
+ * @LastEditTime: 2021-03-26 10:13:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -207,7 +207,7 @@ export default {
         const queryForm = ref(null);
         const tableData = ref([]);
         const params = reactive({
-            role: route.query.id * 1,
+            role: isNaN(route.query.id * 1) ? "" : route.query.id * 1,
             limit: 10,
             page: 1,
             total: 0
