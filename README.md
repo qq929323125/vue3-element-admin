@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-03-25 15:01:21
+ * @LastEditTime: 2021-03-26 16:04:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\README.md
@@ -46,6 +46,32 @@ ___
 ![项目目录](./pvw/01.png)
 
 ## 使用文档
+
+### 自定义指令
+
+**v-permission="[array]"**
+自定义权限指令,参数为一个数组,数组元素为按钮所对应的key值
+
+~~~js
+<el-button
+    v-permission="['add']"
+    size="mini"
+    type="primary"
+    @click="handleEdit(menus.add.name)"
+    >{{ menus.add.name }}
+</el-button>
+~~~
+
+**v-resize="myChart"**
+监听 echart 容器的自定义指令,参数为 echart 实例
+
+~~~js
+<div
+    v-resize="myChart"
+    style="height:400px;margin-top:20px"
+    ref="liveChart"
+></div>
+~~~
 
 ### 动态路由
 
@@ -118,8 +144,10 @@ module.exports = {
 #### 接口的使用
 
 项目中已将封装后axios实例挂载到自定义字段window.VE_API上.调用方式为:  
-VE_API [ fileName ][ portName ] (params,[config])
-
+~~~js
+VE_API [ fileName ][ portName ] (params,[config])   //有全局loading
+VE_API [ fileName ][ portName ] (params,{Global:false)   //没有全局loading
+~~~
 ### 菜单配置
 
 项目中的菜单时根据后端返回的树形结构数据动态生成,具体可查看[src\components\layout\components\SlideMenu.vue](src\components\layout\components\SlideMenu.vue)

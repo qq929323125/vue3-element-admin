@@ -2,10 +2,10 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-03-23 10:25:12
+ * @LastEditTime: 2021-03-26 16:06:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \vue_3.0_test\src\plugins\axios.js
+ * @FilePath: \element_vue3.0\src\plugins\axios.js
  */
 "use strict";
 
@@ -173,13 +173,13 @@ const install = (app, { router, store, opt }) => {
     });
 
     window[opt] = api;
-    // Object.defineProperties(app.config.globalProperties, {
-    //     [opt]: {
-    //         get() {
-    //             return api;
-    //         }
-    //     }
-    // });
+    Object.defineProperties(app.config.globalProperties, {
+        [opt]: {
+            get() {
+                return api;
+            }
+        }
+    });
 };
 
 export default { install };

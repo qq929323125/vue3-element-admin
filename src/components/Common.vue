@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 09:41:14
- * @LastEditTime: 2021-02-01 09:24:10
+ * @LastEditTime: 2021-03-26 15:12:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\404.vue
+ * @FilePath: \element_vue3.0\src\components\Common.vue
 -->
 <template>
     <div class="ve_404">
@@ -252,6 +252,12 @@ export default {
 
 .error__title {
     font-size: 10em;
+    font-weight: bold;
+    color: #d0d0d0;
+    text-shadow: -5px -5px 0 rgba(0, 0, 0, 0.7);
+    background-image: linear-gradient(90deg, #d0d0d0 48%, #919191 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .error__subtitle {
