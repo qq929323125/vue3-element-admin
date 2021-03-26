@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-03-26 09:48:24
+ * @LastEditTime: 2021-03-26 09:56:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\AppMain.vue
@@ -59,7 +59,7 @@ export default {
 .el-main {
     height: calc(100vh - var(--nav_height));
     background: $main-bg-color;
-    :deep .el-scrollbar__bar.is-horizontal {
+    :deep(.el-scrollbar__bar.is-horizontal) {
         visibility: hidden;
     }
 }

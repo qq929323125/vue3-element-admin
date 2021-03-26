@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 15:46:34
- * @LastEditTime: 2021-03-17 11:26:42
+ * @LastEditTime: 2021-03-26 09:56:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\Home.vue
@@ -38,7 +38,7 @@ export default {
         box-shadow: 3px 3px 6px 1px rgba(0, 0, 0, 0.2);
     }
 
-    :deep .el-calendar__body {
+    :deep(.el-calendar__body) {
         padding-bottom: 12px !important;
         .el-calendar-day {
             height: auto !important;
