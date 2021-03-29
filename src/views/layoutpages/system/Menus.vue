@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-23 18:07:26
+ * @LastEditTime: 2021-03-29 17:57:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
+ * @FilePath: \element_vue3.0\src\views\layoutpages\system\Menus.vue
 -->
 <template>
     <div class="ve_container">
@@ -212,7 +212,7 @@ export default {
         MenuEdit
     },
     setup() {
-        const { ctx } = getCurrentInstance();
+        const { proxy } = getCurrentInstance();
         const toolBar = ref(null);
         const pagination = ref(null);
         const queryForm = ref(null);
@@ -255,11 +255,12 @@ export default {
          * @return {*}
          */
         const handleDel = id => {
-            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "error"
-            })
+            proxy
+                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "error"
+                })
                 .then(async () => {
                     const { code } = await VE_API.system.menuDel({ id });
                     if (code == "00") {
@@ -267,7 +268,7 @@ export default {
                     }
                 })
                 .catch(() => {
-                    ctx.$message({
+                    proxy.$message({
                         type: "info",
                         message: "已取消删除"
                     });

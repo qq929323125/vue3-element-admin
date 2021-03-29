@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 10:51:26
- * @LastEditTime: 2021-01-18 10:21:14
+ * @LastEditTime: 2021-03-29 17:52:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\element.js
@@ -195,12 +195,6 @@ export default {
         plugins.forEach(plugin => {
             app.use(plugin);
         });
-        Object.defineProperties(app.config.globalProperties, {
-            $ELEMENT: {
-                get() {
-                    return { size: "medium" };
-                }
-            }
-        });
+        app.config.globalProperties.$ELEMENT = { size: "medium" };
     }
 };

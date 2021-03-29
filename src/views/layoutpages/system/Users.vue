@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-26 10:13:21
+ * @LastEditTime: 2021-03-29 11:31:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Users.vue
@@ -194,7 +194,7 @@ export default {
         UsersEdit
     },
     setup() {
-        const { ctx } = getCurrentInstance();
+        const { proxy } = getCurrentInstance();
         const route = useRoute();
         const router = useRouter();
         const rowData = ref(null);
@@ -292,11 +292,12 @@ export default {
          * @return {*}
          */
         const handleDel = id => {
-            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "error"
-            })
+            proxy
+                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "error"
+                })
                 .then(async () => {
                     const { code } = await VE_API.system.userDel({ id });
                     if (code == "00") {
@@ -304,7 +305,7 @@ export default {
                     }
                 })
                 .catch(() => {
-                    ctx.$message({
+                    proxy.$message({
                         type: "info",
                         message: "已取消删除"
                     });

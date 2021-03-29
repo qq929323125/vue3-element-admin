@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-25 17:43:15
+ * @LastEditTime: 2021-03-29 17:57:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\common.js
@@ -105,7 +105,7 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
  * @param {*}
  * @return {*}
  */
-export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
+export const findName = (btnName, toPathUrl, pathId, menuList, proxy) => {
     let toId = "";
     let _item = XE.findTree(menuList, item => item.id == pathId);
     if (
@@ -130,7 +130,7 @@ export const findName = (btnName, toPathUrl, pathId, menuList, ctx) => {
             }
         }
     }
-    ctx.$message({
+    proxy.$message({
         type: "error",
         message: "无法跳转,请联系系统管理员!"
     });

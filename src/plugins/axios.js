@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-03-26 16:06:01
+ * @LastEditTime: 2021-03-29 17:51:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\plugins\axios.js
@@ -173,13 +173,7 @@ const install = (app, { router, store, opt }) => {
     });
 
     window[opt] = api;
-    Object.defineProperties(app.config.globalProperties, {
-        [opt]: {
-            get() {
-                return api;
-            }
-        }
-    });
+    app.config.globalProperties[opt] = api;
 };
 
 export default { install };

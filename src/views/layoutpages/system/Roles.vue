@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-25 15:52:57
+ * @LastEditTime: 2021-03-29 11:32:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\Roles.vue
@@ -166,7 +166,7 @@ export default {
         RoleEdit
     },
     setup() {
-        const { ctx } = getCurrentInstance();
+        const { proxy } = getCurrentInstance();
         const route = useRoute();
         const router = useRouter();
         const store = useStore();
@@ -214,11 +214,12 @@ export default {
          * @return {*}
          */
         const handleDel = id => {
-            ctx.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "error"
-            })
+            proxy
+                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "error"
+                })
                 .then(async () => {
                     const { code } = await VE_API.system.roleDel({ id });
                     if (code == "00") {
@@ -226,7 +227,7 @@ export default {
                     }
                 })
                 .catch(() => {
-                    ctx.$message({
+                    proxy.$message({
                         type: "info",
                         message: "已取消删除"
                     });
@@ -246,7 +247,7 @@ export default {
                 "system/Users",
                 pathId,
                 menuList,
-                ctx
+                proxy
             );
             router.push({ name: toName, query: { id } });
         };
