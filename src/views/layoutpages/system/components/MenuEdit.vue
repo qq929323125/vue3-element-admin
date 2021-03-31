@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-25 17:39:16
+ * @LastEditTime: 2021-03-30 11:42:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\src\views\layoutpages\system\components\MenuEdit.vue
@@ -433,6 +433,7 @@ export default {
             if (menuOptions.value && menu.value) {
                 return menuOptions.value[menu.value]["toPath"];
             }
+            return false;
         });
         /**
          * @description: 按钮的禁用函数

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-03-22 10:43:50
+ * @LastEditTime: 2021-03-31 10:01:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \element_vue3.0\babel.config.js
@@ -10,10 +10,13 @@ module.exports = {
     presets: ["@vue/cli-plugin-babel/preset"],
     plugins: [
         [
-            "component",
+            "import",
             {
                 libraryName: "element-plus",
-                styleLibraryName: "theme-chalk"
+                customStyleName: name => {
+                    name = name.slice(3);
+                    return `element-plus/packages/theme-chalk/src/${name}.scss`;
+                }
             }
         ],
         "@vue/babel-plugin-jsx"
