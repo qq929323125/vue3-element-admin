@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-02-09 09:44:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\App.vue
+ * @FilePath: \vue3-element-admin\src\App.vue
 -->
 <template>
     <div id="app">

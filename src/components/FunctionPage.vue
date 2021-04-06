@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-25 10:34:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\FunctionPage.vue
+ * @FilePath: \vue3-element-admin\src\components\FunctionPage.vue
 -->
 <template>
     <div>

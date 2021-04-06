@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-03-23 14:08:27
+ * @LastEditTime: 2021-04-02 17:39:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \vue_3.0_test\vue.config.js
+ * @FilePath: \vue3-element-admin\vue.config.js
  */
 const setting = require("./src/setting");
 const webpack = require("webpack");

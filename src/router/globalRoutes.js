@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-01-18 09:45:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\router\globalRoutes.js
+ * @FilePath: \vue3-element-admin\src\router\globalRoutes.js
  */
 export default [
     {

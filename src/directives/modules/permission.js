@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-26 09:04:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\directives\modules\permission.js
+ * @FilePath: \vue3-element-admin\src\directives\modules\permission.js
  */
 
 const permission = (el, binding, app, router, store) => {

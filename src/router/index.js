@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-24 16:14:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\router\index.js
+ * @FilePath: \vue3-element-admin\src\router\index.js
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 import globalRoutes from "./globalRoutes";

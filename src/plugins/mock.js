@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-31 13:12:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit1
- * @FilePath: \element_vue3.0\src\plugins\mock.js
+ * @FilePath: \vue3-element-admin\src\plugins\mock.js
  */
 export default {
     install: () => {

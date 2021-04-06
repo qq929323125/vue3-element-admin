@@ -4,13 +4,13 @@
  * @LastEditTime: 2021-03-15 16:00:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\Login.vue
+ * @FilePath: \vue3-element-admin\src\views\Login.vue
 -->
 <template>
     <common
         ><div class="ve_container">
             <el-card :body-style="{ background: 'rgba(0,0,0,0.15)' }">
-                <h1>VE-Admin</h1>
+                <h1>vue3-element-admin</h1>
                 <transition name="el-fade-in-linear">
                     <el-form
                         :model="form"

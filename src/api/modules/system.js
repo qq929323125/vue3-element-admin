@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-25 17:00:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\api\modules\system.js
+ * @FilePath: \vue3-element-admin\src\api\modules\system.js
  */
 // const Mock = require("mockjs"); //引入
 /**

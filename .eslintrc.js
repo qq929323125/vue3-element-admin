@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-11 16:12:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\.eslintrc.js
+ * @FilePath: \vue3-element-admin\.eslintrc.js
  */
 module.exports = {
     root: true,

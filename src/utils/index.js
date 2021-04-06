@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-17 10:48:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\utils\index.js
+ * @FilePath: \vue3-element-admin\src\utils\index.js
  */
 /**
  * @description:树形结构转一维数组

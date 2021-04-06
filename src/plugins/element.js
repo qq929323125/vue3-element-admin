@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-31 10:14:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\plugins\element.js
+ * @FilePath: \vue3-element-admin\src\plugins\element.js
  */
 
 import {

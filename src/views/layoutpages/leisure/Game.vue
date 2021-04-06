@@ -1,9 +1,9 @@
 <!--
  * @Author: xujianhua
  * @Date: 2021-04-01 17:06:04
- * @LastEditTime: 2021-04-02 16:31:58
+ * @LastEditTime: 2021-04-06 09:13:11
  * @Description: file content
- * @FilePath: \element_vue3.0\src\views\layoutpages\leisure\Game.vue
+ * @FilePath: \vue3-element-admin\src\views\layoutpages\leisure\Game.vue
 -->
 <template>
     <div id="ve_puzzle">
@@ -82,12 +82,13 @@
 
 <script>
 import { ref, onBeforeUpdate } from "vue";
+let url = require("../../../assets/logo.png");
 export default {
     data: () => ({
         description: "拼图小游戏"
     }),
     setup() {
-        const img = ref(require("../../../assets/logo.png"));
+        const img = ref(url);
         const show_img = ref(false);
         const txt = ref("查看原图");
         const divs = ref([]);
@@ -210,7 +211,7 @@ export default {
         position: relative;
         width: 399px;
         height: 399px;
-        border: 5px solid rgb(168, 168, 168);
+        background-size: 399px;
         box-shadow: 1px 1px 10px rgb(168, 168, 168),
             -1px -1px 10px rgb(168, 168, 168);
 
@@ -223,6 +224,7 @@ export default {
             height: 99px;
             transition: all 0.2s;
             background-repeat: no-repeat;
+            background-size: 399px;
             &.ve_show_img {
                 opacity: 0;
             }

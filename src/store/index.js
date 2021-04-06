@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-01-12 11:07:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\store\index.js
+ * @FilePath: \vue3-element-admin\src\store\index.js
  */
 let modules = {};
 const files = require.context("./modules", false, /\.js$/);

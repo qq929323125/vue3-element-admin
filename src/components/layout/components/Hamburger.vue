@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-01-15 16:01:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\components\SilderMenu.vue
+ * @FilePath: \vue3-element-admin\src\components\layout\components\SilderMenu.vue
 -->
 <template>
     <div class="ve_slider_menu" @click="fn_slider_menu">

@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-25 09:44:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\components\Personal.vue
+ * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
 -->
 <template>
     <div class="ve_personal">

@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-24 16:14:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\directives\modules\resize.js
+ * @FilePath: \vue3-element-admin\src\directives\modules\resize.js
  */
 const resize = (el, binding) => {
     const { value } = binding;

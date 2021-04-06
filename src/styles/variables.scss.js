@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-02-09 09:33:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\styles\variables.scss.js
+ * @FilePath: \vue3-element-admin\src\styles\variables.scss.js
  */
 const variables = {
     main_bg_color: "#f5f5f5",

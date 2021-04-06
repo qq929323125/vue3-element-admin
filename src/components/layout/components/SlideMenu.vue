@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-26 09:10:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\components\SlideMenu.vue
+ * @FilePath: \vue3-element-admin\src\components\layout\components\SlideMenu.vue
 -->
 <template>
     <el-submenu

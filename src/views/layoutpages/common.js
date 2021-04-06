@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-29 17:57:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\views\layoutpages\common.js
+ * @FilePath: \vue3-element-admin\src\views\layoutpages\common.js
  */
 import { defineAsyncComponent } from "vue";
 /**

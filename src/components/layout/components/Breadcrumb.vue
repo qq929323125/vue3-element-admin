@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-30 13:55:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\components\Breadcrumb.vue
+ * @FilePath: \vue3-element-admin\src\components\layout\components\Breadcrumb.vue
 -->
 <template>
     <el-breadcrumb separator="/">

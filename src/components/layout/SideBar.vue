@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-22 14:30:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\components\layout\SideBar.vue
+ * @FilePath: \vue3-element-admin\src\components\layout\SideBar.vue
 -->
 <template>
     <router-link to="/">

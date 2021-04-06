@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-18 17:36:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \element_vue3.0\src\store\modules\app1.js
+ * @FilePath: \vue3-element-admin\src\store\modules\app1.js
  */
 export default {
     namespaced: true,
