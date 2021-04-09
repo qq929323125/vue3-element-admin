@@ -1,21 +1,19 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-04-06 09:15:19
+ * @LastEditTime: 2021-04-08 10:24:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\README.md
 -->
-![登录页](./src/assets/logo.png)
+![Logo](./src/assets/logo.png)
 
 # vue3-element-admin
 
 **[<font color=#FF0000>✈ 国内加速链接</font>](https://gitee.com/asaasa/vue3-element-admin)**   
-**[<font color=#FF0000>✈ 效果预览</font>](https://vue3-0-element-admin.vercel.app/)**   
+**[<font color=#FF0000>✈ 效果预览</font>](https://vue3-element-admin.vercel.app/)**   
 **[<font color=#FF0000>✈ 效果预览(备用地址)</font>](http://asaasa.gitee.io/xujianhua)**   
 **走过路过的老铁,帮忙点个小⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
-## 项目简介
-
 基于**vue3**和**element-plus**开发的企业后台管理模板.
 ___
 ![登录页](./pvw/login-min.png)
