@@ -1,18 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-01-05 17:15:27
- * @LastEditTime: 2021-03-03 13:36:42
+ * @LastEditTime: 2021-04-25 10:44:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_3.0_test\src\mock\mock-server.js
  */
 
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
+const express = require("express");
 const chokidar = require("chokidar");
 const chalk = require("chalk");
 const path = require("path");
 const Mock = require("mockjs");
-const mockDir = path.join(process.cwd(), "src/mock");
+const apiDir = path.join(process.cwd(), "src/api");
 
 // 注册mock接口路径
 function registerRoutes(app) {
@@ -64,7 +65,8 @@ const responseFake = (url, type, respond) => {
 // 移除路由
 function unregisterRoutes() {
     Object.keys(require.cache).forEach(i => {
-        if (i.includes(mockDir)) {
+        console.log(apiDir, i);
+        if (i.includes(apiDir)) {
             delete require.cache[require.resolve(i)];
         }
     });
@@ -73,9 +75,9 @@ function unregisterRoutes() {
 // 导出服务器app
 module.exports = app => {
     // 解析post数据
-    app.use(bodyParser.json());
+    app.use(express.json());
     app.use(
-        bodyParser.urlencoded({
+        express.urlencoded({
             extended: true
         })
     );
@@ -84,9 +86,9 @@ module.exports = app => {
     const mockRoutes = registerRoutes(app);
     let mockRoutesLength = mockRoutes.mockRoutesLength;
     let mockStartIndex = mockRoutes.mockStartIndex;
-    // 观察mock下的文件变化（不包括mock-server.js），热更新文件，这样添加数据路由就不用重启了
+    //* 观察mock下的文件变化（不包括mock-server.js），热更新文件，这样添加数据路由就不用重启了
     chokidar
-        .watch(mockDir, {
+        .watch(apiDir, {
             ignored: /mock-server/,
             ignoreInitial: true
         })

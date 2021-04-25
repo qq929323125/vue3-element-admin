@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-04-02 17:39:09
+ * @LastEditTime: 2021-04-25 17:15:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
@@ -38,7 +38,9 @@ module.exports = {
                 }
             }
         ]);
-        config.plugins.delete("hash-module-ids");
+        config.plugins.delete("prefetch");
+        config.plugins.delete("preload");
+        // config.optimization.delete("splitChunks");
     },
 
     configureWebpack: () => {
@@ -48,8 +50,27 @@ module.exports = {
             // 为生产环境修改配置...
             envConfig = {
                 optimization: {
-                    moduleIds: "named"
-                    // chunkIds: "named"
+                    splitChunks: {
+                        chunks: "all",
+                        maxSize: 200000,
+                        cacheGroups: {
+                            echarts: {
+                                name: "chunk-echarts",
+                                priority: 20,
+                                test: /[\\/]node_modules[\\/]_?echarts(.*)/
+                            },
+                            elementPlus: {
+                                name: "chunk-elementPlus",
+                                priority: 20,
+                                test: /[\\/]node_modules[\\/]_?element-plus(.*)/
+                            },
+                            mockjs: {
+                                name: "chunk-mockjs",
+                                priority: 20,
+                                test: /[\\/]node_modules[\\/]_?mockjs(.*)/
+                            }
+                        }
+                    }
                 },
                 externals: {
                     // lodash: "_"
@@ -63,7 +84,7 @@ module.exports = {
                             warnings: false,
                             compress: {
                                 drop_console: true,
-                                drop_debugger: false,
+                                drop_debugger: true,
                                 pure_funcs: ["console.log"] //移除console
                             }
                         }
