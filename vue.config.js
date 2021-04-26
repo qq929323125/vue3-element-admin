@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-04-26 13:38:12
+ * @LastEditTime: 2021-04-26 17:39:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
@@ -39,7 +39,7 @@ module.exports = {
             }
         ]);
         config.plugins.delete("prefetch");
-        config.plugins.delete("preload");
+        // config.plugins.delete("preload");
         // config.optimization.delete("splitChunks");
     },
 
@@ -52,7 +52,7 @@ module.exports = {
                 optimization: {
                     splitChunks: {
                         chunks: "all",
-                        enforceSizeThreshold: 20000,
+                        // enforceSizeThreshold: 20000,
                         cacheGroups: {
                             echarts: {
                                 name: "chunk-echarts",
