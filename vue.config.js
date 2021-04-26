@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-04-25 17:15:31
+ * @LastEditTime: 2021-04-26 13:38:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
@@ -52,7 +52,7 @@ module.exports = {
                 optimization: {
                     splitChunks: {
                         chunks: "all",
-                        maxSize: 200000,
+                        enforceSizeThreshold: 20000,
                         cacheGroups: {
                             echarts: {
                                 name: "chunk-echarts",

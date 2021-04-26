@@ -1,15 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-02-09 09:44:37
+ * @LastEditTime: 2021-04-26 13:51:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\App.vue
 -->
 <template>
-    <div id="app">
-        <router-view></router-view>
-    </div>
+    <router-view></router-view>
 </template>
 
 <script>
