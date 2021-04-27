@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-03-24 18:08:29
+ * @LastEditTime: 2021-04-27 11:10:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue3-element-admin\src\main.js
@@ -19,9 +19,7 @@ import directives from "@/directives";
 import "normalize.css/normalize.css";
 import "nprogress/nprogress.css";
 import "@/styles/common.scss";
-import FunctionPage from "@/components/FunctionPage";
 const app = createApp(App);
-app.component("function-page", FunctionPage);
 app.use(mock)
     .use(store)
     .use(router)

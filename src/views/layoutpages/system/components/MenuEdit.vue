@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-30 11:42:54
+ * @LastEditTime: 2021-04-27 10:17:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\MenuEdit.vue
@@ -329,6 +329,11 @@ export default {
                 }
             ]
         }));
+        /**按钮目标菜单验证规则
+         * @description:
+         * @param {*} computed
+         * @return {*}
+         */
         const toPathRule = computed(() => [
             {
                 required: changeToPath.value,

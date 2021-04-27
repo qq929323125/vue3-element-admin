@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-03-25 17:36:52
+ * @LastEditTime: 2021-04-27 10:06:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\permission.js
@@ -15,7 +15,6 @@ import NProgress from "nprogress";
  * 判断当前路由类型, global: 全局路由, main: 主入口路由
  * @param {*} route 当前路由
  */
-// eslint-disable-next-line no-unused-vars
 function fnCurrentRouteType(route, globalRoutes = []) {
     let temp = [];
     for (let i = 0; i < globalRoutes.length; i++) {

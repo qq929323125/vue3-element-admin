@@ -1,12 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-03-29 17:57:16
+ * @LastEditTime: 2021-04-27 12:58:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\common.js
  */
 import { defineAsyncComponent } from "vue";
+import FunctionPage from "@/components/FunctionPage";
+
 /**
  * @description:提交搜索
  * @param {*}
@@ -102,8 +104,12 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
 };
 /**
  * @description: 获取按钮跳转菜单的路径
- * @param {*}
- * @return {*}
+ * @param {btnName} 跳转按钮的key值
+ * @param {toPathUrl} 需要跳转到的菜单的路径 该路径为layoutpages下的文件子路径
+ * @param {pathId} 当前页面的路由id
+ * @param {menuList} 所有注册过的路由列表
+ * @param {proxy} vue实例
+ * @return {name} 跳转路由的name值
  */
 export const findName = (btnName, toPathUrl, pathId, menuList, proxy) => {
     let toId = "";
@@ -135,10 +141,14 @@ export const findName = (btnName, toPathUrl, pathId, menuList, proxy) => {
         message: "无法跳转,请联系系统管理员!"
     });
 };
+
 /**
  * @description:根据权限动态添加路由
- * @param {*}
- * @return {*}
+ * @param {title} 标题名称
+ * @param {path} 组件路径 layoutpages下的组件路径
+ * @param {name} 按钮key值
+ * @param {{ router, route }} 路由对象
+ * @return {_route.name} 返回注册后的name值
  */
 export const getAsyncRouteName = async (
     title,
@@ -146,11 +156,13 @@ export const getAsyncRouteName = async (
     name,
     { router, route }
 ) => {
+    const AsyncComponent = defineAsyncComponent(() =>
+        import("@/views/layoutpages/" + path + ".vue")
+    );
     const app = {
         components: {
-            AsyncComponent: defineAsyncComponent(() =>
-                import("@/views/layoutpages/" + path + ".vue")
-            )
+            FunctionPage,
+            AsyncComponent
         },
         data: () => ({
             rName: null
