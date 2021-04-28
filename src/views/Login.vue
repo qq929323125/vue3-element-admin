@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-03-15 16:00:48
+ * @LastEditTime: 2021-04-28 17:39:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
@@ -107,6 +107,7 @@ export default {
 <style lang="scss" scoped>
 .ve_container {
     position: absolute;
+    z-index: 1;
     width: 400px;
     top: 50%;
     left: 100px;

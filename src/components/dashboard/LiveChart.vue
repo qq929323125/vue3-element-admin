@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-03-18 18:08:37
+ * @LastEditTime: 2021-04-28 17:55:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
 -->
 <template>
     <div
-        v-resize="myChart"
+        v-resize="myChart && myChart.resize"
         style="height:400px;margin-top:20px"
         ref="liveChart"
     ></div>

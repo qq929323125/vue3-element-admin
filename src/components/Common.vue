@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 09:41:14
- * @LastEditTime: 2021-03-26 15:12:30
+ * @LastEditTime: 2021-04-28 17:48:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\Common.vue
@@ -33,7 +33,10 @@
                 <!-- <button class="error__button">CONTACT</button> -->
             </div>
         </slot>
-        <div class="astronaut">
+        <div class="astronaut" v-resize="draw3dAstronaut">
+            <canvas ref="cav"></canvas>
+        </div>
+        <!-- <div class="astronaut">
             <div class="astronaut__backpack"></div>
             <div class="astronaut__body"></div>
             <div class="astronaut__body__chest"></div>
@@ -57,81 +60,310 @@
                 ></canvas>
             </div>
             <div class="astronaut__head">
-                <!-- <canvas id="visor" ref="visor"></canvas> -->
                 <div class="astronaut__head-visor-face"></div>
                 <div class="astronaut__head-visor-flare1"></div>
                 <div class="astronaut__head-visor-flare2"></div>
             </div>
-        </div>
-        <!-- partial -->
+        </div> -->
     </div>
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from "vue";
+import Zdog from "zdog";
+import { nextTick, ref } from "vue";
 export default {
     name: "Base",
     setup() {
-        const visor = ref(null);
-        const cord = ref(null);
+        const cav = ref();
+        nextTick(() => {
+            draw3dAstronaut();
+        });
+        /**
+         * @description: 画3d太空人
+         * @param {*}
+         * @return {*}
+         */
+        const draw3dAstronaut = () => {
+            cav.value.width = cav.value.parentNode.clientWidth;
+            cav.value.height = cav.value.parentNode.clientHeight;
 
-        let y1 = 0;
-        let y2 = 60;
-        let y3 = 10;
+            // colours
+            let dark_navy = "#131e38";
+            let orange = "#fe9642";
+            let cream = "#FFF8E7";
+            let light_purple = "#7f3f98";
+            let dark_purple = "#563795";
+            let cheese = "#fbc715";
 
-        let y1Forward = true;
-        let y2Forward = false;
-        let y3Forward = true;
+            // create illo
+            let illo = new Zdog.Illustration({
+                // set canvas with selector
+                element: cav.value,
+                dragRotate: true,
+                zoom: 0.65
+            });
 
-        let reAnimate = null;
-        function animate() {
-            reAnimate = requestAnimationFrame(animate);
-            const ctx = cord.value.getContext("2d");
-            ctx.clearRect(0, 0, 500, 500);
+            /** Body **/
+            // Body
+            let body = new Zdog.RoundedRect({
+                addTo: illo,
+                width: 200,
+                height: 220,
+                color: "white",
+                fill: true,
+                cornerRadius: 16,
+                stroke: 60
+            });
 
-            ctx.beginPath();
-            ctx.moveTo(50, 50);
-            ctx.bezierCurveTo(100, 10, 150, y2, 200, y3);
+            // Backpack
+            new Zdog.RoundedRect({
+                addTo: body,
+                width: 180,
+                height: 310,
+                color: orange,
+                fill: true,
+                cornerRadius: 24,
+                stroke: 120,
+                translate: { z: -85, y: -60 }
+            });
 
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 2;
-            ctx.stroke();
+            /** arm **/
+            let arm = new Zdog.RoundedRect({
+                addTo: body,
+                height: 30,
+                width: 28,
+                stroke: 60,
+                fill: true,
+                color: dark_purple,
+                translate: { x: -140, y: -64 },
+                cornerRadius: 0.05
+            });
 
-            if (y1 === 0) {
-                y1Forward = true;
+            new Zdog.RoundedRect({
+                addTo: arm,
+                height: 120,
+                width: 12,
+                stroke: 60,
+                fill: true,
+                color: cream,
+                translate: { y: 120 },
+                cornerRadius: 0.05
+            });
+
+            // bubble_arm
+            let bubble_arm = new Zdog.Shape({
+                addTo: arm,
+                path: [{ x: -20 }, { x: 20 }],
+                stroke: 32,
+                color: light_purple,
+                translate: { y: 210 }
+            });
+
+            bubble_arm.copy({
+                color: dark_purple,
+                translate: { y: 230 }
+            });
+
+            // hand
+            new Zdog.RoundedRect({
+                addTo: bubble_arm,
+                height: 32,
+                width: 22,
+                translate: { x: -8, y: 60 },
+                fill: true,
+                color: cheese,
+                stroke: 30
+            });
+
+            new Zdog.RoundedRect({
+                addTo: bubble_arm,
+                height: 24,
+                width: 0,
+                translate: { x: 24, y: 50 },
+                fill: true,
+                color: orange,
+                stroke: 20
+            });
+
+            arm.copyGraph({
+                translate: { x: 140, y: -64 },
+                rotate: { y: Zdog.TAU / 2 }
+            });
+
+            /** Leg **/
+            let leg = new Zdog.RoundedRect({
+                addTo: body,
+                height: 160,
+                width: 28,
+                stroke: 60,
+                fill: true,
+                color: cream,
+                translate: { x: -56, y: 230 },
+                cornerRadius: 0.05
+            });
+
+            // bubble_leg
+            let bubble_leg = new Zdog.Shape({
+                addTo: leg,
+                path: [{ x: -28 }, { x: 28 }],
+                stroke: 32,
+                color: light_purple,
+                translate: { y: 100 }
+            });
+
+            bubble_leg.copy({
+                color: dark_purple,
+                translate: { y: 124 }
+            });
+
+            // foot
+            new Zdog.RoundedRect({
+                addTo: leg,
+                width: 96,
+                height: 24,
+                stroke: 40,
+                fill: true,
+                color: cheese,
+                translate: { x: -24, y: 170 },
+                cornerRadius: 24
+            });
+
+            leg.copyGraph({
+                translate: { x: 56, y: 230 },
+                rotate: { y: Zdog.TAU / 2 }
+            });
+
+            /** Head **/
+            // Head
+            let head = new Zdog.RoundedRect({
+                addTo: body,
+                width: 216,
+                height: 180,
+                depth: 40,
+                cornerRadius: 80,
+                stroke: 60,
+                color: cream,
+                fill: true,
+                translate: { y: -300 }
+            });
+
+            //add helmet
+            let helmet = new Zdog.RoundedRect({
+                addTo: head,
+                width: 210,
+                height: 165,
+                cornerRadius: 64,
+                color: dark_navy,
+                fill: true,
+                backface: false,
+                translate: { z: 20 }
+            });
+
+            //add refletion
+            new Zdog.Rect({
+                addTo: helmet,
+                width: 48,
+                height: 2,
+                stroke: 10,
+                translate: { x: 24, y: -24, z: 10 },
+                color: "white",
+                backface: false
+            });
+
+            // add ear
+            let ear = new Zdog.RoundedRect({
+                addTo: head,
+                width: 36,
+                height: 72,
+                cornerRadius: 80,
+                stroke: 20,
+                color: orange,
+                fill: true,
+                translate: { x: -140 }
+            });
+
+            ear.copy({
+                translate: { x: 140 }
+            });
+
+            // neck
+            let neck = new Zdog.Shape({
+                addTo: head,
+                path: [{ x: -110 }, { x: 110 }],
+                translate: { y: 120 },
+                stroke: 40,
+                color: light_purple
+            });
+
+            neck.copy({
+                translate: { y: 160 },
+                color: dark_purple
+            });
+
+            /** extra **/
+            let stripe_1 = new Zdog.Shape({
+                addTo: body,
+                path: [{ x: -20 }, { x: 20 }],
+                stroke: 10,
+                translate: { x: 200, z: 200 },
+                color: cheese
+            });
+
+            stripe_1.copy({
+                translate: { x: 320, y: 200, z: -400 },
+                color: cheese
+            });
+
+            stripe_1.copy({
+                translate: { x: -220, y: 300, z: -400 },
+                color: "white"
+            });
+
+            stripe_1.copy({
+                translate: { x: -100, y: 400, z: -280 },
+                color: light_purple
+            });
+
+            stripe_1.copy({
+                translate: { x: 50, y: -60, z: 150 },
+                color: orange
+            });
+
+            stripe_1.copy({
+                translate: { x: -250, y: 80, z: 300 },
+                color: light_purple
+            });
+
+            stripe_1.copy({
+                translate: { x: -350, y: -280, z: 175 },
+                color: dark_purple
+            });
+
+            stripe_1.copy({
+                translate: { x: 250, y: -380, z: -175 },
+                color: "white"
+            });
+
+            // update & render
+            illo.updateRenderGraph();
+
+            function animate() {
+                // rotate illo each frame
+                illo.rotate.y += 0.005;
+                illo.rotate.x += 0.005;
+                illo.rotate.z += 0.005;
+                illo.updateRenderGraph();
+                // animate next frame
+                requestAnimationFrame(animate);
             }
 
-            if (y1 === 40) {
-                y1Forward = false;
-            }
-
-            if (y2 === 60) {
-                y2Forward = true;
-            }
-
-            if (y2 === 100) {
-                y2Forward = false;
-            }
-
-            if (y3 === 10) {
-                y3Forward = true;
-            }
-
-            if (y3 === 60) {
-                y3Forward = false;
-            }
-
-            y1Forward ? (y1 += 1) : (y1 -= 1);
-            y2Forward ? (y2 += 1) : (y2 -= 1);
-            y3Forward ? (y3 += 1) : (y3 -= 1);
-        }
-        onMounted(() => {
+            // start animation
             animate();
-        });
-        onUnmounted(() => {
-            cancelAnimationFrame(reAnimate);
-        });
-        return { visor, cord };
+        };
+        return {
+            cav,
+            draw3dAstronaut
+        };
     }
 };
 </script>
@@ -241,6 +473,15 @@ export default {
     animation-delay: 0.5s;
 }
 
+.astronaut {
+    position: absolute;
+    width: 60vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    z-index: 0;
+}
+
 .error {
     position: absolute;
     left: 100px;
@@ -248,6 +489,7 @@ export default {
     transform: translateY(-60%);
     font-family: "Righteous", cursive;
     color: #363e49;
+    z-index: 1;
 }
 
 .error__title {
@@ -297,244 +539,5 @@ export default {
 .error__button--active:hover {
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
     color: white;
-}
-
-.astronaut {
-    position: absolute;
-    width: 185px;
-    height: 300px;
-    left: 70%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(20deg);
-}
-
-.astronaut__head {
-    background-color: white;
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 60px;
-    height: 60px;
-    content: "";
-    border-radius: 2em;
-    overflow: hidden;
-    .astronaut__head-visor-face {
-        position: relative;
-        left: 6px;
-        top: 10px;
-        border-radius: 10px;
-        background: #2f3640;
-        width: 48px;
-        height: 100%;
-    }
-}
-
-.astronaut__head-visor-flare1 {
-    background-color: #7f8fa6;
-    position: absolute;
-    top: 28px;
-    left: 40px;
-    width: 10px;
-    height: 10px;
-    content: "";
-    border-radius: 2em;
-    opacity: 0.5;
-}
-
-.astronaut__head-visor-flare2 {
-    background-color: #718093;
-    position: absolute;
-    top: 40px;
-    left: 38px;
-    width: 5px;
-    height: 5px;
-    content: "";
-    border-radius: 2em;
-    opacity: 0.3;
-}
-
-.astronaut__backpack {
-    background-color: #bfbfbf;
-    position: absolute;
-    top: 90px;
-    left: 47px;
-    width: 86px;
-    height: 90px;
-    content: "";
-    border-radius: 8px;
-}
-
-.astronaut__body {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 115px;
-    left: 55px;
-    width: 70px;
-    height: 80px;
-    content: "";
-    border-radius: 8px;
-}
-
-.astronaut__body__chest {
-    background-color: #d9d9d9;
-    position: absolute;
-    top: 140px;
-    left: 68px;
-    width: 45px;
-    height: 25px;
-    content: "";
-    border-radius: 6px;
-}
-
-.astronaut__arm-left1 {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 127px;
-    left: 9px;
-    width: 65px;
-    height: 20px;
-    content: "";
-    border-radius: 8px;
-    transform: rotate(-30deg);
-}
-
-.astronaut__arm-left2 {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 102px;
-    left: 7px;
-    width: 20px;
-    height: 45px;
-    content: "";
-    border-radius: 8px;
-    transform: rotate(-12deg);
-    border-top-left-radius: 8em;
-    border-top-right-radius: 8em;
-}
-
-.astronaut__arm-right1 {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 113px;
-    left: 100px;
-    width: 65px;
-    height: 20px;
-    content: "";
-    border-radius: 8px;
-    transform: rotate(-10deg);
-}
-
-.astronaut__arm-right2 {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 78px;
-    left: 141px;
-    width: 20px;
-    height: 45px;
-    content: "";
-    border-radius: 8px;
-    transform: rotate(-10deg);
-    border-top-left-radius: 8em;
-    border-top-right-radius: 8em;
-}
-
-.astronaut__arm-thumb-left {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 110px;
-    left: 21px;
-    width: 10px;
-    height: 6px;
-    content: "";
-    border-radius: 8em;
-    transform: rotate(-35deg);
-}
-
-.astronaut__arm-thumb-right {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 90px;
-    left: 133px;
-    width: 10px;
-    height: 6px;
-    content: "";
-    border-radius: 8em;
-    transform: rotate(20deg);
-}
-
-.astronaut__wrist-left {
-    background-color: $base-color;
-    position: absolute;
-    top: 122px;
-    left: 6.5px;
-    width: 21px;
-    height: 4px;
-    content: "";
-    border-radius: 8em;
-    transform: rotate(-15deg);
-}
-
-.astronaut__wrist-right {
-    background-color: $base-color;
-    position: absolute;
-    top: 98px;
-    left: 141px;
-    width: 21px;
-    height: 4px;
-    content: "";
-    border-radius: 8em;
-    transform: rotate(-10deg);
-}
-
-.astronaut__leg-left {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 188px;
-    left: 50px;
-    width: 23px;
-    height: 75px;
-    content: "";
-    transform: rotate(10deg);
-}
-
-.astronaut__leg-right {
-    background-color: #e6e6e6;
-    position: absolute;
-    top: 188px;
-    left: 108px;
-    width: 23px;
-    height: 75px;
-    content: "";
-    transform: rotate(-10deg);
-}
-
-.astronaut__foot-left {
-    background-color: white;
-    position: absolute;
-    top: 240px;
-    left: 43px;
-    width: 28px;
-    height: 20px;
-    content: "";
-    transform: rotate(10deg);
-    border-radius: 3px;
-    border-top-left-radius: 8em;
-    border-top-right-radius: 8em;
-    border-bottom: 4px solid $base-color;
-}
-
-.astronaut__foot-right {
-    background-color: white;
-    position: absolute;
-    top: 240px;
-    left: 111px;
-    width: 28px;
-    height: 20px;
-    content: "";
-    transform: rotate(-10deg);
-    border-radius: 3px;
-    border-top-left-radius: 8em;
-    border-top-right-radius: 8em;
-    border-bottom: 4px solid $base-color;
 }
 </style>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-17 09:30:54
- * @LastEditTime: 2021-03-24 16:14:55
+ * @LastEditTime: 2021-04-28 17:44:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\directives\modules\resize.js
@@ -24,7 +24,7 @@ const resize = (el, binding) => {
         let height = el.offsetHeight;
         // 不一致时触发回调函数 cb，并更新元素当前宽高
         if (width !== oldWidth || height !== oldHeight) {
-            value.resize();
+            value();
             oldWidth = width;
             oldHeight = height;
         }

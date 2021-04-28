@@ -11,14 +11,15 @@
         "core-js": "^3.11.0",
         "dayjs": "^1.10.4",
         "echarts": "^5.1.0",
-        "element-plus": "^1.0.2-beta.40",
+        "element-plus": "^1.0.2-beta.41",
         "normalize.css": "^8.0.1",
         "nprogress": "^0.2.0",
         "qs": "^6.10.1",
         "vue": "^3.0.11",
         "vue-router": "^4.0.6",
         "vuex": "^4.0.0",
-        "xe-utils": "^3.2.1"
+        "xe-utils": "^3.2.1",
+        "zdog": "^1.1.2"
     },
     "devDependencies": {
         "@vue/babel-plugin-jsx": "^1.0.5",
