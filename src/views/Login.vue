@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-04-28 17:39:05
+ * @LastEditTime: 2021-04-29 16:37:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
@@ -25,6 +25,11 @@
                             <el-input
                                 v-model.trim="userName"
                                 placeholder="用户名"
+                                ><template #prepend
+                                    ><i
+                                        style="font-size:20px;"
+                                        class="el-icon-user"
+                                    ></i></template
                             ></el-input>
                         </el-form-item>
                         <el-form-item prop="pwd">
@@ -32,6 +37,11 @@
                                 v-model.trim="pwd"
                                 show-password
                                 placeholder="密码"
+                                ><template #prepend
+                                    ><i
+                                        style="font-size:20px;"
+                                        class="el-icon-key"
+                                    ></i></template
                             ></el-input>
                         </el-form-item>
                         <el-form-item>
@@ -112,20 +122,21 @@ export default {
     top: 50%;
     left: 100px;
     transform: translateY(-50%);
+    transition: all 1s;
     min-height: 273px;
     text-align: center;
     h1 {
-        font-size: 36px;
-        -webkit-transition-duration: 1s;
-        transition-duration: 1s;
-        -webkit-transition-timing-function: ease-in-put;
-        transition-timing-function: ease-in-put;
-        font-weight: 400;
-        margin-top: 12px;
+        font-size: 24px;
+        transition: all 1s;
+        font-weight: bold;
+        margin-bottom: 36px;
     }
     .ve_form {
         .ve_submit {
             width: 100%;
+        }
+        :deep(.el-input-group__prepend) {
+            padding: 0 10px;
         }
     }
 }
