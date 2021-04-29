@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-03-26 09:10:05
+ * @LastEditTime: 2021-04-29 13:10:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\SlideMenu.vue
@@ -80,4 +80,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+li.el-menu-item.is-active {
+    background-color: darken($sideBgColor, 15%) !important;
+}
+</style>
