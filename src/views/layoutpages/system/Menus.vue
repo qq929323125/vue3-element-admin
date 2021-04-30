@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-29 17:57:36
+ * @LastEditTime: 2021-04-30 11:33:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Menus.vue
@@ -63,7 +63,10 @@
             <el-table-column prop="name" label="名称"> </el-table-column>
             <el-table-column prop="icon" label="图标">
                 <template v-slot="{ row }">
-                    <i :class="row.icon">{{ row.icon }}</i>
+                    <i v-if="row.type !== 2" :class="row.icon">{{
+                        row.icon
+                    }}</i>
+                    <span v-else>/</span>
                 </template>
             </el-table-column>
             <el-table-column prop="type" label="类型">
@@ -86,7 +89,14 @@
                     >
                 </template>
             </el-table-column>
-            <el-table-column prop="sort" label="排序"> </el-table-column>
+            <el-table-column prop="sort" label="排序"
+                ><template v-slot="{ row }">
+                    <span v-if="row.type !== 2" style="font-weight:bold">{{
+                        row.sort
+                    }}</span>
+                    <span v-else>/</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="iframe" label="Iframe">
                 <template v-slot="{ row }">
                     <el-tag
@@ -95,6 +105,7 @@
                         effect="dark"
                         >{{ row.iframe == 0 ? "否" : "是" }}</el-tag
                     >
+                    <span v-else>/</span>
                 </template>
             </el-table-column>
             <el-table-column prop="url" label="URL/标识" show-overflow-tooltip>
@@ -110,6 +121,7 @@
                         <span v-else>{{ row.url }}</span>
                     </template>
                     <span v-else-if="row.type == 2">{{ row.menu }}</span>
+                    <span v-else>/</span>
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="240">
