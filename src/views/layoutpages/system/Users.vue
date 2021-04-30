@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-29 11:31:36
+ * @LastEditTime: 2021-04-29 17:37:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Users.vue
@@ -249,8 +249,8 @@ export default {
                 {
                     page: 1,
                     limit: 10
-                },
-                { Global: false }
+                }
+                // { Global: false }
             );
             if (code == "00") {
                 const { list } = data;
