@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-04-26 17:39:16
+ * @LastEditTime: 2021-08-05 15:02:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
  */
-const setting = require("./src/setting");
+const config = require("./src/config");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
@@ -18,7 +18,7 @@ module.exports = {
 
     devServer: {
         before: app => {
-            if (setting.dev_mock) {
+            if (config.dev_mock) {
                 const mock_server = require("./src/api/mock-server.js");
                 mock_server(app);
             }

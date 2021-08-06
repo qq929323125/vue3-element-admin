@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:49
- * @LastEditTime: 2021-04-15 10:45:09
+ * @LastEditTime: 2021-08-05 14:55:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\README.md
 -->
 
-![登录页](./src/assets/logo.png)
+![logo](https://i.bmp.ovh/imgs/2021/08/f828888bb4064c64.png)
 
 # vue3-element-admin
 
@@ -22,12 +22,12 @@
 
 ---
 
-![登录页](./pvw/login-min.png)
-![404](./pvw/404-min.png)
-![用户管理](./pvw/user-min.png)
-![菜单管理](./pvw/menu-min.png)
-![角色管理](./pvw/role-min.png)
-![iframe页面](./pvw/iframe-min.png)
+![登录页](https://i.bmp.ovh/imgs/2021/08/d9cc587a8b230dec.png)
+![404](https://i.bmp.ovh/imgs/2021/08/c8d46b772369167d.png)
+![用户管理](https://i.bmp.ovh/imgs/2021/08/6ea6b416eebca641.png)
+![菜单管理](https://i.bmp.ovh/imgs/2021/08/682c150eef16bf17.png)
+![角色管理](https://i.bmp.ovh/imgs/2021/08/7ff5cda434a2000b.png)
+![iframe页面](https://i.bmp.ovh/imgs/2021/08/a101fec1b5769d7b.png)
 
 ## 功能特性
 
@@ -46,7 +46,117 @@
 
 ## 目录结构描述
 
-![项目目录](./pvw/01.png)
+```
+│  .browserslistrc			浏览器兼容配置
+│  .eslintrc.js				eslint配置文件
+│  .gitignore				git配置文件
+│  babel.config.js			babel配置文件
+│  jsconfig.json 			js配置文件
+│  LICENSE 					开源认证
+│  package-lock.json
+│  package.json
+│  README.md				项目说明
+│  vue.config.js 			vue配置文件
+│
+├─.vscode					vscode配置文件
+│      settings.json
+│
+├─node_modules
+├─public
+│      favicon.ico
+│      index.html
+│
+└─src
+    │  App.vue
+    │  main.js
+    │  config.js
+    │
+    ├─api					api管理模块
+    │  │  index.js			api管理入口文件
+    │  │  mock-server.js	mock服务配置文件
+    │  │
+    │  └─modules			api分模块管理
+    │          system.js	模块api文件
+    │
+    ├─assets				静态文件
+    │      logo.png
+    │
+    ├─components			公共组件目录
+    │  │  Common.vue
+    │  │  FunctionPage.vue
+    │  │
+    │  ├─dashboard
+    │  │      LiveChart.vue
+    │  │      Shortcuts.vue
+    │  │
+    │  └─layout
+    │      │  NavigateBar.vue
+    │      │  SideBar.vue
+    │      │
+    │      └─components
+    │              Breadcrumb.vue
+    │              Hamburger.vue
+    │              Logo.vue
+    │              Personal.vue
+    │              SlideMenu.vue
+    │
+    ├─directives			自定义指令目录
+    │  │  index.js			自定义指令入口文件
+    │  │
+    │  └─modules 			自定义指令模块目录
+    │          permission.js
+    │          resize.js
+    │
+    ├─plugins				插件目录
+    │      axios.js
+    │      element.js
+    │      mock.js
+    │      permission.js
+    │
+    ├─router 				router目录
+    │      globalRoutes.js
+    │      index.js
+    │      mainRoutes.js
+    │
+    ├─store 				vuex目录
+    │  │  getters.js
+    │  │  index.js
+    │  │
+    │  └─modules			vuex模块目录
+    │          app.js
+    │
+    ├─styles 				样式目录
+    │      common.scss
+    │      variables.scss.js
+    │
+    ├─utils					公共方法
+    │      index.js
+    │      validate.js
+    │
+    └─views
+        │  404.vue
+        │  AppMain.vue
+        │  Home.vue
+        │  IFrame.vue
+        │  Login.vue
+        │
+        └─layoutpages
+            │  common.js
+            │
+            ├─leisure
+            │      Game.vue
+            │
+            └─system
+                │  Menus.vue
+                │  Roles.vue
+                │  Users.vue
+                │
+                └─components
+                        MenuEdit.vue
+                        RoleEdit.vue
+                        UsersEdit.vue
+                        UsersEditRoute.vue
+```
 
 ## 使用文档
 
