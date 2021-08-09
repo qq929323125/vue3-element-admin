@@ -27,7 +27,7 @@
                                 placeholder="用户名"
                                 ><template #prepend
                                     ><i
-                                        style="font-size:20px;"
+                                        style="font-size: 20px"
                                         class="el-icon-user"
                                     ></i></template
                             ></el-input>
@@ -39,7 +39,7 @@
                                 placeholder="密码"
                                 ><template #prepend
                                     ><i
-                                        style="font-size:20px;"
+                                        style="font-size: 20px"
                                         class="el-icon-key"
                                     ></i></template
                             ></el-input>
@@ -66,7 +66,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const rules = {
     userName: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-    pwd: [{ required: true, message: "请输入密码", trigger: "blur" }]
+    pwd: [{ required: true, message: "请输入密码", trigger: "blur" }],
 };
 export default {
     name: "Login",
@@ -76,7 +76,7 @@ export default {
         const router = useRouter();
         const form = reactive({
             userName: "Administrator",
-            pwd: "123456"
+            pwd: "123456",
         });
         const { userName, pwd } = toRefs(form);
         const ref_form = ref(null);
@@ -86,7 +86,7 @@ export default {
         router.options.isAddDynamicMenuRoutes = false;
 
         const onSubmit = () => {
-            ref_form.value.validate(async valid => {
+            ref_form.value.validate(async (valid) => {
                 if (valid) {
                     const data = await VE_API.system.login(form);
                     if (data.code === "00") {
@@ -108,9 +108,9 @@ export default {
             userName,
             pwd,
             rules,
-            onSubmit
+            onSubmit,
         };
-    }
+    },
 };
 </script>
 

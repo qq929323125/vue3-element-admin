@@ -10,7 +10,7 @@
         <div
             class="ve_artwork"
             :style="{
-                backgroundImage: show_img || success ? `url(${img})` : 'none'
+                backgroundImage: show_img || success ? `url(${img})` : 'none',
             }"
         >
             <div
@@ -21,7 +21,7 @@
                     `pic${i}`,
                     `img${arr[i - 1]}`,
                     show_img || success ? 've_show_img' : '',
-                    success && i == 16 ? 've_finish' : ''
+                    success && i == 16 ? 've_finish' : '',
                 ]"
                 :style="{
                     backgroundImage:
@@ -29,10 +29,10 @@
                             ? success
                                 ? `url(${img})`
                                 : 'none'
-                            : `url(${img})`
+                            : `url(${img})`,
                 }"
                 :ref="
-                    el => {
+                    (el) => {
                         if (el) divs[i - 1] = el;
                     }
                 "
@@ -46,13 +46,13 @@
                         <el-button
                             type="primary"
                             @click="get_nums()"
-                            style="width:100%"
+                            style="width: 100%"
                             >重新开始</el-button
                         >
                     </el-col>
                     <el-col :span="12" :offset="0">
                         <el-button
-                            style="width:100%"
+                            style="width: 100%"
                             :type="show_img ? 'success' : 'info'"
                             @click="see_img()"
                             :disabled="success"
@@ -63,7 +63,7 @@
             </div>
             <div class="ve_upload">
                 <el-upload
-                    style="width:100%"
+                    style="width: 100%"
                     action=""
                     accept="image/png, image/jpeg"
                     ref="upload"
@@ -71,7 +71,7 @@
                     :auto-upload="false"
                     :show-file-list="false"
                 >
-                    <el-button style="width:100%" type="danger"
+                    <el-button style="width: 100%" type="danger"
                         >用我的萌照</el-button
                     >
                 </el-upload>
@@ -85,7 +85,7 @@ import { ref, onBeforeUpdate } from "vue";
 let url = require("../../../assets/logo.png");
 export default {
     data: () => ({
-        description: "拼图小游戏"
+        description: "拼图小游戏",
     }),
     setup() {
         const img = ref(url);
@@ -99,7 +99,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const onChange = file => {
+        const onChange = (file) => {
             img.value = URL.createObjectURL(file.raw);
             get_nums();
             // console.log(URL.createObjectURL(file.raw));
@@ -141,7 +141,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const check_nums = arr => {
+        const check_nums = (arr) => {
             let count = 0;
             for (let i = 0; i < 15; i++) {
                 for (let j = i + 1; j < 15; j++) {
@@ -197,9 +197,9 @@ export default {
             see_img,
             success,
             show_img,
-            onChange
+            onChange,
         };
-    }
+    },
 };
 </script>
 

@@ -11,7 +11,7 @@
         <div class="ve_menu_logo">
             <div class="ve_logo_img">
                 <el-image
-                    style="height:100%"
+                    style="height: 100%"
                     :src="require('../../../assets/logo.png')"
                     fit="contain"
                 ></el-image>
@@ -34,9 +34,9 @@ export default {
         const title = "vue3-element-admin";
         return {
             title,
-            opened
+            opened,
         };
-    }
+    },
 };
 </script>
 

@@ -8,7 +8,7 @@
  */
 const path = require("path");
 const fs = require("fs");
-const getPathInfo = p => path.parse(p);
+const getPathInfo = (p) => path.parse(p);
 
 /**
  * @description // 递归读取文件，类似于webpack的require.context()
@@ -23,7 +23,7 @@ function autoLoadFile(directory, useSubdirectories = false, extList = [".js"]) {
     // 递归读取文件
     function readFileList(directory, useSubdirectories, extList) {
         const files = fs.readdirSync(directory);
-        files.forEach(item => {
+        files.forEach((item) => {
             const fullPath = path.join(directory, item);
             const stat = fs.statSync(fullPath);
             if (stat.isDirectory() && useSubdirectories) {

@@ -82,11 +82,11 @@
                     >
                         <span>{{
                             row.password &&
-                                row.password
-                                    .split("")
-                                    .fill("*", 1, -1)
-                                    .join()
-                                    .replace(/\,/g, "")
+                            row.password
+                                .split("")
+                                .fill("*", 1, -1)
+                                .join()
+                                .replace(/\,/g, "")
                         }}</span>
                     </el-tooltip>
                 </template>
@@ -95,7 +95,7 @@
                 <template v-slot="{ row }">
                     <el-tag>{{
                         (row.role || row.role == 0) &&
-                            roleList.filter(item => item.id == row.role)[0].name
+                        roleList.filter((item) => item.id == row.role)[0].name
                     }}</el-tag>
                 </template>
             </el-table-column>
@@ -108,7 +108,7 @@
                         :inactive-value="0"
                         active-color="#13ce66"
                         inactive-color="#ff4949"
-                        @change="val => handelSwitch(val, row)"
+                        @change="(val) => handelSwitch(val, row)"
                     >
                         >
                     </el-switch>
@@ -140,9 +140,9 @@
         <el-pagination
             ref="pagination"
             background
-            @size-change="val => handleSizeChange(val, params, getDataList)"
+            @size-change="(val) => handleSizeChange(val, params, getDataList)"
             @current-change="
-                val => handleCurrentChange(val, params, getDataList)
+                (val) => handleCurrentChange(val, params, getDataList)
             "
             :hide-on-single-page="total <= limit ? true : false"
             layout="total, sizes, prev, pager, next, jumper"
@@ -178,7 +178,7 @@ import {
     cellClassName,
     rowClick,
     maxHeight,
-    getAsyncRouteName
+    getAsyncRouteName,
 } from "@/views/layoutpages/common";
 export default {
     data: () => ({
@@ -187,11 +187,11 @@ export default {
             search: { name: "查询" },
             add: { name: "添加" },
             edit: { name: "编辑" },
-            del: { name: "删除" }
-        }
+            del: { name: "删除" },
+        },
     }),
     components: {
-        UsersEdit
+        UsersEdit,
     },
     setup() {
         const { proxy } = getCurrentInstance();
@@ -210,7 +210,7 @@ export default {
             role: isNaN(route.query.id * 1) ? "" : route.query.id * 1,
             limit: 10,
             page: 1,
-            total: 0
+            total: 0,
         });
         const { role, limit, page, total } = toRefs(params);
 
@@ -231,11 +231,11 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handleEditRoute = async title => {
+        const handleEditRoute = async (title) => {
             let path = "system/components/UsersEditRoute";
             const toName = await getAsyncRouteName(title, path, "add", {
                 router,
-                route
+                route,
             });
             router.push({ name: toName });
         };
@@ -248,7 +248,7 @@ export default {
             const { code, data } = await VE_API.system.roleList(
                 {
                     page: 1,
-                    limit: 10
+                    limit: 10,
                 }
                 // { Global: false }
             );
@@ -262,7 +262,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handelDialog = e => {
+        const handelDialog = (e) => {
             showDialog.value = e;
             getDataList();
         };
@@ -277,7 +277,7 @@ export default {
             const { code } = await VE_API.system.userStatus(
                 {
                     id: row.id,
-                    status: val
+                    status: val,
                 },
                 { Global: false }
             );
@@ -291,12 +291,12 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handleDel = id => {
+        const handleDel = (id) => {
             proxy
                 .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
-                    type: "error"
+                    type: "error",
                 })
                 .then(async () => {
                     const { code } = await VE_API.system.userDel({ id });
@@ -307,7 +307,7 @@ export default {
                 .catch(() => {
                     proxy.$message({
                         type: "info",
-                        message: "已取消删除"
+                        message: "已取消删除",
                     });
                 });
         };
@@ -348,15 +348,15 @@ export default {
                 rowClassName,
                 cellClassName,
                 rowClick,
-                maxHeight
+                maxHeight,
             },
             roleList,
             handelDialog,
             handleDel,
             handelSwitch,
-            handleEditRoute
+            handleEditRoute,
         };
-    }
+    },
 };
 </script>
 

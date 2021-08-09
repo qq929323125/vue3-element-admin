@@ -12,12 +12,12 @@ const permission = (el, binding, app, router, store) => {
     function checkArray(permission) {
         let path = app.config.globalProperties.$route.name;
 
-        let _permission = permission.map(element => {
+        let _permission = permission.map((element) => {
             let url = path.replace(/-/g, "/") + "/" + element;
             return url;
         });
         let arr = store.getters.permissionList;
-        return _permission.some(key => arr.includes(key));
+        return _permission.some((key) => arr.includes(key));
     }
 
     if (value && value.length > 0) {

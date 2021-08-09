@@ -17,7 +17,7 @@ export default {
     components: { Common },
     setup() {
         return {};
-    }
+    },
 };
 </script>
 

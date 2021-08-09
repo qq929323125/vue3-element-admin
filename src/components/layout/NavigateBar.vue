@@ -22,8 +22,8 @@ export default {
     components: {
         Hamburger,
         Breadcrumb,
-        Personal
-    }
+        Personal,
+    },
 };
 </script>
 <style lang="scss" scoped>

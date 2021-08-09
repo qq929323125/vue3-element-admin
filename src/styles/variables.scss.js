@@ -14,6 +14,6 @@ const variables = {
     side_open_width: "160px",
     sideBgColor: "#545c64",
     sideTextColor: "#fff",
-    sideActiveTextColor: "#ffd04b"
+    sideActiveTextColor: "#ffd04b",
 };
 module.exports = variables;

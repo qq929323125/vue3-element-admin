@@ -19,7 +19,7 @@ import NProgress from "nprogress";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const install = (app, { router, store, opt }) => {
     let config = {
-        Global: true
+        Global: true,
         // baseURL: process.env.baseURL || process.env.apiUrl || ""
         // timeout: 60 * 1000, // Timeout
         // withCredentials: true, // Check cross-site Access-Control
@@ -27,7 +27,7 @@ const install = (app, { router, store, opt }) => {
         // userName=Administrator&pwd=123456
     };
     if (VE_ENV.MODE === "production") {
-        config.transformRequest = [data => Qs.parse(data)];
+        config.transformRequest = [(data) => Qs.parse(data)];
     }
 
     const _axios = axios.create(config);
@@ -36,7 +36,7 @@ const install = (app, { router, store, opt }) => {
     let loadingCount = 0;
     // 请求拦截
     _axios.interceptors.request.use(
-        config => {
+        (config) => {
             console.log(config);
 
             NProgress.done();
@@ -46,7 +46,7 @@ const install = (app, { router, store, opt }) => {
                     lock: true,
                     text: "Loading",
                     spinner: "el-icon-loading",
-                    background: "rgba(0,0,0,0.1)"
+                    background: "rgba(0,0,0,0.1)",
                 });
             }
             loadingCount++;
@@ -57,7 +57,7 @@ const install = (app, { router, store, opt }) => {
             // Do something before request is sent
             return config;
         },
-        error => {
+        (error) => {
             // Do something with request error
             return Promise.reject(error);
         }
@@ -66,7 +66,7 @@ const install = (app, { router, store, opt }) => {
     // Add a response interceptor
     // 响应拦截
     _axios.interceptors.response.use(
-        response => {
+        (response) => {
             // TODO 根据响应头更新token
             store.dispatch("app/set_token", new Date().getTime());
 
@@ -86,12 +86,12 @@ const install = (app, { router, store, opt }) => {
             }
             ve_message = app.config.globalProperties.$message({
                 type,
-                message: response.data.message
+                message: response.data.message,
             });
             // Do something with response data
             return response.data;
         },
-        error => {
+        (error) => {
             loadingCount--;
             if (loadingCount <= 0) {
                 NProgress.done();
@@ -106,7 +106,7 @@ const install = (app, { router, store, opt }) => {
                     case 401: {
                         message = "未授权，请登录";
                         router.replace({
-                            name: "Login"
+                            name: "Login",
                         });
                         break;
                     }
@@ -146,7 +146,7 @@ const install = (app, { router, store, opt }) => {
                 }
                 ve_message = app.config.globalProperties.$message({
                     message,
-                    type: "error"
+                    type: "error",
                 });
             }
             // Do something with response error
@@ -157,16 +157,16 @@ const install = (app, { router, store, opt }) => {
     const method = {
         post: (url, p, config) => _axios.post(url, p, config),
         get: (url, p, config) =>
-            _axios.get(url, Object.assign(config, { params: p }))
+            _axios.get(url, Object.assign(config, { params: p })),
     };
 
     let api = {};
     const files = require.context("@/api/modules", false, /\.js$/);
-    files.keys().forEach(key => {
+    files.keys().forEach((key) => {
         const fileName = key.replace(/(\.\/|\.js)/g, "");
         api[fileName] = {};
         let obj = files(key);
-        Object.keys(obj).forEach(item => {
+        Object.keys(obj).forEach((item) => {
             api[fileName][item] = (p, config = {}) =>
                 method[obj[item].type](obj[item].url, p, config);
         });

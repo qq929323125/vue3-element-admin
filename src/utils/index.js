@@ -13,7 +13,7 @@
  */
 export function jsonToArray(nodes) {
     let pid = -1;
-    const toArray = nodes => {
+    const toArray = (nodes) => {
         let r = [];
         if (Array.isArray(nodes)) {
             for (let i = 0, l = nodes.length; i < l; i++) {
@@ -95,7 +95,7 @@ export const treeFindPath = (tree, func, name = "id", path = []) => {
  * @param {*} obj
  * @return {*}
  */
-export const unwarp = obj => obj && (obj.__v_raw || obj.valueOf() || obj);
+export const unwarp = (obj) => obj && (obj.__v_raw || obj.valueOf() || obj);
 export const icons = [
     "el-icon-platform-eleme",
     "el-icon-eleme",
@@ -376,5 +376,5 @@ export const icons = [
     "el-icon-potato-strips",
     "el-icon-lollipop",
     "el-icon-ice-cream-square",
-    "el-icon-ice-cream-round"
+    "el-icon-ice-cream-round",
 ];

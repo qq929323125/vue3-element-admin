@@ -10,7 +10,7 @@
     <div class="ve_personal">
         <el-button
             title="刷新"
-            style="border:none;font-size:20px"
+            style="border: none; font-size: 20px"
             icon="el-icon-refresh"
             circle
             plain
@@ -46,11 +46,11 @@ export default {
         const router = useRouter();
         const uname = computed(() => store.getters.uname);
         const reload = inject("reload");
-        const handleCommand = command => {
+        const handleCommand = (command) => {
             router.push(command);
         };
         return { reload, uname, handleCommand };
-    }
+    },
 };
 </script>
 

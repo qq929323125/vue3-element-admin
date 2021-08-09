@@ -77,7 +77,7 @@ export const rowClassName = (rowIndex, ve_rowIndex) => {
  * @param {*}
  * @return {*}
  */
-export const rowClick = event => {
+export const rowClick = (event) => {
     // return event.currentTarget.rowIndex;
     return event;
 };
@@ -113,19 +113,19 @@ export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
  */
 export const findName = (btnName, toPathUrl, pathId, menuList, proxy) => {
     let toId = "";
-    let _item = XE.findTree(menuList, item => item.id == pathId);
+    let _item = XE.findTree(menuList, (item) => item.id == pathId);
     if (
         _item &&
         _item.item &&
         _item.item.children &&
         _item.item.children.length > 0
     ) {
-        let btn = _item.item.children.find(item => item.menu == btnName);
+        let btn = _item.item.children.find((item) => item.menu == btnName);
 
         btn && (toId = btn.toPath);
     }
     if (toId != "") {
-        let _toItem = XE.findTree(menuList, item => item.id == toId);
+        let _toItem = XE.findTree(menuList, (item) => item.id == toId);
         if (_toItem && _toItem.item) {
             if (_toItem.item.iframe == 0) {
                 if (_toItem.item.url == toPathUrl) {
@@ -138,7 +138,7 @@ export const findName = (btnName, toPathUrl, pathId, menuList, proxy) => {
     }
     proxy.$message({
         type: "error",
-        message: "无法跳转,请联系系统管理员!"
+        message: "无法跳转,请联系系统管理员!",
     });
 };
 
@@ -162,15 +162,15 @@ export const getAsyncRouteName = async (
     const app = {
         components: {
             FunctionPage,
-            AsyncComponent
+            AsyncComponent,
         },
         data: () => ({
-            rName: null
+            rName: null,
         }),
         methods: {
             reload(e) {
                 return (e.returnValue = "");
-            }
+            },
         },
         mounted() {
             this.rName = this.$route.name;
@@ -186,13 +186,13 @@ export const getAsyncRouteName = async (
                     <async-component />
                 </function-page>
             );
-        }
+        },
     };
     const _route = {
         name: route.name + "/" + name,
         path: route.name + "/" + name,
 
-        component: app
+        component: app,
     };
     await router.addRoute("AppMain", _route);
     return _route.name;

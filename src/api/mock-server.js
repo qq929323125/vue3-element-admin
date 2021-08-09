@@ -20,8 +20,8 @@ function registerRoutes(app) {
     let mockLastIndex;
     let mocksForServer = new Array();
     const api = require("./index.js");
-    Object.keys(api).map(route => {
-        Object.keys(api[route]).map(item => {
+    Object.keys(api).map((route) => {
+        Object.keys(api[route]).map((item) => {
             api[route][item].mock &&
                 mocksForServer.push(
                     responseFake(
@@ -44,7 +44,7 @@ function registerRoutes(app) {
     // console.log(mockRoutesLength,mockLastIndex)
     return {
         mockRoutesLength,
-        mockStartIndex: mockLastIndex - mockRoutesLength
+        mockStartIndex: mockLastIndex - mockRoutesLength,
     };
 }
 // 模拟mock server
@@ -59,12 +59,12 @@ const responseFake = (url, type, respond) => {
                     respond instanceof Function ? respond(req, res) : respond
                 )
             );
-        }
+        },
     };
 };
 // 移除路由
 function unregisterRoutes() {
-    Object.keys(require.cache).forEach(i => {
+    Object.keys(require.cache).forEach((i) => {
         console.log(apiDir, i);
         if (i.includes(apiDir)) {
             delete require.cache[require.resolve(i)];
@@ -73,12 +73,12 @@ function unregisterRoutes() {
 }
 
 // 导出服务器app
-module.exports = app => {
+module.exports = (app) => {
     // 解析post数据
     app.use(express.json());
     app.use(
         express.urlencoded({
-            extended: true
+            extended: true,
         })
     );
 
@@ -90,7 +90,7 @@ module.exports = app => {
     chokidar
         .watch(apiDir, {
             ignored: /mock-server/,
-            ignoreInitial: true
+            ignoreInitial: true,
         })
         .on("all", (event, path) => {
             try {

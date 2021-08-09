@@ -9,7 +9,7 @@
 <template>
     <div
         v-resize="myChart && myChart.resize"
-        style="height:400px;margin-top:20px"
+        style="height: 400px; margin-top: 20px"
         ref="liveChart"
     ></div>
 </template>
@@ -19,7 +19,7 @@ import * as echarts from "echarts/core";
 import {
     TitleComponent,
     TooltipComponent,
-    GridComponent
+    GridComponent,
 } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
@@ -42,7 +42,7 @@ const dataList = () => {
     }
     return {
         date: date.reverse(),
-        num
+        num,
     };
 };
 
@@ -51,7 +51,7 @@ echarts.use([
     TooltipComponent,
     GridComponent,
     BarChart,
-    CanvasRenderer
+    CanvasRenderer,
 ]);
 export default {
     setup() {
@@ -61,23 +61,23 @@ export default {
         let _dataList = dataList();
         let option = {
             title: {
-                text: "用户访问量"
+                text: "用户访问量",
             },
             grid: {
                 left: "0",
                 right: "0",
                 top: "10%",
                 bottom: "0",
-                containLabel: true
+                containLabel: true,
             },
             tooltip: {
-                trigger: "axis"
+                trigger: "axis",
             },
             xAxis: {
-                data: _dataList.date
+                data: _dataList.date,
             },
             yAxis: {
-                type: "value"
+                type: "value",
             },
             series: [
                 {
@@ -85,17 +85,17 @@ export default {
                     type: "bar",
                     showBackground: true,
                     backgroundStyle: {
-                        color: "rgba(180, 180, 180, 0.2)"
-                    }
-                }
-            ]
+                        color: "rgba(180, 180, 180, 0.2)",
+                    },
+                },
+            ],
         };
         /**
          * @description: 动态数据
          * @param {*}
          * @return {*}
          */
-        const getNewData = myChart => {
+        const getNewData = (myChart) => {
             unwarp(myChart.value).setOption(option);
 
             setInterval(() => {
@@ -114,7 +114,7 @@ export default {
         });
 
         return { liveChart, myChart };
-    }
+    },
 };
 </script>
 

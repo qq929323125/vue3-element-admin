@@ -39,17 +39,17 @@ export default {
     setup() {
         // const reload = inject("reload");
         const router = useRouter();
-        const clickMenu = menu => {
+        const clickMenu = (menu) => {
             let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
             if (menu.iframe == 1) {
                 name = `i-${menu.id}`;
             }
             router.push({
-                name
+                name,
             });
         };
 
-        const setIndex = menu => {
+        const setIndex = (menu) => {
             let index = `/${menu.url.replace(/\//g, "-")}-${menu.id}`;
             if (menu.iframe == 1) {
                 index = `/i-${menu.id}`;
@@ -61,10 +61,10 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const filerMenus = menus => {
+        const filerMenus = (menus) => {
             if (menus && menus.length > 0) {
                 let _menus = XE.toTreeArray(menus);
-                return _menus.some(item => item.type == 1);
+                return _menus.some((item) => item.type == 1);
             } else {
                 return false;
             }
@@ -74,9 +74,9 @@ export default {
             router,
             setIndex,
             clickMenu,
-            filerMenus
+            filerMenus,
         };
-    }
+    },
 };
 </script>
 

@@ -7,7 +7,7 @@
  * @FilePath: \vue3-element-admin\src\components\dashboard\Shortcuts.vue
 -->
 <template>
-    <el-row :gutter="20" style="padding-bottom: 10px;">
+    <el-row :gutter="20" style="padding-bottom: 10px">
         <el-col :span="12">
             <div class="ve-card ve_card1">
                 <i class="el-icon-basketball"></i>
@@ -27,7 +27,7 @@
             </div>
         </el-col>
     </el-row>
-    <el-row :gutter="20" style="padding-top: 10px;">
+    <el-row :gutter="20" style="padding-top: 10px">
         <el-col :span="12">
             <div class="ve-card ve_card3">
                 <i class="el-icon-s-check"></i>
@@ -53,7 +53,7 @@
 export default {
     setup() {
         return {};
-    }
+    },
 };
 </script>
 

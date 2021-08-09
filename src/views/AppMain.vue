@@ -16,7 +16,11 @@
             ></el-header>
             <el-main :style="styles"
                 ><el-scrollbar
-                    style="padding:20px;box-sizing:border-box;background:#fff;"
+                    style="
+                        padding: 20px;
+                        box-sizing: border-box;
+                        background: #fff;
+                    "
                     ><router-view v-slot="{ Component }"
                         ><transition name="el-zoom-in-top" mode="out-in">
                             <component
@@ -38,7 +42,7 @@ export default {
     name: "AppMain",
     components: {
         NavigateBar,
-        SideBar
+        SideBar,
     },
     // 获取用户相关信息和路由权限
     setup() {
@@ -52,7 +56,7 @@ export default {
             routerAlive.value = Math.random() + "_" + Math.random();
         });
         return { styles, nav_height, routerAlive };
-    }
+    },
 };
 </script>
 <style lang="scss" scoped>

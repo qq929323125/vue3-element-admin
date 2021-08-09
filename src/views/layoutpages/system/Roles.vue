@@ -102,9 +102,9 @@
         <el-pagination
             ref="pagination"
             background
-            @size-change="val => handleSizeChange(val, params, getDataList)"
+            @size-change="(val) => handleSizeChange(val, params, getDataList)"
             @current-change="
-                val => handleCurrentChange(val, params, getDataList)
+                (val) => handleCurrentChange(val, params, getDataList)
             "
             :hide-on-single-page="total <= limit ? true : false"
             layout="total, sizes, prev, pager, next, jumper"
@@ -134,7 +134,7 @@ import {
     computed,
     ref,
     onMounted,
-    getCurrentInstance
+    getCurrentInstance,
 } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -149,7 +149,7 @@ import {
     rowClassName,
     cellClassName,
     rowClick,
-    maxHeight
+    maxHeight,
 } from "@/views/layoutpages/common";
 export default {
     data: () => ({
@@ -159,11 +159,11 @@ export default {
             add: { name: "添加" },
             edit: { name: "编辑" },
             del: { name: "删除" },
-            member: { name: "查看成员", toPath: true }
-        }
+            member: { name: "查看成员", toPath: true },
+        },
     }),
     components: {
-        RoleEdit
+        RoleEdit,
     },
     setup() {
         const { proxy } = getCurrentInstance();
@@ -185,7 +185,7 @@ export default {
             name: "",
             limit: 10,
             page: 1,
-            total: 0
+            total: 0,
         });
         const { name, limit, page, total } = toRefs(params);
 
@@ -204,7 +204,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handelDialog = e => {
+        const handelDialog = (e) => {
             showDialog.value = e;
             getDataList();
         };
@@ -213,12 +213,12 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handleDel = id => {
+        const handleDel = (id) => {
             proxy
                 .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
-                    type: "error"
+                    type: "error",
                 })
                 .then(async () => {
                     const { code } = await VE_API.system.roleDel({ id });
@@ -229,7 +229,7 @@ export default {
                 .catch(() => {
                     proxy.$message({
                         type: "info",
-                        message: "已取消删除"
+                        message: "已取消删除",
                     });
                 });
         };
@@ -238,7 +238,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const allMember = id => {
+        const allMember = (id) => {
             // 获取当前path的id
             let pathId = route.name.slice(route.name.lastIndexOf("-") + 1);
             // 获取要跳转到的路由
@@ -287,13 +287,13 @@ export default {
                 rowClassName,
                 cellClassName,
                 rowClick,
-                maxHeight
+                maxHeight,
             },
             handelDialog,
             handleDel,
-            allMember
+            allMember,
         };
-    }
+    },
 };
 </script>
 

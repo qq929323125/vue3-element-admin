@@ -36,7 +36,7 @@ import {
     nav_height,
     sideBgColor,
     sideTextColor,
-    sideActiveTextColor
+    sideActiveTextColor,
 } from "@/styles/variables.scss.js";
 import { computed } from "vue";
 import { useStore } from "vuex";
@@ -46,7 +46,7 @@ import SlideMenu from "./components/SlideMenu";
 export default {
     components: {
         Logo,
-        SlideMenu
+        SlideMenu,
     },
     setup() {
         const styles = { "--nav_height": nav_height };
@@ -71,9 +71,9 @@ export default {
             opened,
             menus,
             defaultActive,
-            nav_height
+            nav_height,
         };
-    }
+    },
 };
 </script>
 

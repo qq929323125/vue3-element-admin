@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-04-27 10:06:19
+ * @LastEditTime: 2021-08-09 15:28:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\permission.js
@@ -55,9 +55,9 @@ export default {
                         let _list = XE.clone(data.list, true);
                         data.list = XE.mapTree(
                             XE.toArrayTree(_list, {
-                                sortKey: "sort"
+                                sortKey: "sort",
                             }),
-                            item => {
+                            (item) => {
                                 if (
                                     item.children &&
                                     item.children.length <= 0
@@ -111,7 +111,7 @@ export default {
                         component: null,
                         name:
                             menuList[i].url.replace(/\//g, "-") +
-                            `-${menuList[i].id}`
+                            `-${menuList[i].id}`,
                         // meta: {
                         // }
                     };
@@ -141,9 +141,9 @@ export default {
                 await router.addRoute(mainRoutes);
                 await router.addRoute({
                     path: "/:w+",
-                    redirect: { name: "404" }
+                    redirect: { name: "404" },
                 });
             }
         };
-    }
+    },
 };

@@ -25,9 +25,9 @@ export default {
         };
         return {
             opened,
-            fn_slider_menu
+            fn_slider_menu,
         };
-    }
+    },
 };
 </script>
 

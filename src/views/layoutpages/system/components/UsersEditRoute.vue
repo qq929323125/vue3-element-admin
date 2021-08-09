@@ -39,7 +39,7 @@
         </el-form-item>
         <el-form-item label="角色" prop="role">
             <el-select
-                style="width:100%"
+                style="width: 100%"
                 v-model="role"
                 placeholder=""
                 clearable
@@ -55,12 +55,8 @@
         </el-form-item>
         <el-form-item label="状态">
             <el-radio-group v-model="status">
-                <el-radio-button :label="1">
-                    启用
-                </el-radio-button>
-                <el-radio-button :label="0">
-                    停用
-                </el-radio-button>
+                <el-radio-button :label="1"> 启用 </el-radio-button>
+                <el-radio-button :label="0"> 停用 </el-radio-button>
             </el-radio-group>
         </el-form-item>
         <el-form-item>
@@ -78,45 +74,45 @@ const rules = {
         {
             required: true,
             message: "请输入用户名",
-            trigger: "blur"
-        }
+            trigger: "blur",
+        },
     ],
     userName: [
         {
             required: true,
             message: "请输入账户",
-            trigger: "blur"
-        }
+            trigger: "blur",
+        },
     ],
     password: [
         {
             required: true,
             message: "请输入密码",
-            trigger: "blur"
-        }
+            trigger: "blur",
+        },
     ],
     role: [
         {
             required: true,
             message: "请选择角色",
-            trigger: "blur"
-        }
-    ]
+            trigger: "blur",
+        },
+    ],
 };
 export default {
     props: {
         showDialog: {
             type: Boolean,
-            default: true
+            default: true,
         },
         title: {
             type: String,
-            default: "添加"
+            default: "添加",
         },
         rowData: {
             type: Object,
-            default: null
-        }
+            default: null,
+        },
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
@@ -130,7 +126,7 @@ export default {
             userName: "",
             password: "",
             role: "",
-            status: 1
+            status: 1,
         });
         const { userName, name, password, role, status } = toRefs(form);
         const roleList = ref([]);
@@ -155,7 +151,7 @@ export default {
             const { code, data } = await VE_API.system.roleList(
                 {
                     page: 1,
-                    limit: 10
+                    limit: 10,
                 },
                 { Global: false }
             );
@@ -171,7 +167,7 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(async valid => {
+            formRef.value.validate(async (valid) => {
                 if (valid) {
                     let res;
                     if (title.value == "添加") {
@@ -179,7 +175,7 @@ export default {
                     } else {
                         res = await VE_API.system.userEdit({
                             id: rowData.value.id,
-                            ...form
+                            ...form,
                         });
                     }
                     const { code } = res;
@@ -199,9 +195,9 @@ export default {
             formRef,
             form,
             ...{ userName, name, password, role, status },
-            roleList
+            roleList,
         };
-    }
+    },
 };
 </script>
 

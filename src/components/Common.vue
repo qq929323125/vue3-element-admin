@@ -22,9 +22,7 @@
             <div class="error">
                 <div class="error__title">404</div>
                 <div class="error__subtitle">🐱🐱🐱(⓿_⓿)🐱🐱🐱</div>
-                <div class="error__description">
-                    看来你是迷路了......
-                </div>
+                <div class="error__description">看来你是迷路了......</div>
                 <router-link to="/">
                     <button class="error__button error__button--active">
                         回到首页
@@ -100,7 +98,7 @@ export default {
                 // set canvas with selector
                 element: cav.value,
                 dragRotate: true,
-                zoom: 0.65
+                zoom: 0.65,
             });
 
             /** Body **/
@@ -112,7 +110,7 @@ export default {
                 color: "white",
                 fill: true,
                 cornerRadius: 16,
-                stroke: 60
+                stroke: 60,
             });
 
             // Backpack
@@ -124,7 +122,7 @@ export default {
                 fill: true,
                 cornerRadius: 24,
                 stroke: 120,
-                translate: { z: -85, y: -60 }
+                translate: { z: -85, y: -60 },
             });
 
             /** arm **/
@@ -136,7 +134,7 @@ export default {
                 fill: true,
                 color: dark_purple,
                 translate: { x: -140, y: -64 },
-                cornerRadius: 0.05
+                cornerRadius: 0.05,
             });
 
             new Zdog.RoundedRect({
@@ -147,7 +145,7 @@ export default {
                 fill: true,
                 color: cream,
                 translate: { y: 120 },
-                cornerRadius: 0.05
+                cornerRadius: 0.05,
             });
 
             // bubble_arm
@@ -156,12 +154,12 @@ export default {
                 path: [{ x: -20 }, { x: 20 }],
                 stroke: 32,
                 color: light_purple,
-                translate: { y: 210 }
+                translate: { y: 210 },
             });
 
             bubble_arm.copy({
                 color: dark_purple,
-                translate: { y: 230 }
+                translate: { y: 230 },
             });
 
             // hand
@@ -172,7 +170,7 @@ export default {
                 translate: { x: -8, y: 60 },
                 fill: true,
                 color: cheese,
-                stroke: 30
+                stroke: 30,
             });
 
             new Zdog.RoundedRect({
@@ -182,12 +180,12 @@ export default {
                 translate: { x: 24, y: 50 },
                 fill: true,
                 color: orange,
-                stroke: 20
+                stroke: 20,
             });
 
             arm.copyGraph({
                 translate: { x: 140, y: -64 },
-                rotate: { y: Zdog.TAU / 2 }
+                rotate: { y: Zdog.TAU / 2 },
             });
 
             /** Leg **/
@@ -199,7 +197,7 @@ export default {
                 fill: true,
                 color: cream,
                 translate: { x: -56, y: 230 },
-                cornerRadius: 0.05
+                cornerRadius: 0.05,
             });
 
             // bubble_leg
@@ -208,12 +206,12 @@ export default {
                 path: [{ x: -28 }, { x: 28 }],
                 stroke: 32,
                 color: light_purple,
-                translate: { y: 100 }
+                translate: { y: 100 },
             });
 
             bubble_leg.copy({
                 color: dark_purple,
-                translate: { y: 124 }
+                translate: { y: 124 },
             });
 
             // foot
@@ -225,12 +223,12 @@ export default {
                 fill: true,
                 color: cheese,
                 translate: { x: -24, y: 170 },
-                cornerRadius: 24
+                cornerRadius: 24,
             });
 
             leg.copyGraph({
                 translate: { x: 56, y: 230 },
-                rotate: { y: Zdog.TAU / 2 }
+                rotate: { y: Zdog.TAU / 2 },
             });
 
             /** Head **/
@@ -244,7 +242,7 @@ export default {
                 stroke: 60,
                 color: cream,
                 fill: true,
-                translate: { y: -300 }
+                translate: { y: -300 },
             });
 
             //add helmet
@@ -256,7 +254,7 @@ export default {
                 color: dark_navy,
                 fill: true,
                 backface: false,
-                translate: { z: 20 }
+                translate: { z: 20 },
             });
 
             //add refletion
@@ -267,7 +265,7 @@ export default {
                 stroke: 10,
                 translate: { x: 24, y: -24, z: 10 },
                 color: "white",
-                backface: false
+                backface: false,
             });
 
             // add ear
@@ -279,11 +277,11 @@ export default {
                 stroke: 20,
                 color: orange,
                 fill: true,
-                translate: { x: -140 }
+                translate: { x: -140 },
             });
 
             ear.copy({
-                translate: { x: 140 }
+                translate: { x: 140 },
             });
 
             // neck
@@ -292,12 +290,12 @@ export default {
                 path: [{ x: -110 }, { x: 110 }],
                 translate: { y: 120 },
                 stroke: 40,
-                color: light_purple
+                color: light_purple,
             });
 
             neck.copy({
                 translate: { y: 160 },
-                color: dark_purple
+                color: dark_purple,
             });
 
             /** extra **/
@@ -306,42 +304,42 @@ export default {
                 path: [{ x: -20 }, { x: 20 }],
                 stroke: 10,
                 translate: { x: 200, z: 200 },
-                color: cheese
+                color: cheese,
             });
 
             stripe_1.copy({
                 translate: { x: 320, y: 200, z: -400 },
-                color: cheese
+                color: cheese,
             });
 
             stripe_1.copy({
                 translate: { x: -220, y: 300, z: -400 },
-                color: "white"
+                color: "white",
             });
 
             stripe_1.copy({
                 translate: { x: -100, y: 400, z: -280 },
-                color: light_purple
+                color: light_purple,
             });
 
             stripe_1.copy({
                 translate: { x: 50, y: -60, z: 150 },
-                color: orange
+                color: orange,
             });
 
             stripe_1.copy({
                 translate: { x: -250, y: 80, z: 300 },
-                color: light_purple
+                color: light_purple,
             });
 
             stripe_1.copy({
                 translate: { x: -350, y: -280, z: 175 },
-                color: dark_purple
+                color: dark_purple,
             });
 
             stripe_1.copy({
                 translate: { x: 250, y: -380, z: -175 },
-                color: "white"
+                color: "white",
             });
 
             // update & render
@@ -362,9 +360,9 @@ export default {
         };
         return {
             cav,
-            draw3dAstronaut
+            draw3dAstronaut,
         };
-    }
+    },
 };
 </script>
 

@@ -62,12 +62,8 @@
             </el-form-item>
             <el-form-item label="状态" prop="status">
                 <el-radio-group v-model="status">
-                    <el-radio-button :label="1">
-                        启用
-                    </el-radio-button>
-                    <el-radio-button :label="0">
-                        停用
-                    </el-radio-button>
+                    <el-radio-button :label="1"> 启用 </el-radio-button>
+                    <el-radio-button :label="0"> 停用 </el-radio-button>
                 </el-radio-group>
             </el-form-item>
         </el-form>
@@ -88,16 +84,16 @@ export default {
     props: {
         showDialog: {
             type: Boolean,
-            default: true
+            default: true,
         },
         title: {
             type: String,
-            default: "添加"
+            default: "添加",
         },
         rowData: {
             type: Object,
-            default: null
-        }
+            default: null,
+        },
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
@@ -109,7 +105,7 @@ export default {
             roleName: "",
             name: "",
             role: [],
-            status: 1
+            status: 1,
         });
         const { roleName, name, role, status } = toRefs(form);
         const formRef = ref(null);
@@ -118,22 +114,22 @@ export default {
                 {
                     required: true,
                     message: "请输入名称",
-                    trigger: "blur"
-                }
+                    trigger: "blur",
+                },
             ],
             roleName: [
                 {
                     required: true,
                     message: "请输入角色名",
-                    trigger: "blur"
-                }
+                    trigger: "blur",
+                },
             ],
             role: [
                 {
                     validator: (rule, value, callback) => {
                         role.value = [
                             ...tree.value.getCheckedNodes(),
-                            ...tree.value.getHalfCheckedNodes()
+                            ...tree.value.getHalfCheckedNodes(),
                         ];
                         if (role.value.length < 1) {
                             callback(new Error("请选择权限"));
@@ -141,9 +137,9 @@ export default {
                             callback();
                         }
                     },
-                    required: true
-                }
-            ]
+                    required: true,
+                },
+            ],
         };
         const tree = ref(null);
         const menuList = ref([]);
@@ -162,7 +158,7 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(async valid => {
+            formRef.value.validate(async (valid) => {
                 if (valid) {
                     let res;
                     if (title.value == "添加") {
@@ -170,7 +166,7 @@ export default {
                     } else {
                         res = await VE_API.system.roleEdit({
                             id: rowData.value.id,
-                            ...form
+                            ...form,
                         });
                     }
                     const { code } = res;
@@ -194,16 +190,16 @@ export default {
                 {
                     limit: 10,
                     page: 1,
-                    total: 0
+                    total: 0,
                 },
                 { Global: false }
             );
             if (code == "00") {
                 const list = XE.mapTree(
                     XE.toArrayTree(data, {
-                        sortKey: "sort"
+                        sortKey: "sort",
                     }),
-                    item => {
+                    (item) => {
                         if (item.children.length <= 0) {
                             delete item.children;
                         }
@@ -221,10 +217,10 @@ export default {
          */
         const setMenuStyle = () => {
             let eles = document.getElementsByClassName("ve_tree_item");
-            eles.forEach(e => {
+            eles.forEach((e) => {
                 const roleId = e.dataset.roleid * 1;
                 const index =
-                    treeFindPath(menuList.value, item => item.id == roleId)
+                    treeFindPath(menuList.value, (item) => item.id == roleId)
                         .length - 1;
                 e.parentNode.parentNode.parentNode.style.paddingLeft =
                     index * 18 + "px";
@@ -241,7 +237,7 @@ export default {
                 } else {
                     let _list = XE.toTreeArray(
                         XE.toArrayTree(rowData.value.role)
-                    ).filter(item => item.children.length < 1);
+                    ).filter((item) => item.children.length < 1);
                     tree.value.setCheckedNodes(_list);
                 }
             });
@@ -255,9 +251,9 @@ export default {
             rules,
             ...{ roleName, name, status },
             tree,
-            menuList
+            menuList,
         };
-    }
+    },
 };
 </script>
 

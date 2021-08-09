@@ -91,7 +91,7 @@
             </el-table-column>
             <el-table-column prop="sort" label="排序"
                 ><template v-slot="{ row }">
-                    <span v-if="row.type !== 2" style="font-weight:bold">{{
+                    <span v-if="row.type !== 2" style="font-weight: bold">{{
                         row.sort
                     }}</span>
                     <span v-else>/</span>
@@ -168,9 +168,9 @@
         <el-pagination
             ref="pagination"
             background
-            @size-change="val => handleSizeChange(val, params, getDataList)"
+            @size-change="(val) => handleSizeChange(val, params, getDataList)"
             @current-change="
-                val => handleCurrentChange(val, params, getDataList)
+                (val) => handleCurrentChange(val, params, getDataList)
             "
             :hide-on-single-page="total <= limit ? true : false"
             layout="total, sizes, prev, pager, next, jumper"
@@ -206,7 +206,7 @@ import {
     rowClassName,
     cellClassName,
     rowClick,
-    maxHeight
+    maxHeight,
 } from "@/views/layoutpages/common";
 export default {
     data: () => ({
@@ -217,11 +217,11 @@ export default {
             edit: { name: "编辑" },
             del: { name: "删除" },
             addChild: { name: "添加子级" },
-            addBtn: { name: "添加按钮" }
-        }
+            addBtn: { name: "添加按钮" },
+        },
     }),
     components: {
-        MenuEdit
+        MenuEdit,
     },
     setup() {
         const { proxy } = getCurrentInstance();
@@ -238,7 +238,7 @@ export default {
             name: "",
             limit: 10,
             page: 1,
-            total: 0
+            total: 0,
         });
         const { name, limit, page, total } = toRefs(params);
 
@@ -257,7 +257,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handelDialog = e => {
+        const handelDialog = (e) => {
             showDialog.value = e;
             getDataList();
         };
@@ -266,12 +266,12 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handleDel = id => {
+        const handleDel = (id) => {
             proxy
                 .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
-                    type: "error"
+                    type: "error",
                 })
                 .then(async () => {
                     const { code } = await VE_API.system.menuDel({ id });
@@ -282,7 +282,7 @@ export default {
                 .catch(() => {
                     proxy.$message({
                         type: "info",
-                        message: "已取消删除"
+                        message: "已取消删除",
                     });
                 });
         };
@@ -296,9 +296,9 @@ export default {
             if (code == "00") {
                 const list = XE.mapTree(
                     XE.toArrayTree(data, {
-                        sortKey: "sort"
+                        sortKey: "sort",
                     }),
-                    item => {
+                    (item) => {
                         if (item.children && item.children.length <= 0) {
                             delete item.children;
                         }
@@ -330,13 +330,13 @@ export default {
                 rowClassName,
                 cellClassName,
                 rowClick,
-                maxHeight
+                maxHeight,
             },
             isURL,
             handelDialog,
-            handleDel
+            handleDel,
         };
-    }
+    },
 };
 </script>
 

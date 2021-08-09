@@ -26,7 +26,7 @@ export default {
     components: { dashboard, LiveChart },
     setup() {
         return {};
-    }
+    },
 };
 </script>
 

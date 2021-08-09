@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 10:51:26
- * @LastEditTime: 2021-03-31 10:14:43
+ * @LastEditTime: 2021-08-09 15:35:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\element.js
@@ -90,7 +90,7 @@ import {
     ElLoading,
     ElMessage,
     ElMessageBox,
-    ElNotification
+    ElNotification,
 } from "element-plus";
 
 const components = [
@@ -171,30 +171,21 @@ const components = [
     ElTooltip,
     ElTransfer,
     ElTree,
-    ElUpload
-];
-
-const plugins = [
+    ElUpload,
     ElInfiniteScroll,
     ElLoading,
     ElMessage,
     ElMessageBox,
-    ElNotification
+    ElNotification,
 ];
-import lang from "element-plus/lib/locale/lang/zh-cn";
-import locale from "element-plus/lib/locale";
+
 import "dayjs/locale/zh-cn";
 import "element-plus/packages/theme-chalk/src/base.scss";
-locale.use(lang);
 export default {
-    install: app => {
-        components.forEach(component => {
-            app.component(component.name, component);
-        });
-
-        plugins.forEach(plugin => {
-            app.use(plugin);
+    install: (app) => {
+        components.forEach((component) => {
+            app.use(component);
         });
         app.config.globalProperties.$ELEMENT = { size: "medium" };
-    }
+    },
 };

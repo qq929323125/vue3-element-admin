@@ -10,12 +10,12 @@ export default {
     namespaced: true,
     state: {
         slider: {
-            opened: JSON.parse(sessionStorage.getItem("opened"))
+            opened: JSON.parse(sessionStorage.getItem("opened")),
         },
         token: sessionStorage.getItem("token") || "",
         menuList: null,
         permissionList: [],
-        uname: sessionStorage.getItem("uname") || ""
+        uname: sessionStorage.getItem("uname") || "",
     },
     mutations: {
         TOGGLE_SLIDER(state) {
@@ -38,7 +38,7 @@ export default {
         },
         SET_PERMISSION_LIST(state, permissionList) {
             state.permissionList = permissionList;
-        }
+        },
     },
     actions: {
         toggle_slider({ commit }) {
@@ -54,11 +54,11 @@ export default {
             commit("SET_MENU_LIST", menuList);
         },
         set_permission_List({ commit }, menuList) {
-            let allMenus = XE.filterTree(menuList, item => item.type == 1);
+            let allMenus = XE.filterTree(menuList, (item) => item.type == 1);
             let permissionList = [];
-            allMenus.forEach(item => {
+            allMenus.forEach((item) => {
                 if (item.children && item.children.length > 0) {
-                    item.children.forEach(menu => {
+                    item.children.forEach((menu) => {
                         permissionList.push(
                             `${item.url}/${item.id}/${menu.menu}`
                         );
@@ -66,6 +66,6 @@ export default {
                 }
             });
             commit("SET_PERMISSION_LIST", permissionList);
-        }
-    }
+        },
+    },
 };

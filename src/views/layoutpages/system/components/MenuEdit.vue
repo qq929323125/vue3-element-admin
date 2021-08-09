@@ -38,7 +38,7 @@
             </el-form-item>
             <el-form-item label="父级" prop="parentId">
                 <el-cascader
-                    style="width:100%"
+                    style="width: 100%"
                     :options="menuList"
                     v-model="parentId"
                     clearable
@@ -64,7 +64,7 @@
             </el-form-item>
             <el-form-item label="图标" prop="icon" v-show="type != 2">
                 <el-select
-                    style="width:100%"
+                    style="width: 100%"
                     v-model="icon"
                     placeholder=""
                     clearable
@@ -73,17 +73,21 @@
                     popper-class="ve_option_box"
                 >
                     <template v-slot:prefix>
-                        <i :class="icon" style="color:#000"></i>
+                        <i :class="icon" style="color: #000"></i>
                     </template>
                     <el-option
-                        style="display:inline-block; height:auto;padding:10px 11px 0px"
+                        style="
+                            display: inline-block;
+                            height: auto;
+                            padding: 10px 11px 0px;
+                        "
                         v-for="item in ve_icons"
                         :key="item"
                         :label="item"
                         :value="item"
                     >
                         <i
-                            style="font-size:30px"
+                            style="font-size: 30px"
                             :title="item"
                             :class="item"
                         ></i>
@@ -110,19 +114,19 @@
                 ></el-input>
                 <el-select
                     v-else
-                    style="width:100%"
+                    style="width: 100%"
                     v-model="url"
                     placeholder=""
                     clearable
                 >
                     <el-option
-                        style="height:auto"
+                        style="height: auto"
                         v-for="item in files"
                         :key="item.url"
                         :label="item.url"
                         :value="item.url"
                     >
-                        <p style="margin : 0">{{ item.url }}</p>
+                        <p style="margin: 0">{{ item.url }}</p>
                         <span class="ve_select_option_slot"
                             >描述 ：{{ item.description }}</span
                         >
@@ -141,7 +145,7 @@
                         >
                     </el-radio-group>
                 </template>
-                <span style="color:red" v-else>该菜单下没有按钮</span>
+                <span style="color: red" v-else>该菜单下没有按钮</span>
             </el-form-item>
 
             <el-form-item
@@ -151,7 +155,7 @@
                 :rules="toPathRule"
             >
                 <el-cascader
-                    style="width:100%"
+                    style="width: 100%"
                     :options="menuList"
                     v-model="toPath"
                     clearable
@@ -162,7 +166,7 @@
                         checkStrictly: true,
                         value: 'id',
                         label: 'name',
-                        disabled: 'iframe'
+                        disabled: 'iframe',
                     }"
                 >
                 </el-cascader>
@@ -188,7 +192,7 @@ const getfiles = () => {
     const files = require.context("@/views/layoutpages", true, /\.vue$/);
     return files
         .keys()
-        .map(key => {
+        .map((key) => {
             return {
                 url: key.replace(/^(\.\/)|(\.vue)/g, ""),
                 description:
@@ -196,10 +200,10 @@ const getfiles = () => {
                     (files(key).default.data().description || "无"),
                 menus:
                     files(key).default.data &&
-                    (files(key).default.data().menus || [])
+                    (files(key).default.data().menus || []),
             };
         })
-        .filter(key => {
+        .filter((key) => {
             return !key.url.includes("/components/");
         });
 };
@@ -212,20 +216,20 @@ export default {
     props: {
         showDialog: {
             type: Boolean,
-            default: true
+            default: true,
         },
         title: {
             type: String,
-            default: "添加"
+            default: "添加",
         },
         rowData: {
             type: Object,
-            default: null
+            default: null,
         },
         menuList: {
             type: Array,
-            default: null
-        }
+            default: null,
+        },
     },
     emits: ["closeDialog"],
     setup(props, { emit }) {
@@ -244,19 +248,10 @@ export default {
             icon: "el-icon-menu",
             iframe: 1,
             sort: 1,
-            toPath: ""
+            toPath: "",
         });
-        const {
-            name,
-            type,
-            parentId,
-            menu,
-            url,
-            icon,
-            iframe,
-            sort,
-            toPath
-        } = toRefs(form);
+        const { name, type, parentId, menu, url, icon, iframe, sort, toPath } =
+            toRefs(form);
         /**
          * @description: 字段重置
          * @param {*}
@@ -283,7 +278,7 @@ export default {
             checkStrictly: true,
             value: "id",
             label: "name",
-            disabled: type.value == 2 ? "iframe" : "type"
+            disabled: type.value == 2 ? "iframe" : "type",
         }));
         /**表单验证规则
          * @description:
@@ -295,39 +290,40 @@ export default {
                 {
                     required: type.value == 2 ? true : false,
                     message: "请选择父级菜单",
-                    trigger: "change"
-                }
+                    trigger: "change",
+                },
             ],
             name: [
                 {
                     required: type.value != 2 ? true : false,
                     message: "请输入菜单名称",
-                    trigger: "blur"
-                }
+                    trigger: "blur",
+                },
             ],
             menu: [
                 {
                     required: type.value == 2 ? true : false,
                     message: "请选择按钮",
-                    trigger: "change"
-                }
+                    trigger: "change",
+                },
             ],
             icon: [
                 {
                     required: type.value != 2 ? true : false,
                     message: "请选择图标",
-                    trigger: "change"
-                }
+                    trigger: "change",
+                },
             ],
 
             url: [
                 {
                     required: type.value == 1 ? true : false,
-                    pattern: /^(https?:\/\/)?(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i,
+                    pattern:
+                        /^(https?:\/\/)?(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i,
                     message: "url不正确",
-                    trigger: "change"
-                }
-            ]
+                    trigger: "change",
+                },
+            ],
         }));
         /**按钮目标菜单验证规则
          * @description:
@@ -338,7 +334,7 @@ export default {
             {
                 required: changeToPath.value,
                 message: "请选择目标菜单",
-                trigger: "change"
+                trigger: "change",
             },
             {
                 validator: (rule, value, callback) => {
@@ -348,8 +344,8 @@ export default {
                         callback();
                     }
                 },
-                trigger: "change"
-            }
+                trigger: "change",
+            },
         ]);
 
         /**
@@ -372,7 +368,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const changeType = val => {
+        const changeType = (val) => {
             formRef.value.resetFields();
             val == 2 && (icon.value = "");
         };
@@ -381,7 +377,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const handelOptionsChange = flag => {
+        const handelOptionsChange = (flag) => {
             if (flag === true && ve_icons.value.length < 1) {
                 ve_icons.value = icons;
             }
@@ -445,7 +441,7 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const typeItemDisabled = computed(() => label => {
+        const typeItemDisabled = computed(() => (label) => {
             let flag = true;
             switch (title.value) {
                 case "编辑":
@@ -480,10 +476,13 @@ export default {
             // if (title.value == "添加" || title.value == "添加按钮") {
             let _item = XE.findTree(
                 menuList.value,
-                item => item.id == parentId.value
+                (item) => item.id == parentId.value
             );
-            if (_item && getfiles().find(item => item.url == _item.item.url)) {
-                return getfiles().find(item => item.url == _item.item.url)
+            if (
+                _item &&
+                getfiles().find((item) => item.url == _item.item.url)
+            ) {
+                return getfiles().find((item) => item.url == _item.item.url)
                     .menus;
             } else {
                 return false;
@@ -495,10 +494,10 @@ export default {
          * @param {*}
          * @return {*}
          */
-        const menuDisabled = computed(() => key => {
+        const menuDisabled = computed(() => (key) => {
             let _item = XE.findTree(
                 menuList.value,
-                item => item.id == parentId.value
+                (item) => item.id == parentId.value
             );
             if (_item) {
                 if (rowData.value && key == rowData.value.menu) {
@@ -506,7 +505,7 @@ export default {
                 }
                 return (
                     _item.item.children &&
-                    _item.item.children.find(item => item.menu == key) &&
+                    _item.item.children.find((item) => item.menu == key) &&
                     true
                 );
             }
@@ -521,7 +520,7 @@ export default {
                 resetForm();
                 parentId.value = treeFindPath(
                     menuList.value,
-                    data => data.id === rowData.value.id
+                    (data) => data.id === rowData.value.id
                 ).slice(-1)[0];
                 title.value == "添加按钮" &&
                     ((type.value = 2), (icon.value = ""));
@@ -536,7 +535,7 @@ export default {
          * @return {*}
          */
         const onSubmit = () => {
-            formRef.value.validate(async valid => {
+            formRef.value.validate(async (valid) => {
                 if (valid) {
                     let res;
                     if (title.value.includes("添加")) {
@@ -544,7 +543,7 @@ export default {
                     } else {
                         res = await VE_API.system.menuEdit({
                             id: rowData.value.id,
-                            ...form
+                            ...form,
                         });
                     }
                     const { code } = res;
@@ -578,9 +577,9 @@ export default {
             changeToPath,
             toPathRule,
             handelOptionsChange,
-            ve_icons
+            ve_icons,
         };
-    }
+    },
 };
 </script>
 

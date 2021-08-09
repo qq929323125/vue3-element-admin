@@ -15,7 +15,7 @@
 const searchList = (sRole, sLimit, sPage, sList, sName) => {
     let list = sList;
     if (sRole !== null && sRole !== "" && sRole !== undefined) {
-        list = sList.filter(item => item[sName] + "" === sRole + "");
+        list = sList.filter((item) => item[sName] + "" === sRole + "");
     }
     const res = {};
     res.total = list.length;
@@ -25,7 +25,7 @@ const searchList = (sRole, sLimit, sPage, sList, sName) => {
     return {
         message: "查询成功!",
         code: "00",
-        data: res
+        data: res,
     };
 };
 /**
@@ -34,7 +34,7 @@ const searchList = (sRole, sLimit, sPage, sList, sName) => {
  * @return {*}
  */
 const addList = (opt, list, name, sName) => {
-    const flag = list.some(item => {
+    const flag = list.some((item) => {
         if (item.type != "undefined") {
             if (item.type == 2) {
                 return false;
@@ -44,17 +44,17 @@ const addList = (opt, list, name, sName) => {
     });
     let res = {
         message: "添加成功!",
-        code: "00"
+        code: "00",
     };
     if (flag) {
         res = {
             message: "名称已存在",
-            code: "01"
+            code: "01",
         };
     } else {
         let item = {
             id: list[list.length - 1].id + 1,
-            ...opt.body
+            ...opt.body,
         };
         list.push(item);
     }
@@ -67,19 +67,19 @@ const addList = (opt, list, name, sName) => {
  */
 const editList = (opt, list) => {
     const {
-        body: { id }
+        body: { id },
     } = opt;
     if (id == -1) {
         return {
             message: "系统超级管理员账户不能编辑!",
-            code: "01"
+            code: "01",
         };
     }
-    const index = list.indexOf(list.find(item => item.id + "" === id + ""));
+    const index = list.indexOf(list.find((item) => item.id + "" === id + ""));
     list.fill(opt.body, index, index + 1);
     return {
         message: "编辑成功!",
-        code: "00"
+        code: "00",
     };
 };
 /**
@@ -89,19 +89,19 @@ const editList = (opt, list) => {
  */
 const delList = (opt, list) => {
     const {
-        body: { id }
+        body: { id },
     } = opt;
     if (id == -1) {
         return {
             message: "系统超级管理员账户不能删除!",
-            code: "01"
+            code: "01",
         };
     }
-    const index = list.indexOf(list.find(item => item.id + "" === id + ""));
+    const index = list.indexOf(list.find((item) => item.id + "" === id + ""));
     list.splice(index, 1);
     return {
         message: "删除成功!",
-        code: "00"
+        code: "00",
     };
 };
 const menuList = [
@@ -114,7 +114,7 @@ const menuList = [
         type: 0,
         icon: "el-icon-s-platform",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 100,
@@ -125,7 +125,7 @@ const menuList = [
         type: 1,
         icon: "el-icon-user-solid",
         sort: 2,
-        iframe: 0
+        iframe: 0,
     },
     {
         parentId: 1,
@@ -136,7 +136,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 1,
@@ -147,7 +147,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 1,
@@ -158,7 +158,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 100,
@@ -169,7 +169,7 @@ const menuList = [
         type: 1,
         icon: "el-icon-s-order",
         sort: 1,
-        iframe: 0
+        iframe: 0,
     },
     {
         parentId: 5,
@@ -180,7 +180,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 5,
@@ -191,7 +191,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 5,
@@ -202,7 +202,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 5,
@@ -213,7 +213,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 5,
@@ -224,7 +224,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 100,
@@ -235,7 +235,7 @@ const menuList = [
         type: 1,
         icon: "el-icon-s-check",
         sort: 3,
-        iframe: 0
+        iframe: 0,
     },
     {
         parentId: 11,
@@ -246,7 +246,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 11,
@@ -257,7 +257,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 11,
@@ -268,7 +268,7 @@ const menuList = [
         type: 2,
         icon: "",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: -1,
@@ -279,7 +279,7 @@ const menuList = [
         type: 0,
         icon: "el-icon-s-order",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 15,
@@ -290,7 +290,7 @@ const menuList = [
         type: 1,
         icon: "el-icon-s-promotion",
         sort: 1,
-        iframe: 1
+        iframe: 1,
     },
     {
         parentId: 15,
@@ -301,8 +301,8 @@ const menuList = [
         type: 1,
         icon: "el-icon-eleme",
         sort: 1,
-        iframe: 1
-    }
+        iframe: 1,
+    },
 ];
 const userList = [
     {
@@ -311,7 +311,7 @@ const userList = [
         userName: "超级管理员",
         password: "123456",
         role: -1,
-        status: 1
+        status: 1,
     },
     {
         id: 0,
@@ -319,8 +319,8 @@ const userList = [
         userName: "管理员",
         password: "123456",
         role: 0,
-        status: 1
-    }
+        status: 1,
+    },
 ];
 const roleList = [
     {
@@ -328,168 +328,168 @@ const roleList = [
         name: "super",
         roleName: "超级管理员",
         status: "1",
-        role: menuList
+        role: menuList,
     },
     {
         id: 0,
         name: "ceshi",
         roleName: "测试",
         status: "0",
-        role: menuList
-    }
+        role: menuList,
+    },
 ];
 
 const user = {
     name: "",
     userId: "",
     roleId: "",
-    menus: null
+    menus: null,
 };
 module.exports = {
     userList: {
         url: "/user/list",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { role, limit, page }
+                body: { role, limit, page },
             } = opt;
             return searchList(role, limit, page, userList, "role");
-        }
+        },
     },
     userAdd: {
         url: "/user/add",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { name }
+                body: { name },
             } = opt;
             return addList(opt, userList, name, "name");
-        }
+        },
     },
     userEdit: {
         url: "/user/edit",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return editList(opt, userList);
-        }
+        },
     },
     userDel: {
         url: "/user/del",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return delList(opt, userList);
-        }
+        },
     },
     userStatus: {
         url: "/user/status",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { id, status }
+                body: { id, status },
             } = opt;
             if (id == -1) {
                 return {
                     message: "系统超级管理员账户不能停用!",
-                    code: "01"
+                    code: "01",
                 };
             }
-            userList.find(item => item.id == id).status = status;
+            userList.find((item) => item.id == id).status = status;
             return {
                 message: "切换成功!",
-                code: "00"
+                code: "00",
             };
-        }
+        },
     },
 
     menuList: {
         url: "/menu/list",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { name }
+                body: { name },
             } = opt;
             let list = menuList;
             if (name) {
-                list = menuList.filter(item => item.name == name);
+                list = menuList.filter((item) => item.name == name);
             }
             return {
                 message: "查询成功!",
                 code: "00",
-                data: list
+                data: list,
             };
-        }
+        },
     },
     menuAdd: {
         url: "/menu/add",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { name }
+                body: { name },
             } = opt;
             return addList(opt, menuList, name, "name");
-        }
+        },
     },
     menuEdit: {
         url: "/menu/edit",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return editList(opt, menuList);
-        }
+        },
     },
     menuDel: {
         url: "/menu/del",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return delList(opt, menuList);
-        }
+        },
     },
 
     roleList: {
         url: "/role/list",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { name, limit, page }
+                body: { name, limit, page },
             } = opt;
             return searchList(name, limit, page, roleList, "name");
-        }
+        },
     },
     roleAdd: {
         url: "/role/add",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { name }
+                body: { name },
             } = opt;
             return addList(opt, roleList, name, "name");
-        }
+        },
     },
     roleEdit: {
         url: "/role/edit",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return editList(opt, roleList);
-        }
+        },
     },
     roleDel: {
         url: "/role/del",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             return delList(opt, roleList);
-        }
+        },
     },
 
     userMenuList: {
@@ -497,47 +497,47 @@ module.exports = {
         type: "post",
         mock: true,
         response: () => {
-            user.menus = roleList.find(item => item.id == user.roleId).role;
+            user.menus = roleList.find((item) => item.id == user.roleId).role;
             return {
                 message: "查询成功!",
                 code: "00",
-                list: user.menus
+                list: user.menus,
             };
-        }
+        },
     },
     login: {
         url: "/login",
         type: "post",
         mock: true,
-        response: opt => {
+        response: (opt) => {
             const {
-                body: { userName, pwd }
+                body: { userName, pwd },
             } = opt;
             let data = {
                 code: "00",
                 message: "登录成功!",
                 token: new Date().getTime(),
-                uname: userName
+                uname: userName,
             };
             user.name = userName;
-            let _user = userList.find(item => item.name == user.name);
+            let _user = userList.find((item) => item.name == user.name);
             if (!_user) {
                 debugger;
                 data = {
                     code: "01",
-                    message: "账户不存在"
+                    message: "账户不存在",
                 };
             } else {
                 if (_user.password !== pwd) {
                     data = {
                         code: "01",
-                        message: "密码错误"
+                        message: "密码错误",
                     };
                 } else {
                     if (_user.status == 0) {
                         data = {
                             code: "01",
-                            message: "账户停用"
+                            message: "账户停用",
                         };
                     } else {
                         user.userId = _user.id;
@@ -546,6 +546,6 @@ module.exports = {
                 }
             }
             return data;
-        }
-    }
+        },
+    },
 };

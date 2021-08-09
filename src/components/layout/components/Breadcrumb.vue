@@ -34,15 +34,15 @@ export default {
             let j = name.lastIndexOf("-");
             return treeFindPath(
                 menuList,
-                data => data.id === name.slice(j + 1) * 1,
+                (data) => data.id === name.slice(j + 1) * 1,
                 "name"
             );
         });
 
         return {
-            list
+            list,
         };
-    }
+    },
 };
 </script>
 

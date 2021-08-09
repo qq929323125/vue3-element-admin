@@ -33,7 +33,7 @@ const resize = (el, binding) => {
     // 设置定时器用于节流
     let timer = null;
     // 将 sizeChange 函数挂载到 iframe 的resize回调中
-    iframe.contentWindow.onresize = function() {
+    iframe.contentWindow.onresize = function () {
         clearTimeout(timer);
         timer = null;
         timer = setTimeout(sizeChange, 200);
