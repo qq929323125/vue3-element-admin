@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-03-29 11:32:11
+ * @LastEditTime: 2021-08-10 16:12:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Roles.vue
@@ -106,7 +106,6 @@
             @current-change="
                 (val) => handleCurrentChange(val, params, getDataList)
             "
-            :hide-on-single-page="total <= limit ? true : false"
             layout="total, sizes, prev, pager, next, jumper"
             :page-sizes="[10, 20, 50, 100]"
             :current-page="page"

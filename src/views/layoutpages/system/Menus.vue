@@ -172,7 +172,6 @@
             @current-change="
                 (val) => handleCurrentChange(val, params, getDataList)
             "
-            :hide-on-single-page="total <= limit ? true : false"
             layout="total, sizes, prev, pager, next, jumper"
             :page-sizes="[10, 20, 50, 100]"
             :current-page="page"
