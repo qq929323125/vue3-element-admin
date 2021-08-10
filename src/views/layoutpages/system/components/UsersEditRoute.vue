@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-22 13:52:42
+ * @LastEditTime: 2021-08-10 16:37:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -95,7 +95,7 @@ const rules = {
         {
             required: true,
             message: "请选择角色",
-            trigger: "blur",
+            trigger: "change",
         },
     ],
 };
