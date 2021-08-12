@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-10 16:13:07
+ * @LastEditTime: 2021-08-12 18:05:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Users.vue
@@ -32,28 +32,8 @@
             </el-form-item>
         </el-form>
 
-        <!-- table工具条 -->
-        <el-row ref="toolBar" class="ve_header_row_class_name ve_p_10">
-            <el-button
-                title="弹窗式"
-                v-permission="['add']"
-                size="mini"
-                type="primary"
-                @click="handleEdit(menus.add.name)"
-                >{{ menus.add.name }}</el-button
-            >
-            <el-button
-                title="路由式"
-                v-permission="['add']"
-                size="mini"
-                type="primary"
-                @click="handleEditRoute(menus.add.name)"
-                >{{ menus.add.name }}</el-button
-            >
-        </el-row>
-
         <!-- 列表 -->
-        <el-table
+        <ve-table
             :data="tableData"
             stripe
             border
@@ -68,8 +48,34 @@
             header-row-class-name="ve_header_row_class_name"
             header-cell-class-name="ve_header_cell_class_name"
             style="width: 100%"
-            :max-height="ve_max_height"
+            @handleSizeChange="
+                (val) => handleSizeChange(val, params, getDataList)
+            "
+            @handleCurrentChange="
+                (val) => handleCurrentChange(val, params, getDataList)
+            "
+            :page="page"
+            :limit="limit"
+            :total="total"
         >
+            <template #tool_bar
+                ><el-button
+                    title="弹窗式"
+                    v-permission="['add']"
+                    size="mini"
+                    type="primary"
+                    @click="handleEdit(menus.add.name)"
+                    >{{ menus.add.name }}</el-button
+                >
+                <el-button
+                    title="路由式"
+                    v-permission="['add']"
+                    size="mini"
+                    type="primary"
+                    @click="handleEditRoute(menus.add.name)"
+                    >{{ menus.add.name }}</el-button
+                >
+            </template>
             <el-table-column prop="name" label="账号"> </el-table-column>
             <el-table-column prop="userName" label="用户名"> </el-table-column>
             <el-table-column prop="password" label="密码"
@@ -134,23 +140,7 @@
                     </el-button>
                 </template>
             </el-table-column>
-        </el-table>
-
-        <!-- 分页 -->
-        <el-pagination
-            ref="pagination"
-            background
-            @size-change="(val) => handleSizeChange(val, params, getDataList)"
-            @current-change="
-                (val) => handleCurrentChange(val, params, getDataList)
-            "
-            layout="total, sizes, prev, pager, next, jumper"
-            :page-sizes="[10, 20, 50, 100]"
-            :current-page="page"
-            :page-size="limit"
-            :total="total"
-        >
-        </el-pagination>
+        </ve-table>
 
         <!-- 编辑组件 -->
         <users-edit
@@ -176,7 +166,7 @@ import {
     rowClassName,
     cellClassName,
     rowClick,
-    maxHeight,
+    // maxHeight,
     getAsyncRouteName,
 } from "@/views/layoutpages/common";
 export default {
@@ -199,7 +189,7 @@ export default {
         const rowData = ref(null);
         const dialogTitle = ref("");
         const showDialog = ref(false);
-        const ve_max_height = ref(0);
+        // const ve_max_height = ref(0);
         const ve_rowIndex = ref(null);
         const toolBar = ref(null);
         const pagination = ref(null);
@@ -328,10 +318,10 @@ export default {
         onMounted(async () => {
             await getRoleList();
             await getDataList();
-            maxHeight(pagination, queryForm, toolBar, ve_max_height);
+            // maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
         return {
-            ve_max_height,
+            // ve_max_height,
             ve_rowIndex,
             getDataList,
             tableData,
@@ -347,7 +337,7 @@ export default {
                 rowClassName,
                 cellClassName,
                 rowClick,
-                maxHeight,
+                // maxHeight,
             },
             roleList,
             handelDialog,
