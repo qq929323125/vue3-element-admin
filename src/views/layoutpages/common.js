@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-08-12 16:22:52
+ * @LastEditTime: 2021-08-13 11:43:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\common.js
@@ -48,61 +48,6 @@ export const handleCurrentChange = (val, params, getDataList) => {
     getDataList();
 };
 
-/**
- * @description:高亮单元格
- * @param {*}
- * @return {*}
- */
-export const cellClassName = (rowIndex, ve_rowIndex) => {
-    if (rowIndex == ve_rowIndex) {
-        return "ve_cell_class_name";
-    } else {
-        return "";
-    }
-};
-
-/**
- * @description:高亮当前行
- * @param {*}
- * @return {*}
- */
-export const rowClassName = (rowIndex, ve_rowIndex) => {
-    if (rowIndex == ve_rowIndex) {
-        return "ve_row_class_name";
-    } else {
-        return "";
-    }
-};
-/**
- * @description:行点击事件
- * @param {*}
- * @return {*}
- */
-export const rowClick = (event) => {
-    // return event.currentTarget.rowIndex;
-    return event;
-};
-// /**
-//  * @description:计算表格的最大高度
-//  * @param {*}
-//  * @return {*}
-//  */
-// // pagination, queryForm
-// export const maxHeight = (pagination, queryForm, toolBar, ve_max_height) => {
-//     onresize = () => {
-//         maxHeight(pagination, queryForm, toolBar, ve_max_height);
-//     };
-//     let docHeight = document.documentElement.clientHeight;
-//     let toolBarHeight = toolBar.value ? toolBar.value.$el.offsetHeight || 0 : 0;
-//     let paginationHeight = pagination.value
-//         ? pagination.value.$el.offsetHeight || 0
-//         : 0;
-//     let queryFormHeight = queryForm.value
-//         ? queryForm.value.$el.offsetHeight || 0
-//         : 0;
-//     ve_max_height.value =
-//         docHeight - paginationHeight - queryFormHeight - toolBarHeight - 130;
-// };
 /**
  * @description: 获取按钮跳转菜单的路径
  * @param {btnName} 跳转按钮的key值

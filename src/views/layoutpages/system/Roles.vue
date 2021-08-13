@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-12 18:05:33
+ * @LastEditTime: 2021-08-13 11:35:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Roles.vue
@@ -31,29 +31,18 @@
 
         <!-- 列表 -->
         <ve-table
-            :data="tableData"
-            stripe
-            border
-            highlight-current-row
-            @row-click="(row, column, event) => (ve_rowIndex = rowClick(event))"
-            :row-class-name="
-                ({ rowIndex }) => rowClassName(rowIndex, ve_rowIndex)
-            "
-            :cell-class-name="
-                ({ rowIndex }) => cellClassName(rowIndex, ve_rowIndex)
-            "
-            header-row-class-name="ve_header_row_class_name"
-            header-cell-class-name="ve_header_cell_class_name"
-            style="width: 100%"
-            @handleSizeChange="
-                (val) => handleSizeChange(val, params, getDataList)
-            "
-            @handleCurrentChange="
-                (val) => handleCurrentChange(val, params, getDataList)
-            "
-            :page="page"
-            :limit="limit"
-            :total="total"
+            :table="{
+                data: tableData,
+            }"
+            :pagination="{
+                onSizeChange: (val) =>
+                    handleSizeChange(val, params, getDataList),
+                onCurrentChange: (val) =>
+                    handleCurrentChange(val, params, getDataList),
+                currentPage: page,
+                pageSize: limit,
+                total: total,
+            }"
         >
             <template #tool_bar>
                 <el-button
@@ -135,10 +124,6 @@ import {
     resetForm,
     handleSizeChange,
     handleCurrentChange,
-    rowClassName,
-    cellClassName,
-    rowClick,
-    // maxHeight,
 } from "@/views/layoutpages/common";
 export default {
     data: () => ({
@@ -164,10 +149,7 @@ export default {
         const rowData = ref(null);
         const dialogTitle = ref("");
         const showDialog = ref(false);
-        // const ve_max_height = ref(0);
-        const ve_rowIndex = ref(null);
-        const toolBar = ref(null);
-        const pagination = ref(null);
+
         const queryForm = ref(null);
         const tableData = ref([]);
         const params = reactive({
@@ -260,23 +242,17 @@ export default {
             // maxHeight(pagination, queryForm, toolBar, ve_max_height);
         });
         return {
-            // ve_max_height,
-            ve_rowIndex,
             getDataList,
             tableData,
             params,
             ...{ name, limit, page, total },
-            ...{ pagination, queryForm, toolBar },
+            ...{ queryForm },
             ...{ handleEdit, rowData, dialogTitle, showDialog },
             ...{
                 onSubmit,
                 resetForm,
                 handleSizeChange,
                 handleCurrentChange,
-                rowClassName,
-                cellClassName,
-                rowClick,
-                // maxHeight,
             },
             handelDialog,
             handleDel,

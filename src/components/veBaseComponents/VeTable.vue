@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-11 11:18:05
- * @LastEditTime: 2021-08-12 17:59:45
+ * @LastEditTime: 2021-08-13 10:59:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\VeTable.vue
@@ -15,23 +15,37 @@
         <div class="ve_table_page">
             <!-- 列表 -->
             <div class="ve_table_content">
-                <el-table ref="table" height="100%" v-bind="$attrs"
+                <el-table
+                    ref="elTable"
+                    height="100%"
+                    stripe
+                    border
+                    highlight-current-row
+                    @row-click="
+                        (row, column, event) => (ve_rowIndex = rowClick(event))
+                    "
+                    :row-class-name="
+                        ({ rowIndex }) => rowClassName(rowIndex, ve_rowIndex)
+                    "
+                    :cell-class-name="
+                        ({ rowIndex }) => cellClassName(rowIndex, ve_rowIndex)
+                    "
+                    header-row-class-name="ve_header_row_class_name"
+                    header-cell-class-name="ve_header_cell_class_name"
+                    style="width: 100%"
+                    v-bind="$attrs.table"
                     ><slot></slot>
                     <template #append><slot name="append"></slot> </template>
                 </el-table>
             </div>
             <!-- 分页 -->
             <el-pagination
-                v-if="pagination"
                 background
-                @size-change="(val) => $emit('handleSizeChange', val)"
-                @current-change="(val) => $emit('handleCurrentChange', val)"
                 layout="total, sizes, prev, pager, next, jumper"
-                :page-sizes="[10, 20, 50, 100]"
-                :current-page="page"
-                :page-size="limit"
-                :total="total"
+                :page-sizes="[10, 20, 50, 100, 200, 500]"
+                v-bind="$attrs.pagination"
             >
+                <slot name="pagination"></slot>
             </el-pagination>
         </div>
     </div>
@@ -53,41 +67,58 @@ export default {
             el.parentNode && el.parentNode.classList.add("ve_flex_col");
         },
     },
-    props: {
-        page: {
-            default: 0,
-            type: Number,
-        },
-        limit: {
-            default: 0,
-            type: Number,
-        },
-        total: {
-            default: 0,
-            type: Number,
-        },
-        pagination: {
-            default: true,
-            type: Boolean,
-        },
-    },
     setup() {
-        const queryForm = ref(null);
+        const elTable = ref(null);
+        const ve_rowIndex = ref(null);
 
-        const clearSelection = () => queryForm.value.clearSelection();
+        const clearSelection = () => elTable.value.clearSelection();
         const toggleRowSelection = (row, selected) =>
-            queryForm.value.toggleRowSelection(row, selected);
-        const toggleAllSelection = () => queryForm.value.toggleAllSelection();
+            elTable.value.toggleRowSelection(row, selected);
+        const toggleAllSelection = () => elTable.value.toggleAllSelection();
         const toggleRowExpansion = (row, expanded) =>
-            queryForm.value.toggleRowExpansion(row, expanded);
-        const setCurrentRow = (row) => queryForm.value.setCurrentRow(row);
-        const clearSort = () => queryForm.value.clearSort();
-        const clearFilter = (columnKey) =>
-            queryForm.value.clearFilter(columnKey);
-        const doLayout = () => queryForm.value.doLayout();
-        const sort = (prop, order) => queryForm.value.sort(prop, order);
+            elTable.value.toggleRowExpansion(row, expanded);
+        const setCurrentRow = (row) => elTable.value.setCurrentRow(row);
+        const clearSort = () => elTable.value.clearSort();
+        const clearFilter = (columnKey) => elTable.value.clearFilter(columnKey);
+        const doLayout = () => elTable.value.doLayout();
+        const sort = (prop, order) => elTable.value.sort(prop, order);
+
+        /**
+         * @description:行点击事件
+         * @param {*}
+         * @return {*}
+         */
+        const rowClick = (event) => {
+            // return event.currentTarget.rowIndex;
+            return event;
+        };
+        /**
+         * @description:高亮当前行
+         * @param {*}
+         * @return {*}
+         */
+        const rowClassName = (rowIndex, ve_rowIndex) => {
+            if (rowIndex == ve_rowIndex) {
+                return "ve_row_class_name";
+            } else {
+                return "";
+            }
+        };
+        /**
+         * @description:高亮单元格
+         * @param {*}
+         * @return {*}
+         */
+        const cellClassName = (rowIndex, ve_rowIndex) => {
+            if (rowIndex == ve_rowIndex) {
+                return "ve_cell_class_name";
+            } else {
+                return "";
+            }
+        };
+
         return {
-            queryForm,
+            elTable,
             clearSelection,
             toggleRowSelection,
             toggleAllSelection,
@@ -97,6 +128,11 @@ export default {
             clearFilter,
             doLayout,
             sort,
+
+            ve_rowIndex,
+            cellClassName,
+            rowClassName,
+            rowClick,
         };
     },
 };
