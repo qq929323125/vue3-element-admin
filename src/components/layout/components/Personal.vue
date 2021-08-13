@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-03-25 09:44:22
+ * @LastEditTime: 2021-08-13 16:44:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
@@ -19,8 +19,10 @@
         <el-divider direction="vertical"></el-divider>
         <el-dropdown @command="handleCommand">
             <span class="ve_nav_dropdown">
-                你好!{{ uname
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
+                你好!{{ uname }}
+                <el-icon>
+                    <arrow-down-bold />
+                </el-icon>
             </span>
             <template #dropdown>
                 <el-dropdown-menu>

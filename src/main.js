@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 13:50:09
- * @LastEditTime: 2021-08-12 17:23:56
+ * @LastEditTime: 2021-08-13 15:54:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \vue3-element-admin\src\main.js
@@ -12,6 +12,7 @@ import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
 import installElementPlus from "@/plugins/element";
+import elementIcon from "@/plugins/svgicon";
 import permission from "@/plugins/permission";
 import mock from "@/plugins/mock";
 import directives from "@/directives";
@@ -22,6 +23,7 @@ import "nprogress/nprogress.css";
 import "@/styles/common.scss";
 const app = createApp(App);
 app.use(mock)
+    .use(elementIcon)
     .use(veBaseComponents)
     .use(store)
     .use(router)

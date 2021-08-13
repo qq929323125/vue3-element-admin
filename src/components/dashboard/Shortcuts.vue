@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 11:32:02
- * @LastEditTime: 2021-03-16 15:07:31
+ * @LastEditTime: 2021-08-13 16:33:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\Shortcuts.vue
@@ -10,7 +10,9 @@
     <el-row :gutter="20" style="padding-bottom: 10px">
         <el-col :span="12">
             <div class="ve-card ve_card1">
-                <i class="el-icon-basketball"></i>
+                <el-icon>
+                    <football />
+                </el-icon>
                 <div>
                     <p>菜单数量</p>
                     <span>6</span>
@@ -19,7 +21,9 @@
         </el-col>
         <el-col :span="12">
             <div class="ve-card ve_card2">
-                <i class="el-icon-user-solid"></i>
+                <el-icon>
+                    <user />
+                </el-icon>
                 <div>
                     <p>用户数量</p>
                     <span>6</span>
@@ -30,7 +34,9 @@
     <el-row :gutter="20" style="padding-top: 10px">
         <el-col :span="12">
             <div class="ve-card ve_card3">
-                <i class="el-icon-s-check"></i>
+                <el-icon>
+                    <ice-cream />
+                </el-icon>
                 <div>
                     <p>角色数量</p>
                     <span>6</span>
@@ -39,7 +45,9 @@
         </el-col>
         <el-col :span="12">
             <div class="ve-card ve_card4">
-                <i class="el-icon-s-order"></i>
+                <el-icon>
+                    <document />
+                </el-icon>
                 <div>
                     <p>资料数量</p>
                     <span>6</span>

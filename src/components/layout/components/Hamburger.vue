@@ -1,14 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:23:33
- * @LastEditTime: 2021-01-15 16:01:36
+ * @LastEditTime: 2021-08-13 16:37:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\SilderMenu.vue
 -->
 <template>
     <div class="ve_slider_menu" @click="fn_slider_menu">
-        <i :class="[!opened ? 'el-icon-s-fold' : 'el-icon-s-unfold']"></i>
+        <el-icon>
+            <component :is="opened ? 'expand' : 'fold'" />
+        </el-icon>
     </div>
 </template>
 
