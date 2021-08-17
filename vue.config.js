@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-08-09 13:50:42
+ * @LastEditTime: 2021-08-17 15:52:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
@@ -63,6 +63,11 @@ module.exports = {
                                 name: "chunk-elementPlus",
                                 priority: 20,
                                 test: /[\\/]node_modules[\\/]_?element-plus(.*)/,
+                            },
+                            elementPlusIcon: {
+                                name: "chunk-elementPlusIcon",
+                                priority: 20,
+                                test: /[\\/]node_modules[\\/]_?@element-plus[\\/]icons(.*)/,
                             },
                             mockjs: {
                                 name: "chunk-mockjs",

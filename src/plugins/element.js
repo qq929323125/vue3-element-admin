@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 10:51:26
- * @LastEditTime: 2021-08-13 15:45:49
+ * @LastEditTime: 2021-08-17 15:34:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\element.js
@@ -91,6 +91,7 @@ import {
     ElMessage,
     ElMessageBox,
     ElNotification,
+    ElEmpty,
 } from "element-plus";
 
 const components = [
@@ -177,6 +178,7 @@ const components = [
     ElMessage,
     ElMessageBox,
     ElNotification,
+    ElEmpty,
 ];
 
 import "dayjs/locale/zh-cn";
