@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-08-13 16:44:00
+ * @LastEditTime: 2021-08-17 14:52:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
@@ -11,11 +11,14 @@
         <el-button
             title="刷新"
             style="border: none; font-size: 20px"
-            icon="el-icon-refresh"
             circle
             plain
             @click="reload()"
-        ></el-button>
+        >
+            <el-icon :size="20" style="vertical-align: middle"
+                ><Refresh
+            /></el-icon>
+        </el-button>
         <el-divider direction="vertical"></el-divider>
         <el-dropdown @command="handleCommand">
             <span class="ve_nav_dropdown">

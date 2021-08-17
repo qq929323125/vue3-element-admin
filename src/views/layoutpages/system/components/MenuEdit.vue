@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-04-30 11:13:47
+ * @LastEditTime: 2021-08-17 14:53:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\MenuEdit.vue
@@ -73,7 +73,9 @@
                     popper-class="ve_option_box"
                 >
                     <template v-slot:prefix>
-                        <i :class="icon" style="color: #000"></i>
+                        <el-icon :size="20" style="color: #000">
+                            <component :is="icon" />
+                        </el-icon>
                     </template>
                     <el-option
                         style="
@@ -86,11 +88,9 @@
                         :label="item"
                         :value="item"
                     >
-                        <i
-                            style="font-size: 30px"
-                            :title="item"
-                            :class="item"
-                        ></i>
+                        <el-icon :title="item" :size="30">
+                            <component :is="item" />
+                        </el-icon>
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -245,7 +245,7 @@ export default {
             parentId: -1,
             menu: "",
             url: "",
-            icon: "el-icon-menu",
+            icon: "Menu",
             iframe: 1,
             sort: 1,
             toPath: "",
@@ -261,7 +261,7 @@ export default {
             name.value = "";
             menu.value = "";
             url.value = "";
-            icon.value = "el-icon-menu";
+            icon.value = "Menu";
             iframe.value = 1;
             sort.value = 1;
             toPath.value = "";
@@ -379,7 +379,7 @@ export default {
          */
         const handelOptionsChange = (flag) => {
             if (flag === true && ve_icons.value.length < 1) {
-                ve_icons.value = icons;
+                ve_icons.value = icons();
             }
         };
         /**
@@ -557,7 +557,7 @@ export default {
             });
         };
         return {
-            icons,
+            // icons,
             files: getfiles(),
             closeDialog,
             onSubmit,

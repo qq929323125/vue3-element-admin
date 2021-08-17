@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-13 14:37:20
+ * @LastEditTime: 2021-08-17 11:56:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Menus.vue
@@ -59,9 +59,13 @@
             <el-table-column prop="name" label="名称"> </el-table-column>
             <el-table-column prop="icon" label="图标">
                 <template v-slot="{ row }">
-                    <i v-if="row.type !== 2" :class="row.icon">{{
-                        row.icon
-                    }}</i>
+                    <template v-if="row.type !== 2">
+                        <el-row align="middle">
+                            <el-icon style="margin-right: 6px">
+                                <component :is="row.icon" /> </el-icon
+                            ><span>{{ row.icon }}</span>
+                        </el-row>
+                    </template>
                     <span v-else>/</span>
                 </template>
             </el-table-column>

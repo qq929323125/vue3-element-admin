@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-04-29 16:37:27
+ * @LastEditTime: 2021-08-17 14:53:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
@@ -25,11 +25,10 @@
                             <el-input
                                 v-model.trim="userName"
                                 placeholder="用户名"
-                                ><template #prepend
-                                    ><i
-                                        style="font-size: 20px"
-                                        class="el-icon-user"
-                                    ></i></template
+                                ><template #prepend>
+                                    <el-icon :size="20"
+                                        ><Avatar
+                                    /></el-icon> </template
                             ></el-input>
                         </el-form-item>
                         <el-form-item prop="pwd">
@@ -37,11 +36,10 @@
                                 v-model.trim="pwd"
                                 show-password
                                 placeholder="密码"
-                                ><template #prepend
-                                    ><i
-                                        style="font-size: 20px"
-                                        class="el-icon-key"
-                                    ></i></template
+                                ><template #prepend>
+                                    <el-icon :size="20"
+                                        ><Key
+                                    /></el-icon> </template
                             ></el-input>
                         </el-form-item>
                         <el-form-item>

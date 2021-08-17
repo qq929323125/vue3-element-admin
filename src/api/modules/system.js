@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-03-25 17:00:51
+ * @LastEditTime: 2021-08-17 11:29:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\api\modules\system.js
@@ -112,7 +112,7 @@ const menuList = [
         url: "",
         menu: "",
         type: 0,
-        icon: "el-icon-s-platform",
+        icon: "Setting",
         sort: 1,
         iframe: 1,
     },
@@ -123,7 +123,7 @@ const menuList = [
         url: "system/Users", //这个类似上面的id一个，只是初始值是从100开始的
         menu: "",
         type: 1,
-        icon: "el-icon-user-solid",
+        icon: "UserFilled",
         sort: 2,
         iframe: 0,
     },
@@ -167,7 +167,7 @@ const menuList = [
         url: "system/Menus", //这个类似上面的id一个，只是初始值是从100开始的
         menu: "",
         type: 1,
-        icon: "el-icon-s-order",
+        icon: "Menu",
         sort: 1,
         iframe: 0,
     },
@@ -233,7 +233,7 @@ const menuList = [
         url: "system/Roles", //这个类似上面的id一个，只是初始值是从100开始的
         menu: "",
         type: 1,
-        icon: "el-icon-s-check",
+        icon: "HelpFilled",
         sort: 3,
         iframe: 0,
     },
@@ -277,7 +277,7 @@ const menuList = [
         url: "",
         menu: "",
         type: 0,
-        icon: "el-icon-s-order",
+        icon: "DocumentCopy",
         sort: 1,
         iframe: 1,
     },
@@ -288,7 +288,7 @@ const menuList = [
         url: "https://www.vue3js.cn/docs/zh/", //这个类似上面的id一个，只是初始值是从100开始的
         menu: "",
         type: 1,
-        icon: "el-icon-s-promotion",
+        icon: "Promotion",
         sort: 1,
         iframe: 1,
     },
@@ -299,7 +299,7 @@ const menuList = [
         url: "https://element-plus.org/#/zh-CN", //这个类似上面的id一个，只是初始值是从100开始的
         menu: "",
         type: 1,
-        icon: "el-icon-eleme",
+        icon: "ElemeFilled",
         sort: 1,
         iframe: 1,
     },
