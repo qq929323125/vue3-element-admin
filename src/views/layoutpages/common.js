@@ -1,13 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 17:11:28
- * @LastEditTime: 2021-08-13 11:43:36
+ * @LastEditTime: 2021-08-18 17:51:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\common.js
  */
-import { defineAsyncComponent } from "vue";
-import FunctionPage from "@/components/FunctionPage";
 
 /**
  * @description:提交搜索
@@ -102,9 +100,17 @@ export const getAsyncRouteName = async (
     name,
     { router, route }
 ) => {
-    const AsyncComponent = defineAsyncComponent(() =>
-        import("@/views/layoutpages/" + path + ".vue")
-    );
+    const FunctionPage = require("@/components/FunctionPage.vue").default;
+    const AsyncComponent = require("@/views/layoutpages/" +
+        path +
+        ".vue").default;
+    // const { defineAsyncComponent } = require("vue");
+    // const AsyncComponent = defineAsyncComponent(() =>
+    //     import("@/views/layoutpages/" + path + ".vue")
+    // );
+    // import { defineAsyncComponent } from "vue";
+    // import FunctionPage from "@/components/FunctionPage";
+
     const app = {
         components: {
             FunctionPage,
