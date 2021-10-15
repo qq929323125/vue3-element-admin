@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 14:23:41
- * @LastEditTime: 2021-03-25 14:27:12
+ * @LastEditTime: 2021-10-15 17:27:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Logo.vue
@@ -24,20 +24,12 @@
     </el-tooltip>
 </template>
 
-<script>
+<script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
-export default {
-    setup() {
-        const store = useStore();
-        const opened = computed(() => store.getters.opened);
-        const title = "vue3-element-admin";
-        return {
-            title,
-            opened,
-        };
-    },
-};
+const store = useStore();
+const opened = computed(() => store.getters.opened);
+const title = "vue3-element-admin";
 </script>
 
 <style lang="scss" scoped>

@@ -10,15 +10,8 @@
     <common></common>
 </template>
 
-<script>
+<script setup>
 import Common from "@/components/Common";
-
-export default {
-    components: { Common },
-    setup() {
-        return {};
-    },
-};
 </script>
 
 <style lang="scss" scoped></style>

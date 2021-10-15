@@ -1,28 +1,18 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-08-25 17:23:57
+ * @LastEditTime: 2021-10-15 14:20:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\App.vue
 -->
 <template>
-    <el-config-provider :locale="locale">
+    <el-config-provider :locale="zhCn">
         <router-view></router-view>
     </el-config-provider>
 </template>
 
-<script>
-// import { ElConfigProvider } from "element-plus";
+<script setup>
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-export default {
-    // components: {
-    //     ElConfigProvider,
-    // },
-    name: "App",
-    data: () => ({
-        locale: zhCn,
-    }),
-};
 </script>
 <style lang="scss" scoped></style>

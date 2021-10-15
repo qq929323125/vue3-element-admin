@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 11:32:02
- * @LastEditTime: 2021-08-13 16:33:30
+ * @LastEditTime: 2021-10-15 17:37:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\Shortcuts.vue
@@ -57,13 +57,7 @@
     </el-row>
 </template>
 
-<script>
-export default {
-    setup() {
-        return {};
-    },
-};
-</script>
+<!-- <script setup></script> -->
 
 <style lang="scss" scoped>
 .el-row {

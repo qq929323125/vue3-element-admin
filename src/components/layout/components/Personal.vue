@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-08-17 14:52:41
+ * @LastEditTime: 2021-10-15 17:26:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
@@ -41,21 +41,16 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { inject, computed } from "vue";
-export default {
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-        const uname = computed(() => store.getters.uname);
-        const reload = inject("reload");
-        const handleCommand = (command) => {
-            router.push(command);
-        };
-        return { reload, uname, handleCommand };
-    },
+const store = useStore();
+const router = useRouter();
+const uname = computed(() => store.getters.uname);
+const reload = inject("reload");
+const handleCommand = (command) => {
+    router.push(command);
 };
 </script>
 

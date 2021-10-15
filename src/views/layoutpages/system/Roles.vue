@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-13 11:35:50
+ * @LastEditTime: 2021-10-15 15:16:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Roles.vue
@@ -103,8 +103,22 @@
         />
     </div>
 </template>
-
 <script>
+export default {
+    data: () => ({
+        description: "角色信息查询与设置",
+        menus: {
+            search: { name: "查询" },
+            add: { name: "添加" },
+            edit: { name: "编辑" },
+            del: { name: "删除" },
+            member: { name: "查看成员", toPath: true }, //topath:true 需要设置跳转路径
+        },
+    }),
+};
+</script>
+
+<script setup>
 import RoleEdit from "./components/RoleEdit";
 import {
     reactive,
@@ -125,141 +139,102 @@ import {
     handleSizeChange,
     handleCurrentChange,
 } from "@/views/layoutpages/common";
-export default {
-    data: () => ({
-        description: "角色信息查询与设置",
-        menus: {
-            search: { name: "查询" },
-            add: { name: "添加" },
-            edit: { name: "编辑" },
-            del: { name: "删除" },
-            member: { name: "查看成员", toPath: true },
-        },
-    }),
-    components: {
-        RoleEdit,
-    },
-    setup() {
-        const { proxy } = getCurrentInstance();
-        const route = useRoute();
-        const router = useRouter();
-        const store = useStore();
-        const menuList = computed(() => store.getters.menuList).value;
 
-        const rowData = ref(null);
-        const dialogTitle = ref("");
-        const showDialog = ref(false);
+const { proxy } = getCurrentInstance();
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const menuList = computed(() => store.getters.menuList).value;
 
-        const queryForm = ref(null);
-        const tableData = ref([]);
-        const params = reactive({
-            name: "",
-            limit: 10,
-            page: 1,
-            total: 0,
-        });
-        const { name, limit, page, total } = toRefs(params);
+const rowData = ref(null);
+const dialogTitle = ref("");
+const showDialog = ref(false);
 
-        /**
-         * @description:添加or编辑事件
-         * @param {*}
-         * @return {*}
-         */
-        const handleEdit = (title, row = null) => {
-            showDialog.value = true;
-            dialogTitle.value = title;
-            rowData.value = row;
-        };
-        /**
-         * @description: dialog事件
-         * @param {*}
-         * @return {*}
-         */
-        const handelDialog = (e) => {
-            showDialog.value = e;
-            getDataList();
-        };
-        /**删除行数据
-         * @description:
-         * @param {*}
-         * @return {*}
-         */
-        const handleDel = (id) => {
-            proxy
-                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "error",
-                })
-                .then(async () => {
-                    const { code } = await VE_API.system.roleDel({ id });
-                    if (code == "00") {
-                        getDataList();
-                    }
-                })
-                .catch(() => {
-                    proxy.$message({
-                        type: "info",
-                        message: "已取消删除",
-                    });
-                });
-        };
-        /**
-         * @description:查看成员
-         * @param {*}
-         * @return {*}
-         */
-        const allMember = (id) => {
-            // 获取当前path的id
-            let pathId = route.name.slice(route.name.lastIndexOf("-") + 1);
-            // 获取要跳转到的路由
-            const toName = findName(
-                "member",
-                "system/Users",
-                pathId,
-                menuList,
-                proxy
-            );
-            router.push({ name: toName, query: { id } });
-        };
-        /**
-         * @description: 获取列表数据
-         * @param {*}
-         * @return {*}
-         */
-        const getDataList = async () => {
-            const { code, data } = await VE_API.system.roleList(params);
-            if (code == "00") {
-                const { limit, page, total, list } = data;
-                params.limit = limit;
-                params.page = page;
-                params.total = total;
-                tableData.value = list;
-            }
-        };
-        onMounted(async () => {
-            await getDataList();
-            // maxHeight(pagination, queryForm, toolBar, ve_max_height);
-        });
-        return {
-            getDataList,
-            tableData,
-            params,
-            ...{ name, limit, page, total },
-            ...{ queryForm },
-            ...{ handleEdit, rowData, dialogTitle, showDialog },
-            ...{
-                onSubmit,
-                resetForm,
-                handleSizeChange,
-                handleCurrentChange,
-            },
-            handelDialog,
-            handleDel,
-            allMember,
-        };
-    },
+const queryForm = ref(null);
+const tableData = ref([]);
+const params = reactive({
+    name: "",
+    limit: 10,
+    page: 1,
+    total: 0,
+});
+const { name, limit, page, total } = toRefs(params);
+
+/**
+ * @description:添加or编辑事件
+ * @param {*}
+ * @return {*}
+ */
+const handleEdit = (title, row = null) => {
+    showDialog.value = true;
+    dialogTitle.value = title;
+    rowData.value = row;
 };
+/**
+ * @description: dialog事件
+ * @param {*}
+ * @return {*}
+ */
+const handelDialog = (e) => {
+    showDialog.value = e;
+    getDataList();
+};
+/**删除行数据
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+const handleDel = (id) => {
+    proxy
+        .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "error",
+        })
+        .then(async () => {
+            const { code } = await VE_API.system.roleDel({ id });
+            if (code == "00") {
+                getDataList();
+            }
+        })
+        .catch(() => {
+            proxy.$message({
+                type: "info",
+                message: "已取消删除",
+            });
+        });
+};
+/**
+ * @description:查看成员
+ * @param {*}
+ * @return {*}
+ */
+const allMember = (id) => {
+    // 获取当前path的id
+    let pathId = route.name.slice(route.name.lastIndexOf("-") + 1);
+    // 获取要跳转到的路由
+    const toName = findName("member", "system/Users", pathId, menuList, proxy);
+    router.push({ name: toName, query: { id } });
+};
+/**
+ * @description: 获取列表数据
+ * @param {*}
+ * @return {*}
+ */
+const getDataList = async () => {
+    const { code, data } = await VE_API.system.roleList(params);
+    if (code == "00") {
+        const { limit, page, total, list } = data;
+        params.limit = limit;
+        params.page = page;
+        params.total = total;
+        tableData.value = list;
+    }
+};
+onMounted(async () => {
+    await getDataList();
+    // maxHeight(pagination, queryForm, toolBar, ve_max_height);
+});
 </script>
 
 <style lang="scss" scoped></style>

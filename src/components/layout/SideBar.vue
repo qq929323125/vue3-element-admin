@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:21:00
- * @LastEditTime: 2021-08-17 14:07:39
+ * @LastEditTime: 2021-10-15 17:16:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\SideBar.vue
@@ -10,7 +10,7 @@
     <router-link to="/">
         <logo />
     </router-link>
-    <div class="ve_el_menu" :style="styles">
+    <div class="ve_el_menu">
         <el-scrollbar>
             <el-menu
                 :default-active="defaultActive"
@@ -31,7 +31,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import {
     nav_height,
     sideBgColor,
@@ -43,38 +43,19 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import Logo from "./components/Logo";
 import SlideMenu from "./components/SlideMenu";
-export default {
-    components: {
-        Logo,
-        SlideMenu,
-    },
-    setup() {
-        const styles = { "--nav_height": nav_height };
-        const store = useStore();
-        const route = useRoute();
-        const opened = computed(() => store.getters.opened);
-        const menus = computed(() => store.getters.menuList);
-        const defaultActive = computed(() => {
-            let i = route.name.indexOf("/");
-            if (i < 0) {
-                return "/" + route.name;
-            } else {
-                return "/" + route.name.slice(0, i);
-            }
-        });
 
-        return {
-            sideBgColor,
-            sideTextColor,
-            sideActiveTextColor,
-            styles,
-            opened,
-            menus,
-            defaultActive,
-            nav_height,
-        };
-    },
-};
+const store = useStore();
+const route = useRoute();
+const opened = computed(() => store.getters.opened);
+const menus = computed(() => store.getters.menuList);
+const defaultActive = computed(() => {
+    let i = route.name.indexOf("/");
+    if (i < 0) {
+        return "/" + route.name;
+    } else {
+        return "/" + route.name.slice(0, i);
+    }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -83,6 +64,6 @@ a:active {
 }
 .ve_el_menu {
     background: $sideBgColor;
-    height: calc(100vh - var(--nav_height));
+    height: calc(100vh - v-bind(nav_height));
 }
 </style>

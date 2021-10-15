@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-08-17 14:52:52
+ * @LastEditTime: 2021-10-15 17:24:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\SlideMenu.vue
 -->
 <template>
-    <el-submenu
+    <el-sub-menu
         :index="menu.id + ''"
         v-if="menu.type == 0 && filerMenus(menu.children)"
     >
@@ -22,7 +22,7 @@
             :key="child.id"
             :menu="child"
         ></slide-menu>
-    </el-submenu>
+    </el-sub-menu>
     <el-menu-item
         v-else-if="menu.type == 1"
         :index="setIndex(menu)"
@@ -37,52 +37,43 @@
     </el-menu-item>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from "vue-router";
-// import { inject } from "vue";
-export default {
-    props: ["menu"],
-    setup() {
-        // const reload = inject("reload");
-        const router = useRouter();
-        const clickMenu = (menu) => {
-            let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
-            if (menu.iframe == 1) {
-                name = `i-${menu.id}`;
-            }
-            router.push({
-                name,
-            });
-        };
+import { defineProps, toRefs } from "vue";
+const props = defineProps(["menu"]);
+const { menu } = toRefs(props);
 
-        const setIndex = (menu) => {
-            let index = `/${menu.url.replace(/\//g, "-")}-${menu.id}`;
-            if (menu.iframe == 1) {
-                index = `/i-${menu.id}`;
-            }
-            return index;
-        };
-        /**
-         * @description:过滤空目录
-         * @param {*}
-         * @return {*}
-         */
-        const filerMenus = (menus) => {
-            if (menus && menus.length > 0) {
-                let _menus = XE.toTreeArray(menus);
-                return _menus.some((item) => item.type == 1);
-            } else {
-                return false;
-            }
-        };
+// const reload = inject("reload");
+const router = useRouter();
+const clickMenu = (menu) => {
+    let name = menu.url.replace(/\//g, "-") + `-${menu.id}`;
+    if (menu.iframe == 1) {
+        name = `i-${menu.id}`;
+    }
+    router.push({
+        name,
+    });
+};
 
-        return {
-            router,
-            setIndex,
-            clickMenu,
-            filerMenus,
-        };
-    },
+const setIndex = (menu) => {
+    let index = `/${menu.url.replace(/\//g, "-")}-${menu.id}`;
+    if (menu.iframe == 1) {
+        index = `/i-${menu.id}`;
+    }
+    return index;
+};
+/**
+ * @description:过滤空目录
+ * @param {*}
+ * @return {*}
+ */
+const filerMenus = (menus) => {
+    if (menus && menus.length > 0) {
+        let _menus = XE.toTreeArray(menus);
+        return _menus.some((item) => item.type == 1);
+    } else {
+        return false;
+    }
 };
 </script>
 
@@ -93,10 +84,10 @@ li.el-menu-item.is-active {
 .el-menu-item .el-icon svg {
     vertical-align: unset;
 }
-.el-submenu__title .el-icon svg {
+.el-sub-menu__title .el-icon svg {
     vertical-align: unset;
 }
-// .el-submenu.is-active:not(.is-opened) .el-submenu__title i {
+// .el-sub-menu.is-active:not(.is-opened) .el-sub-menu__title i {
 //     color: $base-color;
 // }
 </style>

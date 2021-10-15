@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-13 11:09:32
+ * @LastEditTime: 2021-10-15 14:52:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Users.vue
@@ -140,8 +140,21 @@
         />
     </div>
 </template>
-
 <script>
+export default {
+    data: () => ({
+        description: "用户信息查询与设置",
+        menus: {
+            search: { name: "查询" },
+            add: { name: "添加" },
+            edit: { name: "编辑" },
+            del: { name: "删除" },
+        },
+    }),
+};
+</script>
+
+<script setup>
 // import VeTable from "@/components/veBase/VeTable.vue";
 import UsersEdit from "./components/UsersEdit";
 import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
@@ -154,176 +167,140 @@ import {
     handleCurrentChange,
     getAsyncRouteName,
 } from "@/views/layoutpages/common";
-export default {
-    data: () => ({
-        description: "用户信息查询与设置",
-        menus: {
-            search: { name: "查询" },
-            add: { name: "添加" },
-            edit: { name: "编辑" },
-            del: { name: "删除" },
-        },
-    }),
-    components: {
-        UsersEdit,
-    },
-    setup() {
-        const { proxy } = getCurrentInstance();
-        const route = useRoute();
-        const router = useRouter();
-        const rowData = ref(null);
-        const dialogTitle = ref("");
-        const showDialog = ref(false);
-        const toolBar = ref(null);
-        const pagination = ref(null);
-        const queryForm = ref(null);
-        const tableData = ref([]);
-        const params = reactive({
-            role: isNaN(route.query.id * 1) ? "" : route.query.id * 1,
-            limit: 10,
-            page: 1,
-            total: 0,
-        });
-        const { role, limit, page, total } = toRefs(params);
 
-        const roleList = ref([]);
+const { proxy } = getCurrentInstance();
+const route = useRoute();
+const router = useRouter();
+const rowData = ref(null);
+const dialogTitle = ref("");
+const showDialog = ref(false);
+const queryForm = ref(null);
+const tableData = ref([]);
+const params = reactive({
+    role: isNaN(route.query.id * 1) ? "" : route.query.id * 1,
+    limit: 10,
+    page: 1,
+    total: 0,
+});
+const { role, limit, page, total } = toRefs(params);
 
-        /**
-         * @description:添加or编辑事件
-         * @param {*}
-         * @return {*}
-         */
-        const handleEdit = (title, row = null) => {
-            showDialog.value = true;
-            dialogTitle.value = title;
-            rowData.value = row;
-        };
-        /**
-         * @description: 添加页面路由式
-         * @param {*}
-         * @return {*}
-         */
-        const handleEditRoute = async (title) => {
-            let path = "system/components/UsersEditRoute";
-            const toName = await getAsyncRouteName(title, path, "add", {
-                router,
-                route,
-            });
-            router.push({ name: toName });
-        };
-        /**
-         * @description: 获取角色列表
-         * @param {*}
-         * @return {*}
-         */
-        const getRoleList = async () => {
-            const { code, data } = await VE_API.system.roleList(
-                {
-                    page: 1,
-                    limit: 10,
-                }
-                // { Global: false }
-            );
-            if (code == "00") {
-                const { list } = data;
-                roleList.value = list;
-            }
-        };
-        /**
-         * @description: dialog事件
-         * @param {*}
-         * @return {*}
-         */
-        const handelDialog = (e) => {
-            showDialog.value = e;
-            getDataList();
-        };
-        /**
-         * @description:用户状态切换
-         * @param {*}
-         * @return {*}
-         */
-        const handelSwitch = async (val, row) => {
-            if (row.id == undefined) return;
-            row.load = 1;
-            const { code } = await VE_API.system.userStatus(
-                {
-                    id: row.id,
-                    status: val,
-                },
-                { Global: false }
-            );
-            row.load = 0;
-            if (code != "00") {
-                row.status = val == 1 ? 0 : 1;
-            }
-        };
-        /**删除行数据
-         * @description:
-         * @param {*}
-         * @return {*}
-         */
-        const handleDel = (id) => {
-            proxy
-                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "error",
-                })
-                .then(async () => {
-                    const { code } = await VE_API.system.userDel({ id });
-                    if (code == "00") {
-                        getDataList();
-                    }
-                })
-                .catch(() => {
-                    proxy.$message({
-                        type: "info",
-                        message: "已取消删除",
-                    });
-                });
-        };
-        /**
-         * @description: 获取列表数据
-         * @param {*}
-         * @return {*}
-         */
-        const getDataList = async () => {
-            const { code, data } = await VE_API.system.userList(params);
-            if (code == "00") {
-                const { limit, page, total, list } = data;
-                params.limit = limit;
-                params.page = page;
-                params.total = total;
-                tableData.value = list;
-            }
-        };
-        onMounted(async () => {
-            await getRoleList();
-            await getDataList();
-            // maxHeight(pagination, queryForm, toolBar, ve_max_height);
-        });
-        return {
-            getDataList,
-            tableData,
-            params,
-            ...{ role, limit, page, total },
-            ...{ pagination, queryForm, toolBar },
-            ...{ handleEdit, rowData, dialogTitle, showDialog },
-            ...{
-                onSubmit,
-                resetForm,
-                handleSizeChange,
-                handleCurrentChange,
-            },
-            roleList,
-            handelDialog,
-            handleDel,
-            handelSwitch,
-            handleEditRoute,
-        };
-    },
+const roleList = ref([]);
+
+/**
+ * @description:添加or编辑事件
+ * @param {*}
+ * @return {*}
+ */
+const handleEdit = (title, row = null) => {
+    showDialog.value = true;
+    dialogTitle.value = title;
+    rowData.value = row;
 };
+/**
+ * @description: 添加页面路由式
+ * @param {*}
+ * @return {*}
+ */
+const handleEditRoute = async (title) => {
+    let path = "system/components/UsersEditRoute";
+    const toName = await getAsyncRouteName(title, path, "add", {
+        router,
+        route,
+    });
+    router.push({ name: toName });
+};
+/**
+ * @description: 获取角色列表
+ * @param {*}
+ * @return {*}
+ */
+const getRoleList = async () => {
+    const { code, data } = await VE_API.system.roleList(
+        {
+            page: 1,
+            limit: 10,
+        }
+        // { Global: false }
+    );
+    if (code == "00") {
+        const { list } = data;
+        roleList.value = list;
+    }
+};
+/**
+ * @description: dialog事件
+ * @param {*}
+ * @return {*}
+ */
+const handelDialog = (e) => {
+    showDialog.value = e;
+    getDataList();
+};
+/**
+ * @description:用户状态切换
+ * @param {*}
+ * @return {*}
+ */
+const handelSwitch = async (val, row) => {
+    if (row.id == undefined) return;
+    row.load = 1;
+    const { code } = await VE_API.system.userStatus(
+        {
+            id: row.id,
+            status: val,
+        },
+        { Global: false }
+    );
+    row.load = 0;
+    if (code != "00") {
+        row.status = val == 1 ? 0 : 1;
+    }
+};
+/**删除行数据
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+const handleDel = (id) => {
+    proxy
+        .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "error",
+        })
+        .then(async () => {
+            const { code } = await VE_API.system.userDel({ id });
+            if (code == "00") {
+                getDataList();
+            }
+        })
+        .catch(() => {
+            proxy.$message({
+                type: "info",
+                message: "已取消删除",
+            });
+        });
+};
+/**
+ * @description: 获取列表数据
+ * @param {*}
+ * @return {*}
+ */
+const getDataList = async () => {
+    const { code, data } = await VE_API.system.userList(params);
+    if (code == "00") {
+        const { limit, page, total, list } = data;
+        params.limit = limit;
+        params.page = page;
+        params.total = total;
+        tableData.value = list;
+    }
+};
+onMounted(async () => {
+    await getRoleList();
+    await getDataList();
+    // maxHeight(pagination, queryForm, toolBar, ve_max_height);
+});
 </script>
 
 <style lang="scss" scoped></style>

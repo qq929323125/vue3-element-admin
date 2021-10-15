@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-08-17 14:53:07
+ * @LastEditTime: 2021-10-15 14:23:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
@@ -57,7 +57,7 @@
     >
 </template>
 
-<script>
+<script setup>
 import Common from "@/components/Common";
 import { ref, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
@@ -66,49 +66,34 @@ const rules = {
     userName: [{ required: true, message: "请输入用户名", trigger: "blur" }],
     pwd: [{ required: true, message: "请输入密码", trigger: "blur" }],
 };
-export default {
-    name: "Login",
-    components: { Common },
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-        const form = reactive({
-            userName: "Administrator",
-            pwd: "123456",
-        });
-        const { userName, pwd } = toRefs(form);
-        const ref_form = ref(null);
-        const success = ref(false);
-        sessionStorage.clear();
-        store.dispatch("app/set_token", "");
-        router.options.isAddDynamicMenuRoutes = false;
+const store = useStore();
+const router = useRouter();
+const form = reactive({
+    userName: "Administrator",
+    pwd: "123456",
+});
+const { userName, pwd } = toRefs(form);
+const ref_form = ref(null);
+const success = ref(false);
+sessionStorage.clear();
+store.dispatch("app/set_token", "");
+router.options.isAddDynamicMenuRoutes = false;
 
-        const onSubmit = () => {
-            ref_form.value.validate(async (valid) => {
-                if (valid) {
-                    const data = await VE_API.system.login(form);
-                    if (data.code === "00") {
-                        const { token, uname } = data;
-                        store.dispatch("app/set_token", token);
-                        store.dispatch("app/set_uname", uname);
-                        success.value = true;
-                        router.push({ name: "AppMain" });
-                    }
-                } else {
-                    return;
-                }
-            });
-        };
-        return {
-            success,
-            form,
-            ref_form,
-            userName,
-            pwd,
-            rules,
-            onSubmit,
-        };
-    },
+const onSubmit = () => {
+    ref_form.value.validate(async (valid) => {
+        if (valid) {
+            const data = await VE_API.system.login(form);
+            if (data.code === "00") {
+                const { token, uname } = data;
+                store.dispatch("app/set_token", token);
+                store.dispatch("app/set_uname", uname);
+                success.value = true;
+                router.push({ name: "AppMain" });
+            }
+        } else {
+            return;
+        }
+    });
 };
 </script>
 

@@ -1,14 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 10:54:32
- * @LastEditTime: 2021-04-27 11:12:06
+ * @LastEditTime: 2021-10-15 16:54:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\FunctionPage.vue
 -->
 <template>
     <div>
-        <el-page-header @back="goBack()" :content="title"> </el-page-header>
+        <el-page-header @back="$router.back()" :content="title">
+        </el-page-header>
         <el-alert
             style="margin-top: 20px"
             type="info"
@@ -22,25 +23,15 @@
     </div>
 </template>
 
-<script>
-// import { onUnmounted } from "vue";
-import { useRouter } from "vue-router";
-export default {
-    props: {
-        title: {
-            type: String,
-            require: true,
-        },
+<script setup>
+import { toRefs, defineProps } from "vue";
+const props = defineProps({
+    title: {
+        type: String,
+        require: true,
     },
-    setup() {
-        const router = useRouter();
-        // const route = useRoute();
-        const goBack = () => {
-            router.back();
-        };
-        return { goBack };
-    },
-};
+});
+const { title } = toRefs(props);
 </script>
 
 <style lang="scss" scoped></style>

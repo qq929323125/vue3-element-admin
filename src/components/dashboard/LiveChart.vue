@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-04-28 17:55:03
+ * @LastEditTime: 2021-10-15 18:33:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
@@ -14,7 +14,7 @@
     ></div>
 </template>
 
-<script>
+<script setup>
 import * as echarts from "echarts/core";
 import {
     TitleComponent,
@@ -53,69 +53,61 @@ echarts.use([
     BarChart,
     CanvasRenderer,
 ]);
-export default {
-    setup() {
-        const liveChart = ref(null);
-        const myChart = ref(null);
+const liveChart = ref(null);
+const myChart = ref(null);
 
-        let _dataList = dataList();
-        let option = {
-            title: {
-                text: "用户访问量",
-            },
-            grid: {
-                left: "0",
-                right: "0",
-                top: "10%",
-                bottom: "0",
-                containLabel: true,
-            },
-            tooltip: {
-                trigger: "axis",
-            },
-            xAxis: {
-                data: _dataList.date,
-            },
-            yAxis: {
-                type: "value",
-            },
-            series: [
-                {
-                    data: _dataList.num,
-                    type: "bar",
-                    showBackground: true,
-                    backgroundStyle: {
-                        color: "rgba(180, 180, 180, 0.2)",
-                    },
-                },
-            ],
-        };
-        /**
-         * @description: 动态数据
-         * @param {*}
-         * @return {*}
-         */
-        const getNewData = (myChart) => {
-            unwarp(myChart.value).setOption(option);
-
-            setInterval(() => {
-                _dataList.date.shift();
-                _dataList.num.shift();
-                _dataList.date.push(
-                    dayjs(new Date().getTime()).format("HH:mm:ss")
-                );
-                _dataList.num.push((Math.random() * 10).toFixed(0) * 1);
-                unwarp(myChart.value).setOption(option);
-            }, 1000);
-        };
-        onMounted(() => {
-            myChart.value = echarts.init(liveChart.value);
-            getNewData(myChart);
-        });
-
-        return { liveChart, myChart };
+let $_dataList = dataList();
+let option = {
+    title: {
+        text: "用户访问量",
     },
+    grid: {
+        left: "0",
+        right: "0",
+        top: "10%",
+        bottom: "0",
+        containLabel: true,
+    },
+    tooltip: {
+        trigger: "axis",
+    },
+    xAxis: {
+        data: $_dataList.date,
+    },
+    yAxis: {
+        type: "value",
+    },
+    series: [
+        {
+            data: $_dataList.num,
+            type: "bar",
+            showBackground: true,
+            backgroundStyle: {
+                color: "rgba(180, 180, 180, 0.2)",
+            },
+        },
+    ],
 };
+/**
+ * @description: 动态数据
+ * @param {*}
+ * @return {*}
+ */
+const getNewData = (myChart) => {
+    unwarp(myChart.value).setOption(option);
+
+    setInterval(() => {
+        $_dataList.date.shift();
+        $_dataList.num.shift();
+        $_dataList.date.push(dayjs(new Date().getTime()).format("HH:mm:ss"));
+        $_dataList.num.push((Math.random() * 10).toFixed(0) * 1);
+        unwarp(myChart.value).setOption(option);
+    }, 1000);
+};
+onMounted(() => {
+    myChart.value = echarts.init(liveChart.value);
+    getNewData(myChart);
+});
 </script>
 
 <style lang="scss" scoped></style>

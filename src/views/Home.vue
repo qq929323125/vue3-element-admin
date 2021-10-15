@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 15:46:34
- * @LastEditTime: 2021-03-26 09:56:31
+ * @LastEditTime: 2021-10-15 14:43:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Home.vue
@@ -18,16 +18,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import dashboard from "@/components/dashboard/Shortcuts";
 import LiveChart from "@/components/dashboard/LiveChart";
-
-export default {
-    components: { dashboard, LiveChart },
-    setup() {
-        return {};
-    },
-};
 </script>
 
 <style lang="scss" scoped>

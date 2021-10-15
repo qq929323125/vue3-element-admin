@@ -177,18 +177,7 @@
         />
     </div>
 </template>
-
 <script>
-import { isURL } from "@/utils/validate";
-import MenuEdit from "./components/MenuEdit";
-import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
-//?导入公共查询方法
-import {
-    onSubmit,
-    resetForm,
-    handleSizeChange,
-    handleCurrentChange,
-} from "@/views/layoutpages/common";
 export default {
     data: () => ({
         description: "菜单查询与设置",
@@ -201,115 +190,107 @@ export default {
             addBtn: { name: "添加按钮" },
         },
     }),
-    components: {
-        MenuEdit,
-    },
-    setup() {
-        const { proxy } = getCurrentInstance();
-
-        const queryForm = ref(null);
-        const dialogTitle = ref("");
-        const showDialog = ref(false);
-        const rowData = ref(null);
-        const tableData = ref([]);
-        const params = reactive({
-            name: "",
-            limit: 10,
-            page: 1,
-            total: 0,
-        });
-        const { name, limit, page, total } = toRefs(params);
-
-        /**
-         * @description:添加or编辑事件
-         * @param {*}
-         * @return {*}
-         */
-        const handleEdit = (title, row = null) => {
-            showDialog.value = true;
-            dialogTitle.value = title;
-            rowData.value = row;
-        };
-        /**
-         * @description: dialog事件
-         * @param {*}
-         * @return {*}
-         */
-        const handelDialog = (e) => {
-            showDialog.value = e;
-            getDataList();
-        };
-        /**删除行数据
-         * @description:
-         * @param {*}
-         * @return {*}
-         */
-        const handleDel = (id) => {
-            proxy
-                .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "error",
-                })
-                .then(async () => {
-                    const { code } = await VE_API.system.menuDel({ id });
-                    if (code == "00") {
-                        getDataList();
-                    }
-                })
-                .catch(() => {
-                    proxy.$message({
-                        type: "info",
-                        message: "已取消删除",
-                    });
-                });
-        };
-        /**
-         * @description: 获取列表数据
-         * @param {*}
-         * @return {*}
-         */
-        const getDataList = async () => {
-            const { code, data } = await VE_API.system.menuList(params);
-            if (code == "00") {
-                const list = XE.mapTree(
-                    XE.toArrayTree(data, {
-                        sortKey: "sort",
-                    }),
-                    (item) => {
-                        if (item.children && item.children.length <= 0) {
-                            delete item.children;
-                        }
-                        return item;
-                    }
-                );
-                tableData.value = list;
-            }
-        };
-
-        onMounted(async () => {
-            await getDataList();
-            // maxHeight(pagination, queryForm, toolBar, ve_max_height);
-        });
-        return {
-            getDataList,
-            tableData,
-            params,
-            ...{ name, limit, page, total },
-            ...{ handleEdit, rowData, dialogTitle, showDialog },
-            ...{ queryForm },
-            ...{
-                onSubmit,
-                resetForm,
-                handleSizeChange,
-                handleCurrentChange,
-            },
-            isURL,
-            handelDialog,
-            handleDel,
-        };
-    },
 };
+</script>
+
+<script setup>
+import { isURL } from "@/utils/validate";
+import MenuEdit from "./components/MenuEdit";
+import { reactive, toRefs, ref, onMounted, getCurrentInstance } from "vue";
+//?导入公共查询方法
+import {
+    onSubmit,
+    resetForm,
+    handleSizeChange,
+    handleCurrentChange,
+} from "@/views/layoutpages/common";
+
+const { proxy } = getCurrentInstance();
+
+const queryForm = ref(null);
+const dialogTitle = ref("");
+const showDialog = ref(false);
+const rowData = ref(null);
+const tableData = ref([]);
+const params = reactive({
+    name: "",
+    limit: 10,
+    page: 1,
+    total: 0,
+});
+const { name, limit, page, total } = toRefs(params);
+
+/**
+ * @description:添加or编辑事件
+ * @param {*}
+ * @return {*}
+ */
+const handleEdit = (title, row = null) => {
+    showDialog.value = true;
+    dialogTitle.value = title;
+    rowData.value = row;
+};
+/**
+ * @description: dialog事件
+ * @param {*}
+ * @return {*}
+ */
+const handelDialog = (e) => {
+    showDialog.value = e;
+    getDataList();
+};
+/**删除行数据
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+const handleDel = (id) => {
+    proxy
+        .$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "error",
+        })
+        .then(async () => {
+            const { code } = await VE_API.system.menuDel({ id });
+            if (code == "00") {
+                getDataList();
+            }
+        })
+        .catch(() => {
+            proxy.$message({
+                type: "info",
+                message: "已取消删除",
+            });
+        });
+};
+/**
+ * @description: 获取列表数据
+ * @param {*}
+ * @return {*}
+ */
+const getDataList = async () => {
+    const { code, data } = await VE_API.system.menuList(params);
+    if (code == "00") {
+        const list = XE.mapTree(
+            XE.toArrayTree(data, {
+                sortKey: "sort",
+            }),
+            (item) => {
+                if (item.children && item.children.length <= 0) {
+                    delete item.children;
+                }
+                return item;
+            }
+        );
+        tableData.value = list;
+    }
+};
+
+onMounted(async () => {
+    await getDataList();
+    // maxHeight(pagination, queryForm, toolBar, ve_max_height);
+});
 </script>
 
 <style lang="scss" scoped></style>

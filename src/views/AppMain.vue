@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 14:04:59
- * @LastEditTime: 2021-08-12 14:07:49
+ * @LastEditTime: 2021-10-15 14:45:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\AppMain.vue
@@ -14,7 +14,7 @@
             <el-header :height="nav_height"
                 ><navigate-bar></navigate-bar
             ></el-header>
-            <el-main :style="styles"
+            <el-main
                 ><el-scrollbar
                     style="
                         padding: 20px;
@@ -32,36 +32,25 @@
         </el-container>
     </el-container>
 </template>
-<script>
+<script setup>
 import { nav_height } from "@/styles/variables.scss.js";
 import NavigateBar from "@/components/layout/NavigateBar.vue";
 import SideBar from "@/components/layout/SideBar.vue";
 import { provide, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-export default {
-    name: "AppMain",
-    components: {
-        NavigateBar,
-        SideBar,
-    },
-    // 获取用户相关信息和路由权限
-    setup() {
-        const route = useRoute();
-        const styles = { "--nav_height": nav_height };
-        const routerAlive = ref(null);
-        watchEffect(() => {
-            routerAlive.value = route.name;
-        });
-        provide("reload", () => {
-            routerAlive.value = Math.random() + "_" + Math.random();
-        });
-        return { styles, nav_height, routerAlive };
-    },
-};
+
+const route = useRoute();
+const routerAlive = ref(null);
+watchEffect(() => {
+    routerAlive.value = route.name;
+});
+provide("reload", () => {
+    routerAlive.value = Math.random() + "_" + Math.random();
+});
 </script>
 <style lang="scss" scoped>
 .el-main {
-    height: calc(100vh - var(--nav_height));
+    height: calc(100vh - v-bind(nav_height));
     background: $main-bg-color;
     :deep(.el-scrollbar__bar.is-horizontal) {
         visibility: hidden;

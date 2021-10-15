@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-03-19 08:54:53
+ * @LastEditTime: 2021-10-15 15:40:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -77,184 +77,178 @@
     </el-dialog>
 </template>
 
-<script>
-import { onMounted, reactive, ref, toRefs, nextTick } from "vue";
+<script setup>
+import {
+    onMounted,
+    reactive,
+    ref,
+    toRefs,
+    nextTick,
+    defineProps,
+    defineEmits,
+} from "vue";
 import { treeFindPath } from "@/utils";
-export default {
-    props: {
-        showDialog: {
-            type: Boolean,
-            default: true,
-        },
-        title: {
-            type: String,
-            default: "添加",
-        },
-        rowData: {
-            type: Object,
-            default: null,
-        },
+
+const props = defineProps({
+    showDialog: {
+        type: Boolean,
+        default: true,
     },
-    emits: ["closeDialog"],
-    setup(props, { emit }) {
-        const { title, rowData } = toRefs(props);
-        const closeDialog = () => {
-            emit("closeDialog", false);
-        };
-        const form = reactive({
-            roleName: "",
-            name: "",
-            role: [],
-            status: 1,
-        });
-        const { roleName, name, role, status } = toRefs(form);
-        const formRef = ref(null);
-        const rules = {
-            name: [
-                {
-                    required: true,
-                    message: "请输入名称",
-                    trigger: "blur",
-                },
-            ],
-            roleName: [
-                {
-                    required: true,
-                    message: "请输入角色名",
-                    trigger: "blur",
-                },
-            ],
-            role: [
-                {
-                    validator: (rule, value, callback) => {
-                        role.value = [
-                            ...tree.value.getCheckedNodes(),
-                            ...tree.value.getHalfCheckedNodes(),
-                        ];
-                        if (role.value.length < 1) {
-                            callback(new Error("请选择权限"));
-                        } else {
-                            callback();
-                        }
-                    },
-                    required: true,
-                },
-            ],
-        };
-        const tree = ref(null);
-        const menuList = ref([]);
-        /**
-         * @description: 数据初始化
-         * @param {*}
-         * @return {*}
-         */
-        rowData.value &&
-            ((name.value = rowData.value.name),
-            (roleName.value = rowData.value.roleName),
-            (status.value = rowData.value.status));
-        /**
-         * @description:提交
-         * @param {*}
-         * @return {*}
-         */
-        const onSubmit = () => {
-            formRef.value.validate(async (valid) => {
-                if (valid) {
-                    let res;
-                    if (title.value == "添加") {
-                        res = await VE_API.system.roleAdd(form);
-                    } else {
-                        res = await VE_API.system.roleEdit({
-                            id: rowData.value.id,
-                            ...form,
-                        });
-                    }
-                    const { code } = res;
-                    if (code == "00") {
-                        closeDialog();
-                    }
-                } else {
-                    console.log("error submit!!");
-                    return false;
-                }
-            });
-        };
-
-        /**
-         * @description: 获取菜单数据
-         * @param {*}
-         * @return {*}
-         */
-        const getMenuList = async () => {
-            const { code, data } = await VE_API.system.menuList(
-                {
-                    limit: 10,
-                    page: 1,
-                    total: 0,
-                },
-                { Global: false }
-            );
-            if (code == "00") {
-                const list = XE.mapTree(
-                    XE.toArrayTree(data, {
-                        sortKey: "sort",
-                    }),
-                    (item) => {
-                        if (item.children.length <= 0) {
-                            delete item.children;
-                        }
-                        return item;
-                    }
-                );
-                menuList.value = list;
-            }
-        };
-
-        /**
-         * @description:改变按钮的排列样式
-         * @param {*}
-         * @return {*}
-         */
-        const setMenuStyle = () => {
-            let eles = document.getElementsByClassName("ve_tree_item");
-            eles.forEach((e) => {
-                const roleId = e.dataset.roleid * 1;
-                const index =
-                    treeFindPath(menuList.value, (item) => item.id == roleId)
-                        .length - 1;
-                e.parentNode.parentNode.parentNode.style.paddingLeft =
-                    index * 18 + "px";
-                let oldClass = e.parentNode.className;
-                e.parentNode.className = oldClass + " fl p0";
-            });
-        };
-        onMounted(async () => {
-            await getMenuList();
-            nextTick(() => {
-                setMenuStyle();
-                if (title.value == "添加") {
-                    tree.value.setCheckedNodes(menuList.value);
-                } else {
-                    let _list = XE.toTreeArray(
-                        XE.toArrayTree(rowData.value.role)
-                    ).filter((item) => item.children.length < 1);
-                    tree.value.setCheckedNodes(_list);
-                }
-            });
-        });
-
-        return {
-            closeDialog,
-            onSubmit,
-            form,
-            formRef,
-            rules,
-            ...{ roleName, name, status },
-            tree,
-            menuList,
-        };
+    title: {
+        type: String,
+        default: "添加",
     },
+    rowData: {
+        type: Object,
+        default: null,
+    },
+});
+const emit = defineEmits(["closeDialog"]);
+const { title, rowData } = toRefs(props);
+const closeDialog = () => {
+    emit("closeDialog", false);
 };
+const form = reactive({
+    roleName: "",
+    name: "",
+    role: [],
+    status: 1,
+});
+const { roleName, name, role, status } = toRefs(form);
+const formRef = ref(null);
+const rules = {
+    name: [
+        {
+            required: true,
+            message: "请输入名称",
+            trigger: "blur",
+        },
+    ],
+    roleName: [
+        {
+            required: true,
+            message: "请输入角色名",
+            trigger: "blur",
+        },
+    ],
+    role: [
+        {
+            validator: (rule, value, callback) => {
+                role.value = [
+                    ...tree.value.getCheckedNodes(),
+                    ...tree.value.getHalfCheckedNodes(),
+                ];
+                if (role.value.length < 1) {
+                    callback(new Error("请选择权限"));
+                } else {
+                    callback();
+                }
+            },
+            required: true,
+        },
+    ],
+};
+const tree = ref(null);
+const menuList = ref([]);
+/**
+ * @description: 数据初始化
+ * @param {*}
+ * @return {*}
+ */
+rowData.value &&
+    ((name.value = rowData.value.name),
+    (roleName.value = rowData.value.roleName),
+    (status.value = rowData.value.status));
+/**
+ * @description:提交
+ * @param {*}
+ * @return {*}
+ */
+const onSubmit = () => {
+    formRef.value.validate(async (valid) => {
+        if (valid) {
+            let res;
+            if (title.value == "添加") {
+                res = await VE_API.system.roleAdd(form);
+            } else {
+                res = await VE_API.system.roleEdit({
+                    id: rowData.value.id,
+                    ...form,
+                });
+            }
+            const { code } = res;
+            if (code == "00") {
+                closeDialog();
+            }
+        } else {
+            console.log("error submit!!");
+            return false;
+        }
+    });
+};
+
+/**
+ * @description: 获取菜单数据
+ * @param {*}
+ * @return {*}
+ */
+const getMenuList = async () => {
+    const { code, data } = await VE_API.system.menuList(
+        {
+            limit: 10,
+            page: 1,
+            total: 0,
+        },
+        { Global: false }
+    );
+    if (code == "00") {
+        const list = XE.mapTree(
+            XE.toArrayTree(data, {
+                sortKey: "sort",
+            }),
+            (item) => {
+                if (item.children.length <= 0) {
+                    delete item.children;
+                }
+                return item;
+            }
+        );
+        menuList.value = list;
+    }
+};
+
+/**
+ * @description:改变按钮的排列样式
+ * @param {*}
+ * @return {*}
+ */
+const setMenuStyle = () => {
+    let eles = document.getElementsByClassName("ve_tree_item");
+    eles.forEach((e) => {
+        const roleId = e.dataset.roleid * 1;
+        const index =
+            treeFindPath(menuList.value, (item) => item.id == roleId).length -
+            1;
+        e.parentNode.parentNode.parentNode.style.paddingLeft =
+            index * 18 + "px";
+        let oldClass = e.parentNode.className;
+        e.parentNode.className = oldClass + " fl p0";
+    });
+};
+onMounted(async () => {
+    await getMenuList();
+    nextTick(() => {
+        setMenuStyle();
+        if (title.value == "添加") {
+            tree.value.setCheckedNodes(menuList.value);
+        } else {
+            let _list = XE.toTreeArray(
+                XE.toArrayTree(rowData.value.role)
+            ).filter((item) => item.children.length < 1);
+            tree.value.setCheckedNodes(_list);
+        }
+    });
+});
 </script>
 
 <style lang="scss">
