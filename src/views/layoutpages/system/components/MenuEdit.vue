@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-10-15 19:15:12
+ * @LastEditTime: 2021-10-28 17:33:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\MenuEdit.vue
@@ -38,6 +38,7 @@
             </el-form-item>
             <el-form-item label="父级" prop="parentId">
                 <el-cascader
+                    :key="cascaderKey"
                     style="width: 100%"
                     :options="menuList"
                     v-model="parentId"
@@ -257,7 +258,8 @@ const closeDialog = () => {
 };
 const ve_icons = ref([]);
 const formRef = ref(null);
-
+const cascaderKey = ref(0);
+const files = getfiles();
 const form = reactive({
     name: "",
     type: 0,
@@ -375,6 +377,8 @@ rowData.value &&
  * @return {*}
  */
 const changeType = (val) => {
+    //! el-cascader有bug 更新el-cascader组件 临时解决
+    cascaderKey.value = Math.random();
     formRef.value.resetFields();
     val == 2 && (icon.value = "");
 };
@@ -484,8 +488,8 @@ const menuOptions = computed(() => {
         menuList.value,
         (item) => item.id == parentId.value
     );
-    if (_item && getfiles().find((item) => item.url == _item.item.url)) {
-        return getfiles().find((item) => item.url == _item.item.url).menus;
+    if (_item && files.find((item) => item.url == _item.item.url)) {
+        return files.find((item) => item.url == _item.item.url).menus;
     } else {
         return false;
     }

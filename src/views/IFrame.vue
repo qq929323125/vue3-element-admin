@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-02 09:30:13
- * @LastEditTime: 2021-10-15 14:41:36
+ * @LastEditTime: 2021-10-28 17:14:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\IFrame.vue
@@ -27,14 +27,13 @@ const load = ref(true);
 const iframe = ref(null);
 
 const setLoad = () => {
+    const $onLoad = () => {
+        load.value = false;
+    };
     if (iframe.value.attachEvent) {
-        iframe.value.attachEvent("onload", function () {
-            load.value = false;
-        });
+        iframe.value.attachEvent("onload", $onLoad);
     } else {
-        iframe.value.onload = function () {
-            load.value = false;
-        };
+        iframe.value.onload = $onLoad;
     }
 };
 
