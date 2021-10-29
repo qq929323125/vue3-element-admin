@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-10-15 15:40:53
+ * @LastEditTime: 2021-10-29 17:26:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -224,7 +224,7 @@ const getMenuList = async () => {
  */
 const setMenuStyle = () => {
     let eles = document.getElementsByClassName("ve_tree_item");
-    eles.forEach((e) => {
+    Array.from(eles).forEach((e) => {
         const roleId = e.dataset.roleid * 1;
         const index =
             treeFindPath(menuList.value, (item) => item.id == roleId).length -
