@@ -1,18 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2021-10-15 14:20:14
+ * @LastEditTime: 2021-11-01 14:08:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\App.vue
 -->
 <template>
-    <el-config-provider :locale="zhCn">
-        <router-view></router-view>
-    </el-config-provider>
+    <router-view></router-view>
 </template>
 
-<script setup>
-import zhCn from "element-plus/lib/locale/lang/zh-cn";
-</script>
+<script setup></script>
 <style lang="scss" scoped></style>
