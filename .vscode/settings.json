@@ -5,5 +5,6 @@
     "vetur.format.options.tabSize": 4,
     "editor.formatOnPaste": true,
     "files.autoSaveDelay": 2000,
-    "prettier.endOfLine": "auto"
+    "prettier.htmlWhitespaceSensitivity": "ignore",
+    "volar.takeOverMode.enabled": false
 }

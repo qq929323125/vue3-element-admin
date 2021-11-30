@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 10:57:50
- * @LastEditTime: 2021-10-15 17:29:01
+ * @LastEditTime: 2021-11-30 18:57:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Breadcrumb.vue
@@ -9,9 +9,9 @@
 <template>
     <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item v-for="(item, index) in list" :key="index">{{
-            item
-        }}</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="(item, index) in list" :key="index">
+            {{ item }}
+        </el-breadcrumb-item>
     </el-breadcrumb>
 </template>
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-08-17 15:01:25
+ * @LastEditTime: 2021-11-30 18:46:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Menus.vue
@@ -21,11 +21,12 @@
                 <el-button
                     type="primary"
                     @click="onSubmit(params, getDataList)"
-                    >{{ menus.search.name }}</el-button
                 >
-                <el-button @click="resetForm(queryForm, params, getDataList)"
-                    >重置</el-button
-                >
+                    {{ menus.search.name }}
+                </el-button>
+                <el-button @click="resetForm(queryForm, params, getDataList)">
+                    重置
+                </el-button>
             </el-form-item>
         </el-form>
 
@@ -53,20 +54,22 @@
                     size="mini"
                     type="primary"
                     @click="handleEdit(menus.add.name)"
-                    >{{ menus.add.name }}</el-button
                 >
+                    {{ menus.add.name }}
+                </el-button>
             </template>
-            <el-table-column prop="name" label="名称"> </el-table-column>
+            <el-table-column prop="name" label="名称"></el-table-column>
             <el-table-column prop="icon" label="图标">
                 <template v-slot="{ row }">
                     <template v-if="row.type !== 2">
                         <el-icon
                             style="margin-right: 6px; vertical-align: middle"
                         >
-                            <component :is="row.icon" /> </el-icon
-                        ><span style="vertical-align: middle">{{
-                            row.icon
-                        }}</span>
+                            <component :is="row.icon" />
+                        </el-icon>
+                        <span style="vertical-align: middle">
+                            {{ row.icon }}
+                        </span>
                     </template>
                     <span v-else>/</span>
                 </template>
@@ -81,21 +84,22 @@
                                 ? 'success'
                                 : 'warning'
                         "
-                        >{{
+                    >
+                        {{
                             row.type == 0
                                 ? "目录"
                                 : row.type == 1
                                 ? "菜单"
                                 : "按钮"
-                        }}</el-tag
-                    >
+                        }}
+                    </el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="sort" label="排序"
-                ><template v-slot="{ row }">
-                    <span v-if="row.type !== 2" style="font-weight: bold">{{
-                        row.sort
-                    }}</span>
+            <el-table-column prop="sort" label="排序">
+                <template v-slot="{ row }">
+                    <span v-if="row.type !== 2" style="font-weight: bold">
+                        {{ row.sort }}
+                    </span>
                     <span v-else>/</span>
                 </template>
             </el-table-column>
@@ -105,8 +109,9 @@
                         v-if="row.type == 1"
                         :type="row.iframe == 0 ? 'danger' : ''"
                         effect="dark"
-                        >{{ row.iframe == 0 ? "否" : "是" }}</el-tag
                     >
+                        {{ row.iframe == 0 ? "否" : "是" }}
+                    </el-tag>
                     <span v-else>/</span>
                 </template>
             </el-table-column>
@@ -118,8 +123,9 @@
                             type="primary"
                             :href="row.url"
                             target="_blank"
-                            >{{ row.url }}</el-link
                         >
+                            {{ row.url }}
+                        </el-link>
                         <span v-else>{{ row.url }}</span>
                     </template>
                     <span v-else-if="row.type == 2">{{ row.menu }}</span>
@@ -151,8 +157,8 @@
                         type="warning"
                         size="mini"
                     >
-                        {{ menus.addChild.name }}</el-button
-                    >
+                        {{ menus.addChild.name }}
+                    </el-button>
                     <el-button
                         v-permission="['addBtn']"
                         v-if="row.type == 1 && row.iframe == 0"

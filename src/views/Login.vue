@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-10-15 14:23:33
+ * @LastEditTime: 2021-11-30 16:32:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
 -->
 <template>
-    <common
-        ><div class="ve_container">
+    <common>
+        <div class="ve_container">
             <el-card :body-style="{ background: 'rgba(0,0,0,0.15)' }">
                 <h1>vue3-element-admin</h1>
                 <transition name="el-fade-in-linear">
@@ -25,36 +25,37 @@
                             <el-input
                                 v-model.trim="userName"
                                 placeholder="用户名"
-                                ><template #prepend>
-                                    <el-icon :size="20"
-                                        ><Avatar
-                                    /></el-icon> </template
-                            ></el-input>
+                            >
+                                <template #prepend>
+                                    <el-icon :size="20"><Avatar /></el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
                         <el-form-item prop="pwd">
                             <el-input
                                 v-model.trim="pwd"
                                 show-password
                                 placeholder="密码"
-                                ><template #prepend>
-                                    <el-icon :size="20"
-                                        ><Key
-                                    /></el-icon> </template
-                            ></el-input>
+                            >
+                                <template #prepend>
+                                    <el-icon :size="20"><Key /></el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
                         <el-form-item>
                             <el-button
                                 class="ve_submit"
                                 type="primary"
                                 @click="onSubmit"
-                                >登录</el-button
                             >
+                                登录
+                            </el-button>
                         </el-form-item>
                     </el-form>
                 </transition>
             </el-card>
-        </div></common
-    >
+        </div>
+    </common>
 </template>
 
 <script setup>

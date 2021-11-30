@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-10-15 17:26:55
+ * @LastEditTime: 2021-11-30 18:57:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
@@ -15,9 +15,9 @@
             plain
             @click="reload()"
         >
-            <el-icon :size="20" style="vertical-align: middle"
-                ><Refresh
-            /></el-icon>
+            <el-icon :size="20" style="vertical-align: middle">
+                <Refresh />
+            </el-icon>
         </el-button>
         <el-divider direction="vertical"></el-divider>
         <el-dropdown @command="handleCommand">
@@ -29,9 +29,9 @@
             </span>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item :command="{ name: 'Login' }"
-                        >退出登录</el-dropdown-item
-                    >
+                    <el-dropdown-item :command="{ name: 'Login' }">
+                        退出登录
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-10-15 14:52:11
+ * @LastEditTime: 2021-11-30 18:50:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Users.vue
@@ -24,11 +24,12 @@
                 <el-button
                     type="primary"
                     @click="onSubmit(params, getDataList)"
-                    >{{ menus.search.name }}</el-button
                 >
-                <el-button @click="resetForm(queryForm, params, getDataList)"
-                    >重置</el-button
-                >
+                    {{ menus.search.name }}
+                </el-button>
+                <el-button @click="resetForm(queryForm, params, getDataList)">
+                    重置
+                </el-button>
             </el-form-item>
         </el-form>
 
@@ -53,44 +54,51 @@
                     size="mini"
                     type="primary"
                     @click="handleEdit(menus.add.name)"
-                    >{{ menus.add.name }}</el-button
                 >
+                    {{ menus.add.name }}
+                </el-button>
                 <el-button
                     title="路由式"
                     v-permission="['add']"
                     size="mini"
                     type="primary"
                     @click="handleEditRoute(menus.add.name)"
-                    >{{ menus.add.name }}</el-button
                 >
+                    {{ menus.add.name }}
+                </el-button>
             </template>
             <el-table-column prop="name" label="账号" />
             <el-table-column prop="userName" label="用户名" />
-            <el-table-column prop="password" label="密码"
-                ><template v-slot="{ row }">
+            <el-table-column prop="password" label="密码">
+                <template v-slot="{ row }">
                     <el-tooltip
                         class="item"
                         effect="dark"
                         :content="row.password"
                         placement="top"
                     >
-                        <span>{{
-                            row.password &&
-                            row.password
-                                .split("")
-                                .fill("*", 1, -1)
-                                .join()
-                                .replace(/\,/g, "")
-                        }}</span>
+                        <span>
+                            {{
+                                row.password &&
+                                row.password
+                                    .split("")
+                                    .fill("*", 1, -1)
+                                    .join()
+                                    .replace(/\,/g, "")
+                            }}
+                        </span>
                     </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column prop="role" label="角色">
                 <template v-slot="{ row }">
-                    <el-tag>{{
-                        (row.role || row.role == 0) &&
-                        roleList.filter((item) => item.id == row.role)[0].name
-                    }}</el-tag>
+                    <el-tag>
+                        {{
+                            (row.role || row.role == 0) &&
+                            roleList.filter((item) => item.id == row.role)[0]
+                                .name
+                        }}
+                    </el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="status" label="状态">

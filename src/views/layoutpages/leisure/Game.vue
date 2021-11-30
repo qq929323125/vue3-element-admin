@@ -1,7 +1,7 @@
 <!--
  * @Author: xujianhua
  * @Date: 2021-04-01 17:06:04
- * @LastEditTime: 2021-10-15 16:50:47
+ * @LastEditTime: 2021-11-30 18:55:11
  * @Description: file content
  * @FilePath: \vue3-element-admin\src\views\layoutpages\leisure\Game.vue
 -->
@@ -47,8 +47,9 @@
                             type="primary"
                             @click="get_nums()"
                             style="width: 100%"
-                            >重新开始</el-button
                         >
+                            重新开始
+                        </el-button>
                     </el-col>
                     <el-col :span="12" :offset="0">
                         <el-button
@@ -56,8 +57,9 @@
                             :type="show_img ? 'success' : 'info'"
                             @click="see_img()"
                             :disabled="success"
-                            >{{ txt }}</el-button
                         >
+                            {{ txt }}
+                        </el-button>
                     </el-col>
                 </el-row>
             </div>
@@ -71,9 +73,9 @@
                     :auto-upload="false"
                     :show-file-list="false"
                 >
-                    <el-button style="width: 100%" type="danger"
-                        >用我的萌照</el-button
-                    >
+                    <el-button style="width: 100%" type="danger">
+                        用我的萌照
+                    </el-button>
                 </el-upload>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-10-15 15:36:59
+ * @LastEditTime: 2021-11-30 18:35:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -59,8 +59,8 @@
             </el-form-item>
             <el-form-item label="状态">
                 <el-radio-group v-model="status">
-                    <el-radio-button :label="1"> 启用 </el-radio-button>
-                    <el-radio-button :label="0"> 停用 </el-radio-button>
+                    <el-radio-button :label="1">启用</el-radio-button>
+                    <el-radio-button :label="0">停用</el-radio-button>
                 </el-radio-group>
             </el-form-item>
         </el-form>

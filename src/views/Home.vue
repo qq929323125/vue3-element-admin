@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 15:46:34
- * @LastEditTime: 2021-10-15 14:43:19
+ * @LastEditTime: 2021-11-30 18:54:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Home.vue
@@ -10,9 +10,9 @@
     <div class="ve_home">
         <el-row>
             <el-col :span="16"><dashboard /></el-col>
-            <el-col :span="8"
-                ><el-calendar class="ve_calendar"> </el-calendar
-            ></el-col>
+            <el-col :span="8">
+                <el-calendar class="ve_calendar"></el-calendar>
+            </el-col>
         </el-row>
         <live-chart />
     </div>

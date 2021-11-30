@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-11-02 11:18:48
+ * @LastEditTime: 2021-11-30 18:45:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\MenuEdit.vue
@@ -25,15 +25,15 @@
         >
             <el-form-item label="类型">
                 <el-radio-group v-model="type" @change="changeType">
-                    <el-radio-button :disabled="typeItemDisabled(0)" :label="0"
-                        >目录</el-radio-button
-                    >
-                    <el-radio-button :disabled="typeItemDisabled(1)" :label="1"
-                        >菜单</el-radio-button
-                    >
-                    <el-radio-button :disabled="typeItemDisabled(2)" :label="2"
-                        >按钮</el-radio-button
-                    >
+                    <el-radio-button :disabled="typeItemDisabled(0)" :label="0">
+                        目录
+                    </el-radio-button>
+                    <el-radio-button :disabled="typeItemDisabled(1)" :label="1">
+                        菜单
+                    </el-radio-button>
+                    <el-radio-button :disabled="typeItemDisabled(2)" :label="2">
+                        按钮
+                    </el-radio-button>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="父级" prop="parentId">
@@ -53,8 +53,7 @@
                     }"
                     @change="cascaderChange"
                     :disabled="title != '添加'"
-                >
-                </el-cascader>
+                ></el-cascader>
             </el-form-item>
 
             <el-form-item label="排序" v-show="type != 2">
@@ -63,8 +62,7 @@
                     :min="0"
                     step-strictly
                     :step="1"
-                >
-                </el-input-number>
+                ></el-input-number>
             </el-form-item>
             <el-form-item label="名称" prop="name" v-show="type != 2">
                 <el-input v-model="name"></el-input>
@@ -138,9 +136,9 @@
                         :value="item.url"
                     >
                         <p style="margin: 0">{{ item.url }}</p>
-                        <span class="ve_select_option_slot"
-                            >描述 ：{{ item.description }}</span
-                        >
+                        <span class="ve_select_option_slot">
+                            描述 ：{{ item.description }}
+                        </span>
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -152,8 +150,9 @@
                             :key="key"
                             :label="key"
                             :disabled="menuDisabled(key)"
-                            >{{ item.name }}</el-radio
                         >
+                            {{ item.name }}
+                        </el-radio>
                     </el-radio-group>
                 </template>
                 <span style="color: red" v-else>该菜单下没有按钮</span>
@@ -179,8 +178,7 @@
                         label: 'name',
                         disabled: 'iframe',
                     }"
-                >
-                </el-cascader>
+                ></el-cascader>
             </el-form-item>
         </el-form>
 

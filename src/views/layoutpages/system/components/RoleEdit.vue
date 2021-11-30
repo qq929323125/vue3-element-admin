@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-10-29 17:26:02
+ * @LastEditTime: 2021-11-30 18:44:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -37,7 +37,8 @@
                 <el-card
                     shadow="never"
                     :body-style="{ padding: 0, height: '200px' }"
-                    ><el-scrollbar>
+                >
+                    <el-scrollbar>
                         <el-tree
                             ref="tree"
                             :data="menuList"
@@ -52,18 +53,19 @@
                                 <span
                                     :data-roleId="data.id"
                                     :class="{ ve_tree_item: data.type == 2 }"
-                                    >{{ data.name }}</span
                                 >
+                                    {{ data.name }}
+                                </span>
                             </template>
-                        </el-tree></el-scrollbar
-                    >
+                        </el-tree>
+                    </el-scrollbar>
                     <!-- card body -->
                 </el-card>
             </el-form-item>
             <el-form-item label="状态" prop="status">
                 <el-radio-group v-model="status">
-                    <el-radio-button :label="1"> 启用 </el-radio-button>
-                    <el-radio-button :label="0"> 停用 </el-radio-button>
+                    <el-radio-button :label="1">启用</el-radio-button>
+                    <el-radio-button :label="0">停用</el-radio-button>
                 </el-radio-group>
             </el-form-item>
         </el-form>

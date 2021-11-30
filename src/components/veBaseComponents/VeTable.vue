@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-11 11:18:05
- * @LastEditTime: 2021-08-17 15:22:28
+ * @LastEditTime: 2021-11-30 18:56:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\VeTable.vue
@@ -34,8 +34,9 @@
                     header-cell-class-name="ve_header_cell_class_name"
                     style="width: 100%"
                     v-bind="$attrs.table"
-                    ><slot></slot>
-                    <template #append><slot name="append"></slot> </template>
+                >
+                    <slot></slot>
+                    <template #append><slot name="append"></slot></template>
                     <template #empty>
                         <el-empty description="暂无数据"></el-empty>
                     </template>
