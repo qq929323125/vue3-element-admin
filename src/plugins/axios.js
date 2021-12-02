@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-16 10:38:49
- * @LastEditTime: 2021-03-29 17:51:59
+ * @LastEditTime: 2021-12-02 15:50:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\axios.js
@@ -12,6 +12,7 @@
 import axios from "axios";
 import Qs from "qs";
 import NProgress from "nprogress";
+import { SET_TOKEN } from "@/store/modules/app/type";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -68,7 +69,7 @@ const install = (app, { router, store, opt }) => {
     _axios.interceptors.response.use(
         (response) => {
             // TODO 根据响应头更新token
-            store.dispatch("app/set_token", new Date().getTime());
+            store.dispatch(`app/${SET_TOKEN}`, new Date().getTime());
 
             loadingCount--;
             if (loadingCount <= 0) {

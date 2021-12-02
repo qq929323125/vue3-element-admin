@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-07 16:23:33
- * @LastEditTime: 2021-10-15 17:28:19
+ * @LastEditTime: 2021-12-02 17:01:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\SilderMenu.vue
@@ -15,12 +15,13 @@
 </template>
 
 <script setup>
+import { TOGGLE_SLIDER } from "@/store/modules/app/type";
 import { computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 const opened = computed(() => store.getters.opened);
 const fn_slider_menu = () => {
-    store.dispatch("app/toggle_slider");
+    store.dispatch(`app/${TOGGLE_SLIDER}`);
 };
 </script>
 

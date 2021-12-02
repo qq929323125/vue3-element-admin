@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-11 11:14:26
- * @LastEditTime: 2021-11-30 16:32:36
+ * @LastEditTime: 2021-12-02 17:02:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\Login.vue
@@ -59,6 +59,7 @@
 </template>
 
 <script setup>
+import { SET_TOKEN, SET_UNAME } from "@/store/modules/app/type";
 import Common from "@/components/Common";
 import { ref, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
@@ -77,7 +78,7 @@ const { userName, pwd } = toRefs(form);
 const ref_form = ref(null);
 const success = ref(false);
 sessionStorage.clear();
-store.dispatch("app/set_token", "");
+store.dispatch(`app/${SET_TOKEN}`, "");
 router.options.isAddDynamicMenuRoutes = false;
 
 const onSubmit = () => {
@@ -86,8 +87,8 @@ const onSubmit = () => {
             const data = await VE_API.system.login(form);
             if (data.code === "00") {
                 const { token, uname } = data;
-                store.dispatch("app/set_token", token);
-                store.dispatch("app/set_uname", uname);
+                store.dispatch(`app/${SET_TOKEN}`, token);
+                store.dispatch(`app/${SET_UNAME}`, uname);
                 success.value = true;
                 router.push({ name: "AppMain" });
             }

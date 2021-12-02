@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-01-13 17:32:55
- * @LastEditTime: 2021-08-09 15:28:13
+ * @LastEditTime: 2021-12-02 17:02:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\plugins\permission.js
  */
+import { SET_MENU_LIST, SET_PERMISSION_LIST } from "@/store/modules/app/type";
 
 import globalRoutes from "@/router/globalRoutes";
 import mainRoutes from "@/router/mainRoutes";
@@ -69,9 +70,9 @@ export default {
                         );
                         await fnAddDynamicMenuRoutes(data.list);
                         router.options.isAddDynamicMenuRoutes = true;
-                        await store.dispatch("app/set_menu_list", data.list);
+                        await store.dispatch(`app/${SET_MENU_LIST}`, data.list);
                         await store.dispatch(
-                            "app/set_permission_List",
+                            `app/${SET_PERMISSION_LIST}`,
                             data.list
                         );
                         NProgress.start();

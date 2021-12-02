@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-07 13:40:50
- * @LastEditTime: 2021-08-17 11:29:03
+ * @LastEditTime: 2021-12-02 15:59:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\api\modules\system.js
@@ -345,6 +345,7 @@ const user = {
     roleId: "",
     menus: null,
 };
+
 module.exports = {
     userList: {
         url: "/user/list",
