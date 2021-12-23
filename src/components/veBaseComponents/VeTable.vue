@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-11 11:18:05
- * @LastEditTime: 2021-11-30 18:56:33
+ * @LastEditTime: 2021-12-23 16:54:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\VeTable.vue
@@ -14,10 +14,10 @@
         </el-row>
         <div class="ve_table_page">
             <!-- 列表 -->
-            <div class="ve_table_content">
+            <div class="ve_table_content" ref="tableBox">
                 <el-table
                     ref="elTable"
-                    height="100%"
+                    :height="size.height"
                     stripe
                     border
                     highlight-current-row
@@ -56,7 +56,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { useElementSize } from "@vueuse/core";
+
+import { ref, reactive } from "vue";
 export default {
     name: "VeTable",
     inheritAttrs: false,
@@ -86,7 +88,8 @@ export default {
         const clearFilter = (columnKey) => elTable.value.clearFilter(columnKey);
         const doLayout = () => elTable.value.doLayout();
         const sort = (prop, order) => elTable.value.sort(prop, order);
-
+        const tableBox = ref(null);
+        const size = reactive(useElementSize(tableBox));
         /**
          * @description:行点击事件
          * @param {*}
@@ -132,6 +135,8 @@ export default {
             clearFilter,
             doLayout,
             sort,
+            tableBox,
+            size,
 
             ve_rowIndex,
             cellClassName,

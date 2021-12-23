@@ -1,24 +1,48 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-11-30 18:57:32
+ * @LastEditTime: 2021-12-23 17:00:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
 -->
 <template>
     <div class="ve_personal">
-        <el-button
-            title="刷新"
-            style="border: none; font-size: 20px"
-            circle
-            plain
-            @click="reload()"
-        >
-            <el-icon :size="20" style="vertical-align: middle">
-                <Refresh />
-            </el-icon>
-        </el-button>
+        <el-button-group>
+            <el-button
+                title="刷新"
+                style="border: none; font-size: 20px"
+                circle
+                plain
+                @click="reload()"
+            >
+                <el-icon :size="20" style="vertical-align: middle">
+                    <Refresh />
+                </el-icon>
+            </el-button>
+            <el-button
+                title="全屏"
+                style="border: none; font-size: 20px"
+                circle
+                plain
+                @click="toggle()"
+            >
+                <el-icon :size="14" style="vertical-align: middle">
+                    <full-screen />
+                </el-icon>
+            </el-button>
+            <el-button
+                :title="dark ? '夜间模式' : '明亮模式'"
+                style="border: none; font-size: 20px"
+                circle
+                plain
+                @click="toggleTheme()"
+            >
+                <el-icon :size="14" style="vertical-align: middle">
+                    <component :is="dark ? 'moon' : 'sunny'" />
+                </el-icon>
+            </el-button>
+        </el-button-group>
         <el-divider direction="vertical"></el-divider>
         <el-dropdown @command="handleCommand">
             <span class="ve_nav_dropdown">
@@ -44,13 +68,20 @@
 <script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { inject, computed } from "vue";
+import { inject, computed, ref } from "vue";
+import { useFullscreen } from "@vueuse/core";
+const { toggle } = useFullscreen();
 const store = useStore();
 const router = useRouter();
 const uname = computed(() => store.getters.uname);
 const reload = inject("reload");
 const handleCommand = (command) => {
     router.push(command);
+};
+const dark = ref(false);
+const toggleTheme = () => {
+    dark.value = !dark.value;
+    document.documentElement.classList.toggle("dark");
 };
 </script>
 

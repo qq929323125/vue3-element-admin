@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 09:41:14
- * @LastEditTime: 2021-10-15 16:58:11
+ * @LastEditTime: 2021-12-23 16:52:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\Common.vue
@@ -31,7 +31,7 @@
                 <!-- <button class="error__button">CONTACT</button> -->
             </div>
         </slot>
-        <div class="astronaut" v-resize="draw3dAstronaut">
+        <div class="astronaut" v-resize="{ resize: draw3dAstronaut }">
             <canvas ref="cav"></canvas>
         </div>
     </div>

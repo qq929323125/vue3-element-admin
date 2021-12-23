@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-10-15 18:33:00
+ * @LastEditTime: 2021-12-22 15:43:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
 -->
 <template>
     <div
-        v-resize="myChart && myChart.resize"
+        v-resize="myChart"
         style="height: 400px; margin-top: 20px"
         ref="liveChart"
     ></div>
@@ -25,7 +25,7 @@ import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 import * as dayjs from "dayjs";
 import { unwarp } from "@/utils";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 
 /**
  * @description: 生成20条数据
@@ -107,6 +107,9 @@ const getNewData = (myChart) => {
 onMounted(() => {
     myChart.value = echarts.init(liveChart.value);
     getNewData(myChart);
+});
+onUnmounted(() => {
+    unwarp(myChart.value).dispose();
 });
 </script>
 
