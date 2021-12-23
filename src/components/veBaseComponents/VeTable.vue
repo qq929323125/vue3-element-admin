@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-11 11:18:05
- * @LastEditTime: 2021-12-23 16:54:12
+ * @LastEditTime: 2021-12-23 17:04:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\VeTable.vue
@@ -47,6 +47,7 @@
                 background
                 layout="total, sizes, prev, pager, next, jumper"
                 :page-sizes="[10, 20, 50, 100, 200, 500]"
+                :hide-on-single-page="true"
                 v-bind="$attrs.pagination"
             >
                 <slot name="pagination"></slot>
