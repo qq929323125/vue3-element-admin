@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 15:24:16
- * @LastEditTime: 2021-11-10 10:48:34
+ * @LastEditTime: 2022-01-20 11:38:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\vue.config.js
  */
 const config = require("./src/config");
 const webpack = require("webpack");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 let scssVariables = require("./src/styles/variables.scss.js");
 
@@ -17,11 +17,12 @@ module.exports = {
     productionSourceMap: false,
 
     devServer: {
-        before: (app) => {
+        setupMiddlewares: (middlewares, devServer) => {
             if (config.dev_mock) {
                 const mock_server = require("./src/api/mock-server.js");
-                mock_server(app);
+                mock_server(devServer.app);
             }
+            return middlewares;
         },
     },
 
@@ -81,20 +82,16 @@ module.exports = {
                     // lodash: "_"
                 },
                 plugins: [
-                    new UglifyJsPlugin({
-                        uglifyOptions: {
-                            output: {
-                                comments: false, // 去掉注释
-                            },
-                            warnings: false,
+                    new TerserPlugin({
+                        terserOptions: {
                             compress: {
                                 drop_console: true,
-                                // pure_funcs: ["console.log"] //移除console
+                                drop_debugger: true,
                             },
                         },
                     }),
                     new CompressionWebpackPlugin({
-                        filename: "[path].gz[query]",
+                        filename: "[path][base].gz",
                         algorithm: "gzip",
                         // test: /\.js$|\.html$|\.json$|\.css/,
                         test: /\.js$|\.json$|\.css/,

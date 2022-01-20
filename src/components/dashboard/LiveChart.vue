@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-16 15:09:41
- * @LastEditTime: 2021-12-22 15:43:20
+ * @LastEditTime: 2022-01-20 14:19:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
@@ -55,6 +55,7 @@ echarts.use([
 ]);
 const liveChart = ref(null);
 const myChart = ref(null);
+let timer = null;
 
 let $_dataList = dataList();
 let option = {
@@ -96,7 +97,7 @@ let option = {
 const getNewData = (myChart) => {
     unwarp(myChart.value).setOption(option);
 
-    setInterval(() => {
+    timer = setInterval(() => {
         $_dataList.date.shift();
         $_dataList.num.shift();
         $_dataList.date.push(dayjs(new Date().getTime()).format("HH:mm:ss"));
@@ -110,6 +111,8 @@ onMounted(() => {
 });
 onUnmounted(() => {
     unwarp(myChart.value).dispose();
+    clearInterval(timer);
+    timer = null;
 });
 </script>
 

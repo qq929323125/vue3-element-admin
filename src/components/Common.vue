@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-18 09:41:14
- * @LastEditTime: 2021-12-23 16:52:08
+ * @LastEditTime: 2022-01-20 14:26:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\Common.vue
@@ -39,9 +39,10 @@
 
 <script setup>
 import Zdog from "zdog";
-import { nextTick, ref } from "vue";
+import { ref, onUnmounted, onMounted } from "vue";
 const cav = ref(null);
-nextTick(() => {
+let timer = null;
+onMounted(() => {
     draw3dAstronaut();
 });
 /**
@@ -320,12 +321,16 @@ const draw3dAstronaut = () => {
         illo.rotate.z += 0.005;
         illo.updateRenderGraph();
         // animate next frame
-        requestAnimationFrame(animate);
+        timer = requestAnimationFrame(animate);
     }
 
     // start animation
     animate();
 };
+onUnmounted(() => {
+    cancelAnimationFrame(timer);
+    timer = null;
+});
 </script>
 
 <style lang="scss" scoped>

@@ -48,7 +48,7 @@
             <template #tool_bar>
                 <el-button
                     v-permission="['add']"
-                    size="mini"
+                    size="small"
                     type="primary"
                     @click="handleEdit(menus.add.name)"
                 >
@@ -74,7 +74,7 @@
                         v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.edit.name }}
                     </el-button>
@@ -82,7 +82,7 @@
                         v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.del.name }}
                     </el-button>
@@ -90,7 +90,7 @@
                         v-permission="['member']"
                         @click.prevent="allMember(row.id)"
                         type="info"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.member.name }}
                     </el-button>

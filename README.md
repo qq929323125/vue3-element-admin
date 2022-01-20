@@ -168,7 +168,7 @@
 ```js
 <el-button
     v-permission="['add']"
-    size="mini"
+    size="small"
     type="primary"
     @click="handleEdit(menus.add.name)"
     >{{ menus.add.name }}
@@ -195,7 +195,7 @@
 let route = {
     path: menuList[i].url.replace(/\//g, "-") + `-${menuList[i].id}`,
     component: null,
-    name: menuList[i].url.replace(/\//g, "-") + `-${menuList[i].id}`
+    name: menuList[i].url.replace(/\//g, "-") + `-${menuList[i].id}`,
     // meta: {
     // }
 };
@@ -229,28 +229,28 @@ module.exports = {
         url: "/login", //接口地址  必须
         type: "post", //请求类型  必须
         mock: true, //mock细粒度控制开关,非必须,不填则为false
-        response: opt => {
+        response: (opt) => {
             //启用mock时的返回数据  opt为请求数据头
             const {
-                body: { userName, pwd }
+                body: { userName, pwd },
             } = opt;
             let data = {
                 code: "00",
                 message: "登录成功!",
                 token: new Date().getTime(),
-                uname: userName
+                uname: userName,
             };
             if (userName == "Administrator") {
                 if (pwd != "123456") {
                     data = {
                         code: "01",
-                        message: "密码错误"
+                        message: "密码错误",
                     };
                 }
             }
             return data;
-        }
-    }
+        },
+    },
 };
 ```
 

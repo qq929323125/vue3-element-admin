@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-11 11:18:05
- * @LastEditTime: 2021-12-23 17:04:24
+ * @LastEditTime: 2022-01-20 11:37:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\VeTable.vue
@@ -17,7 +17,7 @@
             <div class="ve_table_content" ref="tableBox">
                 <el-table
                     ref="elTable"
-                    :height="size.height"
+                    height="100%"
                     stripe
                     border
                     highlight-current-row
@@ -57,9 +57,7 @@
 </template>
 
 <script>
-import { useElementSize } from "@vueuse/core";
-
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 export default {
     name: "VeTable",
     inheritAttrs: false,
@@ -78,19 +76,7 @@ export default {
         const elTable = ref(null);
         const ve_rowIndex = ref(null);
 
-        const clearSelection = () => elTable.value.clearSelection();
-        const toggleRowSelection = (row, selected) =>
-            elTable.value.toggleRowSelection(row, selected);
-        const toggleAllSelection = () => elTable.value.toggleAllSelection();
-        const toggleRowExpansion = (row, expanded) =>
-            elTable.value.toggleRowExpansion(row, expanded);
-        const setCurrentRow = (row) => elTable.value.setCurrentRow(row);
-        const clearSort = () => elTable.value.clearSort();
-        const clearFilter = (columnKey) => elTable.value.clearFilter(columnKey);
-        const doLayout = () => elTable.value.doLayout();
-        const sort = (prop, order) => elTable.value.sort(prop, order);
         const tableBox = ref(null);
-        const size = reactive(useElementSize(tableBox));
         /**
          * @description:行点击事件
          * @param {*}
@@ -127,17 +113,7 @@ export default {
 
         return {
             elTable,
-            clearSelection,
-            toggleRowSelection,
-            toggleAllSelection,
-            toggleRowExpansion,
-            setCurrentRow,
-            clearSort,
-            clearFilter,
-            doLayout,
-            sort,
             tableBox,
-            size,
 
             ve_rowIndex,
             cellClassName,

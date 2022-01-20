@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-12 09:38:09
- * @LastEditTime: 2021-09-01 13:38:06
+ * @LastEditTime: 2022-01-20 10:37:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\utils\index.js
@@ -103,7 +103,7 @@ export const unwarp = (obj) => obj && (obj.__v_raw || obj.valueOf() || obj);
  * @return {*}
  */
 export const icons = () => {
-    const components = require("@element-plus/icons");
+    const components = require("@element-plus/icons-vue");
     console.log("🚀 ~ file: index.js ~ line 107 ~ icons ~ e", components);
 
     const names = [];

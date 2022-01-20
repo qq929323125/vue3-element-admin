@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 14:52:13
- * @LastEditTime: 2021-11-30 18:46:46
+ * @LastEditTime: 2022-01-20 13:50:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\Menus.vue
@@ -51,7 +51,7 @@
             <template #tool_bar>
                 <el-button
                     v-permission="['add']"
-                    size="mini"
+                    size="small"
                     type="primary"
                     @click="handleEdit(menus.add.name)"
                 >
@@ -138,7 +138,7 @@
                         v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.edit.name }}
                     </el-button>
@@ -146,7 +146,7 @@
                         v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.del.name }}
                     </el-button>
@@ -155,7 +155,7 @@
                         v-if="row.type == 0"
                         @click.prevent="handleEdit(menus.addChild.name, row)"
                         type="warning"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.addChild.name }}
                     </el-button>
@@ -164,7 +164,7 @@
                         v-if="row.type == 1 && row.iframe == 0"
                         @click.prevent="handleEdit(menus.addBtn.name, row)"
                         type="success"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.addBtn.name }}
                     </el-button>

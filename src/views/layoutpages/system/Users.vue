@@ -52,7 +52,7 @@
                 <el-button
                     title="弹窗式"
                     v-permission="['add']"
-                    size="mini"
+                    size="small"
                     type="primary"
                     @click="handleEdit(menus.add.name)"
                 >
@@ -61,7 +61,7 @@
                 <el-button
                     title="路由式"
                     v-permission="['add']"
-                    size="mini"
+                    size="small"
                     type="primary"
                     @click="handleEditRoute(menus.add.name)"
                 >
@@ -123,7 +123,7 @@
                         v-permission="['edit']"
                         @click.prevent="handleEdit(menus.edit.name, row)"
                         type="primary"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.edit.name }}
                     </el-button>
@@ -131,7 +131,7 @@
                         v-permission="['del']"
                         @click.prevent="handleDel(row.id)"
                         type="danger"
-                        size="mini"
+                        size="small"
                     >
                         {{ menus.del.name }}
                     </el-button>
