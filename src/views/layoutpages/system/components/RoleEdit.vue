@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2022-04-28 16:48:23
+ * @LastEditTime: 2022-04-28 19:04:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -246,9 +246,11 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-.ve_role_item {
-    :deep(.el-form-item__content) {
-        display: block !important;
+body {
+    .ve_role_item {
+        .el-form-item__content {
+            display: block !important;
+        }
     }
 }
 .fl {
