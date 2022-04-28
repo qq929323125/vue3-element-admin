@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-08 16:58:43
- * @LastEditTime: 2021-10-15 17:24:32
+ * @LastEditTime: 2022-04-28 16:31:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\SlideMenu.vue
@@ -39,7 +39,7 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { defineProps, toRefs } from "vue";
+import { toRefs } from "vue";
 const props = defineProps(["menu"]);
 const { menu } = toRefs(props);
 

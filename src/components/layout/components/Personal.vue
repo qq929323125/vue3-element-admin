@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-15 16:42:16
- * @LastEditTime: 2021-12-23 17:00:43
+ * @LastEditTime: 2022-04-28 16:38:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\layout\components\Personal.vue
@@ -88,7 +88,11 @@ const toggleTheme = () => {
 <style lang="scss" scoped>
 .ve_personal {
     flex: 1;
+    align-items: center;
     text-align: right;
+    :deep(.el-dropdown) {
+        vertical-align: baseline !important;
+    }
     .ve_nav_dropdown {
         font-weight: bold;
     }

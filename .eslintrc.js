@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-07 09:49:29
- * @LastEditTime: 2022-01-19 17:27:19
+ * @LastEditTime: 2022-04-28 18:32:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\.eslintrc.js
@@ -11,6 +11,7 @@ module.exports = {
 
     env: {
         node: true,
+        "vue/setup-compiler-macros": true,
     },
 
     extends: [

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-11-30 18:34:42
+ * @LastEditTime: 2022-04-28 16:32:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import { reactive, toRefs, ref, defineProps, defineEmits } from "vue";
+import { reactive, toRefs, ref } from "vue";
 const rules = {
     name: [
         {

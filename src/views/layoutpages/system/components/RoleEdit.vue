@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-11-30 18:44:12
+ * @LastEditTime: 2022-04-28 16:48:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\usersEdit.vue
@@ -33,7 +33,7 @@
                     clearable
                 ></el-input>
             </el-form-item>
-            <el-form-item label="权限" prop="role">
+            <el-form-item class="ve_role_item" label="权限" prop="role">
                 <el-card
                     shadow="never"
                     :body-style="{ padding: 0, height: '200px' }"
@@ -80,15 +80,7 @@
 </template>
 
 <script setup>
-import {
-    onMounted,
-    reactive,
-    ref,
-    toRefs,
-    nextTick,
-    defineProps,
-    defineEmits,
-} from "vue";
+import { onMounted, reactive, ref, toRefs, nextTick } from "vue";
 import { treeFindPath } from "@/utils";
 
 const props = defineProps({
@@ -254,6 +246,11 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
+.ve_role_item {
+    :deep(.el-form-item__content) {
+        display: block !important;
+    }
+}
 .fl {
     float: left;
 }

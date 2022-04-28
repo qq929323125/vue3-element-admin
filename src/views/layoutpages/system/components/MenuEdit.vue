@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-09 15:24:23
- * @LastEditTime: 2021-11-30 18:45:11
+ * @LastEditTime: 2022-04-28 18:17:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\layoutpages\system\components\MenuEdit.vue
@@ -21,6 +21,7 @@
             :model="form"
             label-width="80px"
             :rules="rules"
+            :validate-on-rule-change="false"
             :inline="false"
         >
             <el-form-item label="类型">
@@ -192,6 +193,8 @@
 </template>
 
 <script setup>
+import { icons, treeFindPath } from "@/utils";
+import { reactive, ref, toRefs, computed, nextTick, onMounted } from "vue";
 /**
  * @description: 获取文件路径
  * @param {*}
@@ -216,18 +219,6 @@ const getfiles = () => {
             return !key.url.includes("/components/");
         });
 };
-
-import { icons, treeFindPath } from "@/utils";
-import {
-    reactive,
-    ref,
-    toRefs,
-    computed,
-    nextTick,
-    onMounted,
-    defineProps,
-    defineEmits,
-} from "vue";
 // import { useStore } from "vuex";
 const props = defineProps({
     showDialog: {
@@ -373,7 +364,9 @@ rowData.value &&
  * @return {*}
  */
 const changeType = (val) => {
-    formRef.value.resetFields();
+    nextTick(() => {
+        formRef.value.resetFields();
+    });
     val == 2 && (icon.value = "");
 };
 /**
@@ -386,6 +379,7 @@ const handelOptionsChange = (flag) => {
         ve_icons.value = icons();
     }
 };
+
 /**
  * @description: 父级id切换事件
  * @param {*}

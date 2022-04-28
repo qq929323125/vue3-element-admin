@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-02 09:30:13
- * @LastEditTime: 2021-10-28 17:14:54
+ * @LastEditTime: 2022-04-28 16:31:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\views\IFrame.vue
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { nav_height } from "@/styles/variables.scss.js";
 
 const props = defineProps({

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 10:54:32
- * @LastEditTime: 2021-11-30 18:55:46
+ * @LastEditTime: 2022-04-28 16:28:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3-element-admin\src\components\FunctionPage.vue
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { toRefs, defineProps } from "vue";
+import { toRefs } from "vue";
 const props = defineProps({
     title: {
         type: String,
